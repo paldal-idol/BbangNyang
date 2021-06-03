@@ -7,14 +7,15 @@ module.exports = {
   entry: './src/index',
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', '.json'],
   },
 
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
