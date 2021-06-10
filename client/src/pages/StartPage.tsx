@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 const StartPage: React.FC = () => {
   return <p>시작 페이지입니다.</p>;
