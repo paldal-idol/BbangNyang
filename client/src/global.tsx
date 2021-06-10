@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import color from './theme/color';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -14,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-family: 'NeoDunggeunmo';
+    background-color: ${color.background.main};
     *:focus { outline:none; }
   }
 

@@ -6,7 +6,7 @@ interface Colors {
   [key: string]: Color;
 }
 
-const myColor: Colors = {
+const color: Colors = {
   primary: {},
   background: {
     main: '#f6f6d3',
@@ -14,4 +14,4 @@ const myColor: Colors = {
   },
 };
 
-export default myColor;
+export default color;
