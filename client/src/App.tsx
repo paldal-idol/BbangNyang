@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import GlobalStyle from './global';
 import StartPage from './pages/StartPage';
 import WaitingRoomPage from './pages/WaitingRoomPage';
 import BoardGamePage from './pages/BoardGamePage';
@@ -22,6 +23,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <GlobalStyle />
       {windowSize < 800 && <WindowSizeErrorPage />}
       <BrowserRouter>
         <Switch>
