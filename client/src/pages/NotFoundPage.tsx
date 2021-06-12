@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 const NotFoundPage: React.FC = () => {
   return <p>잘못된 페이지!</p>;

@@ -1,7 +1,15 @@
-import * as React from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import BbangNyangTitle from '../components/organisms/BbangNyangTitle';
+import Bakery from '../components/organisms/Bakery';
 
 const StartPage: React.FC = () => {
-  return <p>시작 페이지입니다.</p>;
+  return (
+    <>
+      <BbangNyangTitle />
+      <Bakery />
+    </>
+  );
 };
 
 export default StartPage;
