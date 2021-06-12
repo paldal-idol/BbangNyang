@@ -14,5 +14,6 @@
       "@theme/*": ["src/theme/*"],
       "@img/*": ["src/assets/img/*"]
     }
-  }
+  },
+  "include": ["./src"]
 }
