@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import color from '../theme/color';
+import color from '@theme/color';
 
 const Container = styled.div`
   display: flex;
