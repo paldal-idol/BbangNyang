@@ -21,7 +21,7 @@
 |  division  |         stact          |
 | :--------: | :--------------------: |
 |    Web     | babel, webpack, socket |
-| Front-end  |         vue.js         |
+| Front-end  |         react.js         |
 |  Back-end  |        node.js         |
 | Formatting |    eslint, prettier    |
 
