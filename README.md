@@ -8,7 +8,7 @@
 
 ## Member 🐱‍💻
 
-|                         🍞 김도연                          |                         🌵 서재명                          |                         💪 은승균                         |                         🎸 차재명                          |
+|                         🍞 김도연                          |                         🥦 서재명                          |                         💪 은승균                         |                         🎸 차재명                          |
 | :-------------------------------------------------------: | :-------------------------------------------------------: | :------------------------------------------------------: | :-------------------------------------------------------: |
 | ![](https://avatars.githubusercontent.com/u/50297117?v=4) | ![](https://avatars.githubusercontent.com/u/51395532?v=4) | ![](https://avatars.githubusercontent.com/u/2215762?v=4) | ![](https://avatars.githubusercontent.com/u/38166372?v=4) |
 |       [@do02reen24](https://github.com/do02reen24)        |     [@SuhJaemyoung](https://github.com/SuhJaemyoung)      |        [@dmstmdrbs](https://github.com/dmstmdrbs)        |       [@Coreight98](https://github.com/Coreight98)        |
