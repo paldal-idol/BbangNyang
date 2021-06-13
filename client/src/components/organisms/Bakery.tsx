@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import Title from '@atoms/BbangNyangTitle';
-import Image from '@atoms/BakeryImage';
+import BakeryDoor from '@atoms/BakeryDoor';
+import BakeryBackground from '@atoms/BakeryImage';
 
 const Container = styled.div`
   position: absolute;
-  margin-left: -110px;
-  margin-bottom: 760px;
+  margin-left: -80px;
+  margin-bottom: 900px;
 `;
 
 const Bakery: React.FC = () => {
   return (
     <>
+      <BakeryBackground />
+      <BakeryDoor />
       <Container>
         <Title />
       </Container>
-      <Image />
     </>
   );
 };

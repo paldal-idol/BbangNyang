@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import BakeryImage from '@img/bakery/bakery.PNG';
+import Bakery from '@img/bakery/bakery.PNG';
 
 const Image = styled.img`
-  width: 1800px;
+  position: absolute;
+  height: 1200px;
+  width: 1600px;
   object-fit: cover;
   margin-left: 60px;
+  overflow: hidden;
 `;
 
-const Bakery: React.FC = () => {
-  return <Image src={BakeryImage} />;
+const BakeryImage: React.FC = () => {
+  return <Image src={Bakery} />;
 };
 
-export default Bakery;
+export default BakeryImage;
