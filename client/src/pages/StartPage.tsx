@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import BbangNyangTitle from '@organisms/BbangNyangTitle';
 import Bakery from '@organisms/Bakery';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 const StartPage: React.FC = () => {
   return (
-    <>
-      <BbangNyangTitle />
+    <Container>
       <Bakery />
-    </>
+    </Container>
   );
 };
 

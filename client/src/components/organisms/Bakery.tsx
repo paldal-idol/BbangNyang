@@ -1,11 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import BakeryImage from '@img/bakery/bakery.PNG';
+import Title from '@atoms/BbangNyangTitle';
+import Image from '@atoms/BakeryImage';
+
+const Container = styled.div`
+  position: absolute;
+  margin-left: -110px;
+  margin-bottom: 760px;
+`;
+
 const Bakery: React.FC = () => {
   return (
     <>
-      <p>베이커리</p>
-      <img src={BakeryImage} />
+      <Container>
+        <Title />
+      </Container>
+      <Image />
     </>
   );
 };
