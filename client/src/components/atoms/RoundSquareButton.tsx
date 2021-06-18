@@ -71,7 +71,7 @@ const SIZES = {
 
 //성공, 오류, 경고 등 여러 상황을 위한 props
 const VARIANTS = {
-  bbang: css`
+  yellow: css`
     --button-color: #000000;
     --button-bg-color: #f9f4c6;
     --button-hover-bg-color: #f5efba;
