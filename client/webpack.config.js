@@ -9,6 +9,14 @@ module.exports = {
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', '.json'],
+    alias: {
+      '@atoms': path.resolve(__dirname, 'src/components/atoms/'),
+      '@organisms': path.resolve(__dirname, 'src/components/organisms/'),
+      '@pages': path.resolve(__dirname, 'src/pages/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@theme': path.resolve(__dirname, 'src/theme/'),
+      '@img': path.resolve(__dirname, 'src/assets/img/'),
+    },
   },
 
   module: {
@@ -17,6 +25,10 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
+      },
+      {
+        test: /\.PNG$/i,
+        loader: 'file-loader',
       },
     ],
   },
@@ -36,6 +48,6 @@ module.exports = {
 
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 };

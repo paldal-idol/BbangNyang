@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import WaitingRoomChat from '../components/molecules/WaitingRoomChat';
 // import styled from 'styled-components';

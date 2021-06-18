@@ -1,6 +1,19 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
     "sourceMap": true, // 소스맵(*.map) 파일 생성 여부
-    "jsx": "react" // Resolve: Cannot use JSX unless '--jsx' flag is provided
-  }
+    "jsx": "react", // Resolve: Cannot use JSX unless '--jsx' flag is provided
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@atoms/*": ["src/components/atoms/*"],
+      "@organisms/*": ["src/components/organisms/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@theme/*": ["src/theme/*"],
+      "@img/*": ["src/assets/img/*"]
+    }
+  },
+  "include": ["./src"]
 }
