@@ -1,22 +1,21 @@
 import React, { useRef, useEffect } from 'react';
-import { createGlobalStyle } from 'styled-components';
-const GlobalStyle = createGlobalStyle`
-div{
+import styled from 'styled-components';
+const Dice_div = styled.div`
   width: 500px;
   height: 500px;
-}
-canvas{
+`;
+const Dice_canvas = styled.canvas`
   z-index: 1;
   position: absolute;
-}
-button{
+`;
+const Dice_Button = styled.button`
   margin-top: 300px;
   margin-left: 180px;
   z-index: 2;
   position: absolute;
-  width:100px;
-}
+  width: 100px;
 `;
+
 const Dice: React.FC = () => {
   let canvasRef = useRef<HTMLCanvasElement | null>(null);
   let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
@@ -82,13 +81,13 @@ const Dice: React.FC = () => {
   }
   return (
     <>
-      <GlobalStyle />
-      <div id="dice">
-        <canvas ref={canvasRef} width="500" height="500"></canvas>
-        <button onMouseDown={down} onMouseUp={up}>
+      {/* <GlobalStyle /> */}
+      <Dice_div id="dice">
+        <Dice_canvas ref={canvasRef} width="500" height="500"></Dice_canvas>
+        <Dice_Button onMouseDown={down} onMouseUp={up}>
           Button
-        </button>
-      </div>
+        </Dice_Button>
+      </Dice_div>
     </>
   );
 };
