@@ -1,8 +1,12 @@
 import React from 'react';
-// import RuleBook from '@organisms/RuleBook';
+import RuleBook from '@organisms/RuleBook';
 
 const RuleBookPage: React.FC = () => {
-  return <>{/* <RuleBook /> */}</>;
+  return (
+    <>
+      <RuleBook />
+    </>
+  );
 };
 
 export default RuleBookPage;
