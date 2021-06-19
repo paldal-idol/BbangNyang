@@ -2,8 +2,8 @@ import React from 'react';
 
 import WaitingRoomChat from '@/components/molecules/WaitingRoomChat';
 import { Link } from 'react-router-dom';
-import RoundSquareButton from '@/components/atoms/RoundSquareButton';
-import CircleButton from '@/components/atoms/CircleButton';
+import RoundSquareButton from '@atoms/RoundSquareButton';
+import CircleButton from '@atoms/CircleButton';
 
 function goRobby() {}
 
