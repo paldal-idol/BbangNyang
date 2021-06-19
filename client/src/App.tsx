@@ -25,7 +25,7 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      {windowSize < 800 && <WindowSizeErrorPage />}
+      {windowSize < 1600 && <WindowSizeErrorPage />}
       <BrowserRouter>
         <Switch>
           <Route path="/rulebook" component={RuleBookPage} />
