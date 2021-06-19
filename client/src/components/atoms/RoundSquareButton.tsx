@@ -1,29 +1,6 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 
-type Props = {
-  disabled: boolean;
-  size: string;
-  variant: string;
-  onClick: () => void;
-  children: React.ReactNode;
-};
-function RoundSquareButton(Props) {
-  const sizeStyle = SIZES[Props.size];
-  const variantStyle = VARIANTS[Props.variant];
-  const onClick = Props.onClick;
-  return (
-    <StyledButton
-      onClick={onClick}
-      disabled={Props.disabled}
-      sizeStyle={sizeStyle}
-      variantStyle={variantStyle}
-    >
-      {Props.children}
-    </StyledButton>
-  );
-}
-
 const StyledButton = styled.button`
   ${(p) => p.sizeStyle}
   ${(p) => p.variantStyle}
@@ -69,7 +46,6 @@ const SIZES = {
   `,
 };
 
-//성공, 오류, 경고 등 여러 상황을 위한 props
 const VARIANTS = {
   yellow: css`
     --button-color: #000000;
@@ -92,4 +68,28 @@ const VARIANTS = {
     --button-hover-bg-color: #e0a800;
   `,
 };
+
+type Props = {
+  disabled: boolean;
+  size: string;
+  variant: string;
+  onClick: () => void;
+  children: React.ReactNode;
+};
+
+function RoundSquareButton(Props) {
+  const sizeStyle = SIZES[Props.size];
+  const variantStyle = VARIANTS[Props.variant];
+  const onClick = Props.onClick;
+  return (
+    <StyledButton
+      onClick={onClick}
+      disabled={Props.disabled}
+      sizeStyle={sizeStyle}
+      variantStyle={variantStyle}
+    >
+      {Props.children}
+    </StyledButton>
+  );
+}
 export default RoundSquareButton;

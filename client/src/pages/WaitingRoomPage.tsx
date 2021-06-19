@@ -1,49 +1,20 @@
 import React from 'react';
 
-import WaitingRoomChat from '../components/molecules/WaitingRoomChat';
-// import styled from 'styled-components';
-
+import WaitingRoomChat from '@/components/molecules/WaitingRoomChat';
 import { Link } from 'react-router-dom';
-import RoundSquareButton from '../components/atoms/RoundSquareButton';
-import CircleButton from '../components/atoms/CircleButton';
-// const headerStyle = {
-//   alignSelf: 'top',
-// };
-// const memberStyle = {
-//   flexBasis: 'auto',
-//   backgroundColor: 'fdfdfd',
-//   alignSelf: 'left',
-// };
-// const chatStyle = {
-//   flexBasis: 'auto',
-//   backgroundColor: 'white',
-//   borderWidth: 1,
-//   borderColor: 'ffffff',
-// };
-// const characterStyle = {
-//   flexBasis: 'auto',
-//   backgroundColor: 'f9f4c6',
-// };
-// const buttonStyle = {
-//   flexBasis: 'auto',
-//   backgroundColor: 'white',
-//   alignItems: 'center',
-// };
-// const WaitingRoomPage = () => {
-//   const ContainerDiv = styled.div`
-//     display: 'flex',
-//     flex-flow: 'row wrap',
-//     justify-content: 'space-evenly',
-//     align-items: 'stretch',
-//   `;
+import RoundSquareButton from '@/components/atoms/RoundSquareButton';
+import CircleButton from '@/components/atoms/CircleButton';
 
 function goRobby() {}
+
 function setReady() {
   alert('레디완료');
 }
+
 function getHelp() {
   alert('도움말');
 }
+
 const WaitingRoomPage = () => {
   return (
     <div className="WaitingRoomContainer">
