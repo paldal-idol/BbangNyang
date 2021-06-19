@@ -6,6 +6,10 @@ import manual_2 from '@img/rule_book/manual_2.PNG';
 import manual_3 from '@img/rule_book/manual_3.PNG';
 import manual_4 from '@img/rule_book/manual_4.PNG';
 
+interface ArrowProps {
+  isLeft: boolean;
+}
+
 const images = [manual_1, manual_2, manual_3, manual_4];
 
 const Container = styled.div`
@@ -23,7 +27,7 @@ const FillImage = styled.img`
   object-fit: cover;
 `;
 
-const Arrow = styled.div<{ isLeft: boolean }>`
+const Arrow = styled.div<ArrowProps>`
   display: flex;
   width: 50px;
   height: 50px;
