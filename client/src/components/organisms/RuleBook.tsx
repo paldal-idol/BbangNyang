@@ -24,6 +24,7 @@ const FillImage = styled.img`
 `;
 
 const Arrow = styled.div<{ isLeft: boolean }>`
+  display: flex;
   width: 50px;
   height: 50px;
   background-color: gray;
@@ -32,7 +33,6 @@ const Arrow = styled.div<{ isLeft: boolean }>`
   top: 50%;
   ${(props) => (props.isLeft ? 'left: 5px' : 'right: 5px')};
   transform: translate(-5px, -50%);
-  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
