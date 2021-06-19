@@ -1,13 +1,17 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
+
+//style area
 const Dice_div = styled.div`
   width: 500px;
   height: 500px;
 `;
+
 const Dice_canvas = styled.canvas`
   z-index: 1;
   position: absolute;
 `;
+
 const Dice_Button = styled.button`
   margin-top: 300px;
   margin-left: 180px;
@@ -16,13 +20,15 @@ const Dice_Button = styled.button`
   width: 100px;
 `;
 
+//implement area
 const Dice: React.FC = () => {
   let canvasRef = useRef<HTMLCanvasElement | null>(null);
   let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
   let interval;
   let rotate_num = 8;
   let count = 0;
-  function drawBackgroundrect() {
+
+  const drawBackgroundrect = () => {
     canvasCtxRef.current = canvasRef.current.getContext('2d');
     let ctx = canvasCtxRef.current;
     ctx!.translate(0, 0);
@@ -37,20 +43,22 @@ const Dice: React.FC = () => {
     ctx!.fillStyle = 'green';
     ctx!.arc(225, 205, 100, 0, Math.PI, true);
     ctx!.fill();
-  }
+  };
+
   const drawMoved_rect = (ctx, rotate_num) => {
     ctx.translate(225, 205);
     ctx.rotate((rotate_num * Math.PI) / 90);
     ctx.translate(-225, -205);
-
     ctx.fillStyle = 'red';
     ctx.fillRect(125, 200, 100, 10);
   };
-  function clear(c) {
+
+  const clear = (c) => {
     c.fillStyle = 'green';
     c.arc(225, 215, 100, 0, Math.PI, true);
     c.fill();
-  }
+  };
+
   useEffect(() => {
     canvasCtxRef.current = canvasRef.current.getContext('2d');
     let ctx = canvasCtxRef.current;
@@ -71,17 +79,19 @@ const Dice: React.FC = () => {
     clear(ctx);
     drawMoved_rect(ctx, rotate_num);
   };
-  function down() {
+
+  const down = () => {
     interval = setInterval(render, 100);
-  }
-  function up() {
+  };
+
+  const up = () => {
     clearInterval(interval);
     let result_score = 11 - Math.abs((count % 24) - 11);
     alert(1 + Math.floor((6 * Math.random() * result_score) / 11));
-  }
+  };
+
   return (
     <>
-      {/* <GlobalStyle /> */}
       <Dice_div id="dice">
         <Dice_canvas ref={canvasRef} width="500" height="500"></Dice_canvas>
         <Dice_Button onMouseDown={down} onMouseUp={up}>
@@ -91,4 +101,5 @@ const Dice: React.FC = () => {
     </>
   );
 };
+
 export default Dice;
