@@ -40,34 +40,25 @@ const Arrow = styled.div<{ isLeft: boolean }>`
   cursor: pointer;
 `;
 
-const RuleBook = (): JSX.Element => {
+const RuleBook: React.FC = () => {
   const [manualIndex, setManualIndex] = useState<number>(0);
-  // 기본으로 0번째 인덱스에 위치한 사진을 렌더링
 
-  // 왼쪽 화살표 클릭
   const handlePrevClick = useCallback((): void => {
     if (manualIndex <= 0) {
-      // -1 했을 때, 배열의 인덱스를 벗어난다면
-
       setManualIndex(images.length - 1);
       return;
     }
     setManualIndex(manualIndex - 1);
-    // 인덱스 감소
   }, [manualIndex]);
 
-  // 오른쪽 화살표 클릭
   const handleNextClick = useCallback((): void => {
     if (manualIndex + 1 === images.length) {
-      // +1 했을 때, 배열의 인덱스를 벗어난다면
-      // 첫 페이지로 이동
       setManualIndex(0);
       return;
     }
-
     setManualIndex(manualIndex + 1);
-    // 인덱스 증가
   }, [manualIndex]);
+
   return (
     <Container>
       <FillImage src={images[manualIndex]} />
