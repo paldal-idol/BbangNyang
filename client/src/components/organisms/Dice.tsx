@@ -1,0 +1,95 @@
+import React, { useRef, useEffect } from 'react';
+import { createGlobalStyle } from 'styled-components';
+const GlobalStyle = createGlobalStyle`
+div{
+  width: 500px;
+  height: 500px;
+}
+canvas{
+  z-index: 1;
+  position: absolute;
+}
+button{
+  margin-top: 300px;
+  margin-left: 180px;
+  z-index: 2;
+  position: absolute;
+  width:100px;
+}
+`;
+const Dice: React.FC = () => {
+  let canvasRef = useRef<HTMLCanvasElement | null>(null);
+  let canvasCtxRef = React.useRef<CanvasRenderingContext2D | null>(null);
+  let interval;
+  let rotate_num = 8;
+  let count = 0;
+  function drawBackgroundrect() {
+    canvasCtxRef.current = canvasRef.current.getContext('2d');
+    let ctx = canvasCtxRef.current;
+    ctx!.translate(0, 0);
+    ctx!.fillStyle = 'green';
+    ctx!.rect(0, 0, 500, 500);
+    ctx!.fill();
+    ctx!.beginPath();
+    ctx!.fillStyle = 'pink';
+    ctx!.arc(225, 205, 110, 0, Math.PI, true);
+    ctx!.fill();
+    ctx!.beginPath();
+    ctx!.fillStyle = 'green';
+    ctx!.arc(225, 205, 100, 0, Math.PI, true);
+    ctx!.fill();
+  }
+  const drawMoved_rect = (ctx, rotate_num) => {
+    ctx.translate(225, 205);
+    ctx.rotate((rotate_num * Math.PI) / 90);
+    ctx.translate(-225, -205);
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(125, 200, 100, 10);
+  };
+  function clear(c) {
+    c.fillStyle = 'green';
+    c.arc(225, 215, 100, 0, Math.PI, true);
+    c.fill();
+  }
+  useEffect(() => {
+    canvasCtxRef.current = canvasRef.current.getContext('2d');
+    let ctx = canvasCtxRef.current;
+    drawBackgroundrect();
+    let rotate_num = 0;
+    drawMoved_rect(ctx, rotate_num);
+  }, [drawMoved_rect]);
+
+  const render = () => {
+    canvasCtxRef.current = canvasRef.current.getContext('2d');
+    let ctx = canvasCtxRef.current;
+    count++;
+    if (Math.floor(count / 12) % 2 == 1) {
+      rotate_num = -8;
+    } else {
+      rotate_num = 8;
+    }
+    clear(ctx);
+    drawMoved_rect(ctx, rotate_num);
+  };
+  function down() {
+    interval = setInterval(render, 100);
+  }
+  function up() {
+    clearInterval(interval);
+    let result_score = 11 - Math.abs((count % 24) - 11);
+    alert(1 + Math.floor((6 * Math.random() * result_score) / 11));
+  }
+  return (
+    <>
+      <GlobalStyle />
+      <div id="dice">
+        <canvas ref={canvasRef} width="500" height="500"></canvas>
+        <button onMouseDown={down} onMouseUp={up}>
+          Button
+        </button>
+      </div>
+    </>
+  );
+};
+export default Dice;
