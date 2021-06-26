@@ -1,80 +1,93 @@
 import React from 'react';
 
-import WaitingRoomChat from '../components/molecules/WaitingRoomChat';
-import { Link } from 'react-router-dom';
+import WaitingRoomChat from '@molecules/WaitingRoomChat';
+import { useHistory } from 'react-router-dom';
 import RoundSquareButton from '@atoms/RoundSquareButton';
 import CircleButton from '@atoms/CircleButton';
 import styled from 'styled-components';
 import tigerCat from '@img/cat/tiger.PNG';
 
-const Header = styled.div`
-  text-align: center;
-`;
-const SubTitle = styled.h3`
-  text-align: center;
-`;
 const Container = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
-const LeftContainer = styled.div`
-  display: inline-flex;
-  flex-flow: row;
-  width: 30%;
-  height: 400px;
-  margin: 10px;
+const Header = styled.div`
+  text-align: center;
+  padding-left: 20px;
+  border-bottom: 1px solid gray;
 `;
-const RightContainer = styled.div`
-  display: inline-flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  width: 60%;
-  margin: 10px;
+const Content = styled.section`
+  text-align: center;
+  display: flex;
+  min-height: 600px;
 `;
-const Users = styled.div`
-  width: 40%;
+const User = styled.div`
+  background-color: #f0f0f0;
+  padding: 10px;
+  flex-basis: 150px;
 `;
-const ChatContainer = styled.div`
-  width: 60%;
+const Chat = styled.div`
+  padding: 10px;
+  flex-basis: 300px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
-const CharacterContainer = styled.div`
+const Character = styled.div`
   display: flex;
-  justify-content: center;
-  width: 100%;
+  flex-grow: 9;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
 `;
-const Character = styled.img`
-  width: 200px;
-`;
-const ButtonContainer = styled.div`
+const Footer = styled.div`
+  padding: 20px;
+  border-top: 1px solid gray;
   display: flex;
   justify-content: flex-end;
 `;
 
-styled(WaitingRoomChat)``;
-
-function goRobby() {}
-
-function setReady() {
-  alert('레디완료');
-}
-
-function getHelp() {
-  alert('도움말');
-}
+const SelectCharacter = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+`;
+const CharacterImg = styled.img`
+  width: 400px;
+`;
 
 const WaitingRoomPage = () => {
+  const history = useHistory();
+  function goRobby() {
+    let selected = confirm('대기방을 나갑니다.');
+
+    if (selected) {
+      alert('로비로 이동합니다.');
+      history.push('/');
+    }
+  }
+
+  function setReady() {
+    alert('레디완료');
+  }
+
+  function getHelp() {
+    alert('도움말');
+  }
+
   return (
     <Container>
       <Header>
-        <h2 className="header-title">Waiting Room Page</h2>
+        <h1>Waiting Room Page</h1>
       </Header>
-      <LeftContainer>
-        <Users>
-          <SubTitle className="users-title">참가자</SubTitle>
-          <div className="users-list">
+      <Content>
+        <User>
+          <h2>참가자</h2>
+          <div>
             <ul>
               <li>
                 <span className="users-username">은승균 </span>
@@ -102,46 +115,38 @@ const WaitingRoomPage = () => {
               </li>
             </ul>
           </div>
-        </Users>
-
-        <ChatContainer>
-          <SubTitle>채팅</SubTitle>
-          <WaitingRoomChat></WaitingRoomChat>
-        </ChatContainer>
-      </LeftContainer>
-
-      <RightContainer>
-        <SubTitle>캐릭터</SubTitle>
-        <CharacterContainer>
+        </User>
+        <Chat>
           <div>
-            <Character src={tigerCat} alt="캐릭터" />
-            <Character src={tigerCat} alt="캐릭터" />
+            <h2>채팅</h2>
           </div>
           <div>
-            <Character src={tigerCat} alt="캐릭터" />
-            <Character src={tigerCat} alt="캐릭터" />
+            <WaitingRoomChat></WaitingRoomChat>
           </div>
+        </Chat>
+        <Character>
           <div>
-            <Character src={tigerCat} alt="캐릭터" />
-            <Character src={tigerCat} alt="캐릭터" />
+            <h2>캐릭터 선택</h2>
           </div>
-        </CharacterContainer>
-        <ButtonContainer>
-          <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
-            Ready
-          </RoundSquareButton>
+          <SelectCharacter>
+            <button>이전</button>
+            <CharacterImg src={tigerCat} alt="캐릭터" />
+            <button>다음</button>
+          </SelectCharacter>
+        </Character>
+      </Content>
+      <Footer>
+        <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
+          Ready
+        </RoundSquareButton>
+        <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
+          도움말
+        </RoundSquareButton>
 
-          <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
-            도움말
-          </RoundSquareButton>
-
-          <Link onClick={goRobby()} to="/">
-            <RoundSquareButton variant="yellow" size="lg">
-              로비로 돌아가기
-            </RoundSquareButton>
-          </Link>
-        </ButtonContainer>
-      </RightContainer>
+        <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
+          로비로 돌아가기
+        </RoundSquareButton>
+      </Footer>
     </Container>
   );
 };
