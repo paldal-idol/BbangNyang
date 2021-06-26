@@ -54,7 +54,6 @@ const SelectCharacter = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: center;
 `;
 const CharacterImg = styled.img`
   width: 400px;
@@ -133,6 +132,12 @@ const WaitingRoomPage = () => {
             <CharacterImg src={tigerCat} alt="캐릭터" />
             <button>다음</button>
           </SelectCharacter>
+          <div>
+            <span>닉네임</span>
+            <input type="text" />
+          </div>
+          <br />
+          <button>설정 완료</button>
         </Character>
       </Content>
       <Footer>
