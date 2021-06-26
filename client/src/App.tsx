@@ -6,7 +6,6 @@ import WaitingRoomPage from '@pages/WaitingRoomPage';
 import BoardGamePage from '@pages/BoardGamePage';
 import NotFoundPage from '@pages/NotFoundPage';
 import WindowSizeErrorPage from '@pages/WindowSizeErrorPage';
-import RuleBookPage from '@pages/RuleBookPage';
 
 const App: React.FC = () => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -28,7 +27,6 @@ const App: React.FC = () => {
       {windowSize < 800 && <WindowSizeErrorPage />}
       <BrowserRouter>
         <Switch>
-          <Route path="/rulebook" component={RuleBookPage} />
           <Route path="/waiting" component={WaitingRoomPage} />
           <Route path="/game" component={BoardGamePage} />
           <Route exact path="/" component={StartPage} />
