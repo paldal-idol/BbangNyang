@@ -19,7 +19,6 @@ const WaitingRoomChat = () => {
 
   return (
     <div className="chat-container">
-      <h3 className="chat-title">채팅</h3>
       <div className="chat-list-container">
         <ul className="chat-list">
           {chatList.map((chat) => {
