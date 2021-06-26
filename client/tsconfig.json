@@ -6,7 +6,15 @@
     "jsx": "react", // Resolve: Cannot use JSX unless '--jsx' flag is provided
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@atoms/*": ["src/components/atoms/*"],
+      "@molecules/*": ["src/components/molecules/*"],
+      "@organisms/*": ["src/components/organisms/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@theme/*": ["src/theme/*"],
+      "@img/*": ["src/assets/img/*"]
     }
-  }
+  },
+  "include": ["./src"]
 }
