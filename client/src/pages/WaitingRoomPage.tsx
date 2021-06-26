@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WaitingRoomChat from '@/components/molecules/WaitingRoomChat';
+import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import { Link } from 'react-router-dom';
 import RoundSquareButton from '@atoms/RoundSquareButton';
 import CircleButton from '@atoms/CircleButton';
