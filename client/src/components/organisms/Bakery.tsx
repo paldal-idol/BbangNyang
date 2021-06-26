@@ -6,8 +6,8 @@ import BakeryBackground from '@atoms/BakeryImage';
 
 const Container = styled.div`
   position: absolute;
-  margin-left: -80px;
-  margin-bottom: 900px;
+  margin-left: 30px;
+  margin-bottom: 450px;
 `;
 
 const Bakery: React.FC = () => {

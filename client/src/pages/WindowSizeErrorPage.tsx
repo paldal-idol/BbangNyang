@@ -23,7 +23,7 @@ const Text = styled.p`
 const WindowSizeErrorPage: React.FC = () => {
   return (
     <Container>
-      <Text>화면 크기는 최소 1600px 이상이어야 합니다😅</Text>
+      <Text>화면 크기는 최소 800px 이상이어야 합니다😅</Text>
     </Container>
   );
 };
