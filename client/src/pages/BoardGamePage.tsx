@@ -1,5 +1,5 @@
 import React from 'react';
-import Dice from '../components/organisms/Dice';
+import Dice from '../components/organisms/Dice_canvas';
 
 const BoardGamePage: React.FC = () => {
   return (

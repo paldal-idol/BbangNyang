@@ -8,6 +8,7 @@ const StartPage: React.FC = () => {
     <>
       <BbangNyangTitle />
       <Bakery />
+      <Dice_svg />
     </>
   );
 };
