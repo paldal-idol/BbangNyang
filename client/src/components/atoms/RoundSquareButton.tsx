@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 
-const StyledButton = styled.button`
-  ${(p) => p.sizeStyle}
-  ${(p) => p.variantStyle}
+const StyledButton = styled.button<Props>`
+  ${(p) => p.size}
+  ${(p) => p.variant}
 	
   margin: 0;
   border: none;
@@ -85,8 +85,8 @@ function RoundSquareButton(Props) {
     <StyledButton
       onClick={onClick}
       disabled={Props.disabled}
-      sizeStyle={sizeStyle}
-      variantStyle={variantStyle}
+      size={sizeStyle}
+      variant={variantStyle}
     >
       {Props.children}
     </StyledButton>
