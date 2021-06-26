@@ -4,8 +4,8 @@ import Bakery from '@img/bakery/bakery.PNG';
 
 const Image = styled.img`
   position: absolute;
-  height: 1200px;
-  width: 1600px;
+  height: 600px;
+  width: 800px;
   object-fit: cover;
   margin-left: 60px;
   overflow: hidden;

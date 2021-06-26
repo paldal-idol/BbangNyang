@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import Title from '@atoms/BbangNyangTitle';
 import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
+import EntryCodeModal from '../molecules/EntryCodeModal';
 
 const Container = styled.div`
   position: absolute;
-  margin-left: -80px;
-  margin-bottom: 900px;
+  margin-left: 30px;
+  margin-bottom: 450px;
 `;
 
 const Bakery: React.FC = () => {
@@ -18,6 +19,7 @@ const Bakery: React.FC = () => {
       <Container>
         <Title />
       </Container>
+      <EntryCodeModal />
     </>
   );
 };
