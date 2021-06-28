@@ -23,18 +23,17 @@ const Content = styled.section`
   display: flex;
   min-height: 600px;
 `;
-const User = styled.div`
-  background-color: #f0f0f0;
-  padding: 10px;
-  flex-basis: 150px;
-`;
+
 const Chat = styled.div`
   padding: 10px;
+  margin-left: 20px;
   flex-basis: 300px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
 `;
 const Character = styled.div`
   display: flex;
@@ -84,7 +83,7 @@ const WaitingRoomPage = () => {
         <h1>Waiting Room Page</h1>
       </Header>
       <Content>
-        <User>
+        <div>
           <h2>참가자</h2>
           <div>
             <ul>
@@ -114,7 +113,7 @@ const WaitingRoomPage = () => {
               </li>
             </ul>
           </div>
-        </User>
+        </div>
         <Chat>
           <div>
             <h2>채팅</h2>
