@@ -1,9 +1,9 @@
 import React from 'react';
 
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
+import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import { useHistory } from 'react-router-dom';
 import RoundSquareButton from '@atoms/RoundSquareButton';
-import CircleButton from '@atoms/CircleButton';
 import styled from 'styled-components';
 import tigerCat from '@img/cat/tiger.PNG';
 
@@ -83,37 +83,7 @@ const WaitingRoomPage = () => {
         <h1>Waiting Room Page</h1>
       </Header>
       <Content>
-        <div>
-          <h2>참가자</h2>
-          <div>
-            <ul>
-              <li>
-                <span className="users-username">은승균 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">서재명 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">김도연 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">차재명 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <WaitingRoomUsers></WaitingRoomUsers>
         <Chat>
           <div>
             <h2>채팅</h2>
