@@ -9,40 +9,40 @@ interface DoorProps {
 
 const NewButton = styled.div`
   position: absolute;
-  width: 90px;
-  height: 40px;
-  margin-left: 540px;
-  margin-top: 280px;
+  width: 55px;
+  height: 25px;
+  margin-left: 325px;
+  margin-top: 140px;
   cursor: pointer;
 `;
 
 const DoorFront = styled.img`
   position: absolute;
-  height: 470px;
+  height: 234px;
   object-fit: cover;
   margin-left: 60px;
   overflow: hidden;
-  margin-top: -15px;
   margin-left: -5px;
   z-index: 1;
 `;
 
 const DoorBack = styled.div`
   position: absolute;
-  width: 270px;
-  height: 460px;
+  width: 130px;
+  height: 225px;
   background-color: ${color.bakery.doorBack};
   border: 4px solid black;
-  margin-top: -12px;
+  margin-top: 2px;
+  margin-left: -2px;
   transform: rotateY(180deg);
 `;
 
 const DoorContainer = styled.div<DoorProps>`
   position: absolute;
-  width: 280px;
-  height: 440px;
-  margin-left: 530px;
-  margin-top: 420px;
+  width: 140px;
+  height: 234px;
+  margin-left: 328px;
+  margin-top: 210px;
   cursor: pointer;
   transition: 0.5s;
   transform-origin: right;

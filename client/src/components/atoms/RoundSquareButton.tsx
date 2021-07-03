@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
-
+import color from '@theme/color';
 const StyledButton = styled.button<Props>`
   ${(p) => p.size}
   ${(p) => p.variant}
@@ -49,8 +49,13 @@ const SIZES = {
 const VARIANTS = {
   yellow: css`
     --button-color: #000000;
-    --button-bg-color: #f9f4c6;
-    --button-hover-bg-color: #f5efba;
+    --button-bg-color: ${color.button.yellow};
+    --button-hover-bg-color: ${color.button.lightYellow};
+  `,
+  gray: css`
+    --button-color: #000000;
+    --button-bg-color: ${color.button.gray};
+    --button-hover-bg-color: ${color.button.lightGray};
   `,
   success: css`
     --button-color: #ffffff;

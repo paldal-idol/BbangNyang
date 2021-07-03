@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GlobalStyle from './global';
-import StartPage from './pages/StartPage';
-import WaitingRoomPage from './pages/WaitingRoomPage';
-import BoardGamePage from './pages/BoardGamePage';
-import NotFoundPage from './pages/NotFoundPage';
-import WindowSizeErrorPage from './pages/WindowSizeErrorPage';
+import StartPage from '@pages/StartPage';
+import WaitingRoomPage from '@pages/WaitingRoomPage';
+import BoardGamePage from '@pages/BoardGamePage';
+import NotFoundPage from '@pages/NotFoundPage';
+import WindowSizeErrorPage from '@pages/WindowSizeErrorPage';
 
 const App: React.FC = () => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);

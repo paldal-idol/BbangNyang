@@ -35,6 +35,7 @@ class Dice_svg extends React.Component {
       clearInterval(interval);
       alert();
     };
+
     return (
       <>
         <button onMouseDown={down} onMouseUp={up}>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 36px;
 
   & span {
     display: inline-block;
