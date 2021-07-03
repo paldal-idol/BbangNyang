@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import modalState from '@store/modal';
 
 const ModalBackground = styled.div`
   position: absolute;
@@ -17,10 +19,12 @@ const ModalContent = styled.div`
 `;
 
 const Modal: React.FC = ({ children }) => {
+  const setModal = useSetRecoilState(modalState);
+
   const closeModal = () => {
-    // TODO: Recoil 활용하여 구현하기
-    alert('click!');
+    setModal('');
   };
+
   return (
     <>
       <ModalBackground onClick={closeModal} />
