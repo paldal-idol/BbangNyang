@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
+import { useRecoilState } from 'recoil';
+import modalState from '@store/modal';
 import color from '@theme/color';
 import Door from '@img/bakery/door.PNG';
 
@@ -56,20 +58,23 @@ const DoorContainer = styled.div<DoorProps>`
 
 const BakeryDoor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modal, setModal] = useRecoilState(modalState);
 
   const OpenDoor = () => {
-    // setIsOpen(true);
-    // 모달 개발 후 아래 코드 제거
-    setIsOpen(!isOpen);
-  };
-
-  const CloseDoor = () => {
-    setIsOpen(false);
+    setIsOpen(true);
+    setModal('EntryCode');
   };
 
   const CreatNewRoom = () => {
     alert('new!');
   };
+
+  useEffect(() => {
+    if (modal !== 'EntryCode') {
+      setIsOpen(false);
+    }
+  }, [modal]);
+
   return (
     <>
       <DoorContainer isOpen={isOpen} onClick={OpenDoor}>

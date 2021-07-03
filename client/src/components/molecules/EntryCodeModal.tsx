@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import modalState from '@store/modal';
 import Modal from '@atoms/Modal';
 
 const Content = styled.div`
@@ -22,10 +24,16 @@ const EntryButton = styled.button``;
 const CloseButton = styled.button``;
 
 const EntryCodeModal: React.FC = () => {
+  const setModal = useSetRecoilState(modalState);
+
+  const closeModal = () => {
+    setModal('');
+  };
+
   return (
     <Modal>
       <Content>
-        <CloseButton>X</CloseButton>
+        <CloseButton onClick={closeModal}>X</CloseButton>
         <Text>방 코드를 입력해주세요.</Text>
         <CodeInput />
         <EntryButton>입장</EntryButton>
