@@ -13,7 +13,8 @@
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
       "@theme/*": ["src/theme/*"],
-      "@img/*": ["src/assets/img/*"]
+      "@img/*": ["src/assets/img/*"],
+      "@store/*": ["src/store/*"]
     }
   },
   "include": ["./src"]

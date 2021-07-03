@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import modalState from '@store/modal';
 import Title from '@atoms/BbangNyangTitle';
 import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
-import EntryCodeModal from '../molecules/EntryCodeModal';
+import EntryCodeModal from '@molecules/EntryCodeModal';
 
 const Container = styled.div`
   position: absolute;
@@ -12,6 +14,8 @@ const Container = styled.div`
 `;
 
 const Bakery: React.FC = () => {
+  const modal = useRecoilValue(modalState);
+
   return (
     <>
       <BakeryBackground />
@@ -19,7 +23,7 @@ const Bakery: React.FC = () => {
       <Container>
         <Title />
       </Container>
-      <EntryCodeModal />
+      {modal === 'EntryCode' && <EntryCodeModal />}
     </>
   );
 };
