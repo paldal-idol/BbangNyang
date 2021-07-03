@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GlobalStyle from './global';
 import StartPage from '@pages/StartPage';
@@ -22,18 +23,20 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <GlobalStyle />
-      {windowSize < 800 && <WindowSizeErrorPage />}
-      <BrowserRouter>
-        <Switch>
-          <Route path="/waiting" component={WaitingRoomPage} />
-          <Route path="/game" component={BoardGamePage} />
-          <Route exact path="/" component={StartPage} />
-          <Route path="/*" component={NotFoundPage} />
-        </Switch>
-      </BrowserRouter>
-    </>
+    <React.StrictMode>
+      <RecoilRoot>
+        <GlobalStyle />
+        {windowSize < 800 && <WindowSizeErrorPage />}
+        <BrowserRouter>
+          <Switch>
+            <Route path="/waiting" component={WaitingRoomPage} />
+            <Route path="/game" component={BoardGamePage} />
+            <Route exact path="/" component={StartPage} />
+            <Route path="/*" component={NotFoundPage} />
+          </Switch>
+        </BrowserRouter>
+      </RecoilRoot>
+    </React.StrictMode>
   );
 };
 
