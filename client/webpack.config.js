@@ -10,7 +10,6 @@ module.exports = {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss', '.json'],
     alias: {
-      '@molecules': path.resolve(__dirname, 'src/components/molecules/'),
       '@atoms': path.resolve(__dirname, 'src/components/atoms/'),
       '@molecules': path.resolve(__dirname, 'src/components/molecules'),
       '@organisms': path.resolve(__dirname, 'src/components/organisms/'),
@@ -18,6 +17,7 @@ module.exports = {
       '@utils': path.resolve(__dirname, 'src/utils/'),
       '@theme': path.resolve(__dirname, 'src/theme/'),
       '@img': path.resolve(__dirname, 'src/assets/img/'),
+      '@store': path.resolve(__dirname, 'src/store/'),
     },
   },
 
