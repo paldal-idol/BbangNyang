@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     word-break: keep-all;
   }
 
-  button{
+  button, input {
     font-family: 'NeoDunggeunmo';
   }
 `;
