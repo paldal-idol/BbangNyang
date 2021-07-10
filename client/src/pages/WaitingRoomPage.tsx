@@ -1,9 +1,9 @@
 import React from 'react';
 
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
+import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import { useHistory } from 'react-router-dom';
 import RoundSquareButton from '@atoms/RoundSquareButton';
-import CircleButton from '@atoms/CircleButton';
 import styled from 'styled-components';
 import tigerCat from '@img/cat/tiger.PNG';
 
@@ -23,18 +23,17 @@ const Content = styled.section`
   display: flex;
   min-height: 600px;
 `;
-const User = styled.div`
-  background-color: #f0f0f0;
-  padding: 10px;
-  flex-basis: 150px;
-`;
+
 const Chat = styled.div`
   padding: 10px;
+  margin-left: 20px;
   flex-basis: 300px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
 `;
 const Character = styled.div`
   display: flex;
@@ -84,37 +83,7 @@ const WaitingRoomPage = () => {
         <h1>Waiting Room Page</h1>
       </Header>
       <Content>
-        <User>
-          <h2>참가자</h2>
-          <div>
-            <ul>
-              <li>
-                <span className="users-username">은승균 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">서재명 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">김도연 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-              <li>
-                <span className="users-username">차재명 </span>
-                <CircleButton size="sm" variant="gray">
-                  x
-                </CircleButton>
-              </li>
-            </ul>
-          </div>
-        </User>
+        <WaitingRoomUsers></WaitingRoomUsers>
         <Chat>
           <div>
             <h2>채팅</h2>

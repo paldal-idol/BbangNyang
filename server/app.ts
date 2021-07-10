@@ -1,18 +1,12 @@
-import express from 'express';
+import cors from 'cors';
+const express = require('express');
+const app = express();
 
-class App {
-  public application: express.Application;
+const indexRouter = require('./router/index');
 
-  constructor() {
-    this.application = express();
-    this.router();
-  }
+app.use(cors());
+app.use('/', indexRouter);
 
-  private router(): void {
-    this.application.get('/', (req: express.Request, res: express.Response) => {
-      res.send('Hello World!');
-    });
-  }
-}
+const port = 8000;
 
-export default App;
+app.listen(port, () => console.log(`listening on port ${port}`));
