@@ -146,7 +146,9 @@ const WaitingRoomPage = () => {
         <h1>Waiting Room Page</h1>
       </Header>
       <Content>
-        <WaitingRoomUsers socket={socket}></WaitingRoomUsers>
+
+        <WaitingRoomUsers></WaitingRoomUsers>
+
         <Chat>
           <div>
             <h2>채팅</h2>

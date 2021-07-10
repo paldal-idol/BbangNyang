@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
+
+import React from 'react';
 import styled from 'styled-components';
 import CircleButton from '@atoms/CircleButton';
 
-const Container = styled.div``;
-const WaitingRoomUsers = (socket) => {
-  // const [users, setUsers] = useState([]);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:8000/waiting')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setUsers((current) => data);
-  //     });
-  //   return;
-  // }, []);
+const WaitingRoomUsers = () => {
+  const Container = styled.div``;
 
   return (
     <Container>
@@ -45,12 +35,6 @@ const WaitingRoomUsers = (socket) => {
           </CircleButton>
         </li>
       </ul>
-      {/* <h2>from server</h2>
-      <ul>
-        {users.map((user) => {
-          return <li key={user.id}>{user.name}</li>;
-        })}
-      </ul> */}
     </Container>
   );
 };
