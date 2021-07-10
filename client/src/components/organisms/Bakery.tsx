@@ -6,6 +6,7 @@ import Title from '@atoms/BbangNyangTitle';
 import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
 import EntryCodeModal from '@molecules/EntryCodeModal';
+import RuleBookButton from '@atoms/RuleBookButton';
 
 const Container = styled.div`
   position: absolute;
@@ -22,6 +23,7 @@ const Bakery: React.FC = () => {
       <BakeryDoor />
       <Container>
         <Title />
+        <RuleBookButton/>
       </Container>
       {modal === 'EntryCode' && <EntryCodeModal />}
     </>
