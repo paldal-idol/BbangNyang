@@ -19,7 +19,7 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./socket/users
 io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
     const { error, user } = addUser({ id: socket.id, name, room });
-
+    console.log(room);
     if (error) return callback(error);
 
     socket.join(user.room);
@@ -42,7 +42,7 @@ io.on('connect', (socket: any) => {
 
   socket.on('sendMessage', (message: any, callback: any) => {
     const user = getUser(socket.id);
-
+    //모든 사용자에게 메시지 전달
     io.to(user.room).emit('message', { user: user.name, text: message });
 
     callback();
@@ -70,4 +70,3 @@ server.listen(port, () => {
 });
 
 // app.listen(port, () => console.log(`listening on port ${port}`));
-

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import { useHistory } from 'react-router-dom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
 import RoundSquareButton from '@atoms/RoundSquareButton';
 import styled from 'styled-components';
-import io from 'socket.io-client';
-import queryString from 'query-string';
+
 interface ButtonProps {
   isOpen: boolean;
 }
@@ -65,18 +64,17 @@ const CharacterImg = styled.img`
 `;
 const SelectCharacterButton = styled.button<ButtonProps>``;
 
-const ENDPOINT = 'localhost:8000';
-
-let socket;
-
 const WaitingRoomPage = () => {
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
-  // const name = useRecoilValue(userState);
-  // const room = useRecoilValue(roomState);
-
-  // const [users, setUsers] = useState('');
+  const [user, setUser] = useRecoilState(userState);
+  const [room, setRoom] = useRecoilState(roomState);
+  // let socket = useContext(WebSocketContext);
+  useEffect(() => {
+    console.log(user, room);
+    // console.log(`socket info : ${socket.id}`);
+  }, []);
 
   const selectCharacter = () => {
     // TODO : 올바른 입장 코드인지 확인하는 코드 작성
@@ -89,39 +87,6 @@ const WaitingRoomPage = () => {
       setIsOpen(false);
     }
   }, [modal]);
-
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const [users, setUsers] = useState('');
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    const data = queryString.parse(location.search);
-    console.log(data);
-    socket = io(ENDPOINT);
-    const room = data.room.toString();
-    const name = data.name.toString();
-    console.log(room, name);
-    setRoom(data.room.toString());
-    setName(data.name.toString());
-
-    socket.emit('join', { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-  }, [location.search]);
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
-
-    socket.on('roomData', ({ users }) => {
-      setUsers(users);
-    });
-  }, []);
 
   function goRobby() {
     let selected = confirm('대기방을 나갑니다.');
@@ -146,15 +111,13 @@ const WaitingRoomPage = () => {
         <h1>Waiting Room Page</h1>
       </Header>
       <Content>
-
         <WaitingRoomUsers></WaitingRoomUsers>
-
         <Chat>
           <div>
             <h2>채팅</h2>
           </div>
           <div>
-            <WaitingRoomChat name={name} socket={socket}></WaitingRoomChat>
+            <WaitingRoomChat></WaitingRoomChat>
           </div>
         </Chat>
         <Character>

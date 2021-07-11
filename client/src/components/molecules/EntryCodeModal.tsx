@@ -45,17 +45,13 @@ const Button = styled.button<buttonProps>`
 const EntryCodeModal: React.FC = () => {
   const history = useHistory();
   const setModal = useSetRecoilState(modalState);
-  const [userName, setUserName] = useState('');
-  const [roomCode, setRoomCode] = useState('');
-  const setName = useSetRecoilState(userState);
-  const setRoom = useSetRecoilState(roomState);
+  const [user, setUser] = useRecoilState(userState);
+  const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
     // TODO : 올바른 입장 코드인지 확인하는 코드 작성
-    setName(userName);
-    setRoom(roomCode);
     closeModal();
-    history.push(`/waiting?name=${userName}&room=${roomCode}`);
+    history.push(`/waiting`);
   };
 
   const closeModal = () => {
@@ -68,13 +64,13 @@ const EntryCodeModal: React.FC = () => {
         <CodeInput
           placeholder="코드를 입력해주세요."
           onChange={(event) => {
-            setRoomCode(event.target.value);
+            setRoom(event.target.value);
           }}
         />
         <CodeInput
           placeholder="닉네임을 입력해주세요"
           onChange={(event) => {
-            setUserName(event.target.value);
+            setUser(event.target.value);
           }}
         ></CodeInput>
         <Button backgroundColor={color.button.orange} onClick={codeHandler}>
