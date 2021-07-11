@@ -9,16 +9,15 @@ import manual_4 from '@img/rule_book/manual_4.PNG';
 interface ArrowProps {
   isLeft: boolean;
 }
-
 const images = [manual_1, manual_2, manual_3, manual_4];
 
 const Container = styled.div`
   width: 800px;
   height: 500px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // position: fixed;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 `;
 
 const FillImage = styled.img`
@@ -33,10 +32,10 @@ const Arrow = styled.div<ArrowProps>`
   height: 50px;
   background-color: gray;
   border-radius: 50%;
-  position: absolute;
-  top: 50%;
+  // position: absolute;
+  // top: 50%;
   ${(props) => (props.isLeft ? 'left: 5px' : 'right: 5px')};
-  transform: translate(-5px, -50%);
+  // transform: translate(-5px, -50%);
   justify-content: center;
   align-items: center;
   font-size: 20px;
@@ -44,6 +43,7 @@ const Arrow = styled.div<ArrowProps>`
   cursor: pointer;
 `;
 
+const Test = styled.div`width: 200px, height: 200px, backgroundColor: white`
 const RuleBook: React.FC = () => {
   const [manualIndex, setManualIndex] = useState<number>(0);
 
@@ -64,17 +64,18 @@ const RuleBook: React.FC = () => {
   }, [manualIndex]);
 
   return (
-    <Container>
-      <FillImage src={images[manualIndex]} />
+    // <Container>
+    //   <FillImage src={images[manualIndex]} />
 
-      <Arrow isLeft={true} onClick={handlePrevClick} id="left_arrow">
-        <AiOutlineArrowLeft />
-      </Arrow>
+    //   <Arrow isLeft={true} onClick={handlePrevClick} id="left_arrow">
+    //     <AiOutlineArrowLeft />
+    //   </Arrow>
 
-      <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
-        <AiOutlineArrowRight />
-      </Arrow>
-    </Container>
+    //   <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
+    //     <AiOutlineArrowRight />
+    //   </Arrow>
+    // </Container>
+    <Test>테스트</Test>
   );
 };
 
