@@ -12,10 +12,6 @@ const Container = styled.div`
   justify-content: space-between;
   background: #ffffff;
   border-radius: 8px;
-  height: 60%;
-  width: 35%;
-  min-width: 200px;
-  max-width: 400px;
 `;
 
 const ENDPOINT = 'localhost:8000';

@@ -2,6 +2,53 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactEmoji from 'react-emoji';
 
+const OtherMessage = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 5%;
+  margin-top: 3px;
+`;
+const MyMessage = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 5%;
+  margin-top: 3px;
+`;
+const MyName = styled.div`
+  padding-right: 10;
+  display: flex;
+  align-items: center;
+  font-family: Helvetica;
+  color: #828282;
+  letter-spacing: 0.3px;
+`;
+const OtherName = styled.div`
+  padding-left: 10;
+  display: flex;
+  align-items: center;
+  font-family: Helvetica;
+  color: #828282;
+  letter-spacing: 0.3px;
+`;
+const MessageBox = styled.div`
+  background: #f3f3f3;
+  width: 100%;
+  letter-spacing: 0;
+  float: left;
+  font-size: 1.1em;
+  word-wrap: break-word;
+`;
+const MyMessageBox = styled.div`
+  background: #2979ff;
+  width: 100%;
+  letter-spacing: 0;
+  float: left;
+  font-size: 1.1em;
+  word-wrap: break-word;
+`;
+const MyText = styled.p``;
+const UserText = styled.p``;
+
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
 
@@ -12,19 +59,19 @@ const Message = ({ message: { text, user }, name }) => {
   }
 
   return isSentByCurrentUser ? (
-    <div className="messageContainer justifyEnd">
-      <p className="sentText pr-10">{trimmedName}</p>
-      <div className="messageBox backgroundBlue">
-        <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
-      </div>
-    </div>
+    <MyMessage>
+      <MyName>{trimmedName}</MyName>
+      <MyMessageBox>
+        <MyText>{ReactEmoji.emojify(text)}</MyText>
+      </MyMessageBox>
+    </MyMessage>
   ) : (
-    <div className="messageContainer justifyStart">
-      <div className="messageBox backgroundLight">
-        <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
-      </div>
-      <p className="sentText pl-10 ">{user}</p>
-    </div>
+    <OtherMessage>
+      <MessageBox>
+        <UserText>{ReactEmoji.emojify(text)}</UserText>
+      </MessageBox>
+      <OtherName>{user}</OtherName>
+    </OtherMessage>
   );
 };
 
