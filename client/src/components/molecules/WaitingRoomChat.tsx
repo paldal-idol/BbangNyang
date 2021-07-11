@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Messages from '@atoms/Messages';
 import Input from '@atoms/ChatInput';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import userState from '@store/user';
 import roomState from '@store/room';
+import usersState from '@store/users';
 import io from 'socket.io-client';
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,22 +21,20 @@ const ENDPOINT = 'localhost:8000';
 let socket;
 
 const WaitingRoomChat = () => {
+  const history = useHistory();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [name, setUser] = useRecoilState(userState);
-  const [room, setRoom] = useRecoilState(roomState);
-  const [users, setUsers] = useState('');
+  const name = useRecoilValue(userState);
+  const room = useRecoilValue(roomState);
+  const [users, setUsers] = useRecoilState(usersState);
 
-  const joinError = (error) => {
-    console.log(error);
-  };
   useEffect(() => {
     socket = io(ENDPOINT);
 
     console.log(`room = ${room}`);
     socket.emit('join', { name, room }, (error) => {
       if (error) {
-        alert(error);
+        history.push(`/waiting`);
       }
     });
   }, [name, room]);
