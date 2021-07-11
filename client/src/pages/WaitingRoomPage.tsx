@@ -1,10 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
+import RoundSquareButton from '@atoms/RoundSquareButton';
+import RuleBookButton from '@atoms/RuleBookButton';
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
-import { useHistory } from 'react-router-dom';
-import RoundSquareButton from '@atoms/RoundSquareButton';
-import styled from 'styled-components';
 import tigerCat from '@img/cat/tiger.PNG';
 
 const Container = styled.div`
@@ -58,8 +59,15 @@ const CharacterImg = styled.img`
   width: 400px;
 `;
 
+const RuleBookContainer = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+`;
+
 const WaitingRoomPage = () => {
   const history = useHistory();
+
   function goRobby() {
     let selected = confirm('대기방을 나갑니다.');
 
@@ -78,50 +86,55 @@ const WaitingRoomPage = () => {
   }
 
   return (
-    <Container>
-      <Header>
-        <h1>Waiting Room Page</h1>
-      </Header>
-      <Content>
-        <WaitingRoomUsers></WaitingRoomUsers>
-        <Chat>
-          <div>
-            <h2>채팅</h2>
-          </div>
-          <div>
-            <WaitingRoomChat></WaitingRoomChat>
-          </div>
-        </Chat>
-        <Character>
-          <div>
-            <h2>캐릭터 선택</h2>
-          </div>
-          <SelectCharacter>
-            <button>이전</button>
-            <CharacterImg src={tigerCat} alt="캐릭터" />
-            <button>다음</button>
-          </SelectCharacter>
-          <div>
-            <span>닉네임</span>
-            <input type="text" />
-          </div>
-          <br />
-          <button>설정 완료</button>
-        </Character>
-      </Content>
-      <Footer>
-        <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
-          Ready
-        </RoundSquareButton>
-        <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
-          도움말
-        </RoundSquareButton>
+    <>
+      <Container>
+        <Header>
+          <h1>Waiting Room Page</h1>
+        </Header>
+        <Content>
+          <WaitingRoomUsers></WaitingRoomUsers>
+          <Chat>
+            <div>
+              <h2>채팅</h2>
+            </div>
+            <div>
+              <WaitingRoomChat></WaitingRoomChat>
+            </div>
+          </Chat>
+          <Character>
+            <div>
+              <h2>캐릭터 선택</h2>
+            </div>
+            <SelectCharacter>
+              <button>이전</button>
+              <CharacterImg src={tigerCat} alt="캐릭터" />
+              <button>다음</button>
+            </SelectCharacter>
+            <div>
+              <span>닉네임</span>
+              <input type="text" />
+            </div>
+            <br />
+            <button>설정 완료</button>
+          </Character>
+        </Content>
+        <Footer>
+          <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
+            Ready
+          </RoundSquareButton>
+          <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
+            도움말
+          </RoundSquareButton>
 
-        <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
-          로비로 돌아가기
-        </RoundSquareButton>
-      </Footer>
-    </Container>
+          <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
+            로비로 돌아가기
+          </RoundSquareButton>
+        </Footer>
+      </Container>
+      <RuleBookContainer>
+        <RuleBookButton />
+      </RuleBookContainer>
+    </>
   );
 };
 export default WaitingRoomPage;
