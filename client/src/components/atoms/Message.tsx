@@ -15,7 +15,7 @@ const MyMessage = styled.div`
   margin-top: 3px;
 `;
 const MyName = styled.div`
-  padding-right: 10;
+  padding-right: 10px;
   display: flex;
   align-items: center;
   font-family: Helvetica;
@@ -23,7 +23,7 @@ const MyName = styled.div`
   letter-spacing: 0.3px;
 `;
 const OtherName = styled.div`
-  padding-left: 10;
+  padding-left: 10px;
   display: flex;
   align-items: center;
   font-family: Helvetica;
@@ -32,7 +32,6 @@ const OtherName = styled.div`
 `;
 const MessageBox = styled.div`
   background: #f3f3f3;
-  width: 100%;
   letter-spacing: 0;
   float: left;
   font-size: 1.1em;
@@ -40,14 +39,17 @@ const MessageBox = styled.div`
 `;
 const MyMessageBox = styled.div`
   background: #2979ff;
-  width: 100%;
   letter-spacing: 0;
   float: left;
   font-size: 1.1em;
   word-wrap: break-word;
 `;
-const MyText = styled.p``;
-const UserText = styled.p``;
+const MyText = styled.p`
+  text-align: right;
+`;
+const UserText = styled.p`
+  text-align: left;
+`;
 
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
