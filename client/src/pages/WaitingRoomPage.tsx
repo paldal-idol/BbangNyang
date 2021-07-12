@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import WaitingRoomChat from '@molecules/WaitingRoomChat';
-import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
+
+import WaitingRoomChat from '@molecules/WaitingRoomChat';
+import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import RoundSquareButton from '@atoms/RoundSquareButton';
-import styled from 'styled-components';
 
 interface ButtonProps {
   isOpen: boolean;
@@ -139,7 +141,6 @@ const WaitingRoomPage = () => {
         <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
           도움말
         </RoundSquareButton>
-
         <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
           로비로 돌아가기
         </RoundSquareButton>

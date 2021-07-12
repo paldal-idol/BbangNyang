@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import styled from 'styled-components';
-import Messages from '@atoms/Messages';
-import Input from '@atoms/ChatInput';
 import { useRecoilValue, useRecoilState } from 'recoil';
+import io from 'socket.io-client';
+import styled from 'styled-components';
+
 import userState from '@store/user';
 import roomState from '@store/room';
 import usersState from '@store/users';
-import io from 'socket.io-client';
+
+import Messages from '@atoms/Messages';
+import Input from '@atoms/ChatInput';
 
 const Container = styled.div`
   display: flex;
