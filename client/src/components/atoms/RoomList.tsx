@@ -15,14 +15,15 @@ const RoomList = () => {
     getRooms();
   });
 
-  if (rooms.length === 0) {
+  const noRoom = () => {
     return (
       <div>
         <h2>방 목록</h2>
         <span>방이 없습니다.</span>
       </div>
     );
-  } else {
+  };
+  const someRooms = () => {
     return (
       <div>
         <h2>방 목록</h2>
@@ -37,6 +38,8 @@ const RoomList = () => {
         </ul>
       </div>
     );
-  }
+  };
+
+  return <>{rooms.length === 0 ? noRoom : someRooms}</>;
 };
 export default RoomList;
