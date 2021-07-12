@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
+const ENDPOINT = 'http://localhost:8000/';
+
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
 
   const getRooms = async () => {
-    const res = await fetch('http://localhost:8000/');
+    const res = await fetch(ENDPOINT);
     const body = await res.json();
     setRooms(body);
   };
