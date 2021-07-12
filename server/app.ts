@@ -1,4 +1,4 @@
-import cors from 'cors';
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -7,7 +7,7 @@ const socketio = require('socket.io');
 const server = http.createServer(app);
 const corsOptions = {
   cors: true,
-  origins: ['http://localhost:3000'],
+  origins: [process.env.CLIENT || 'http://localhost:3000'],
 };
 const io = socketio(server, corsOptions);
 
@@ -64,7 +64,7 @@ io.on('connect', (socket: any) => {
   });
 });
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listening on port : ${port}`);
 });
