@@ -13,8 +13,20 @@ const Allow_dice_again = () => {
   };
   useEffect(() => {
     setScore(Accumurate_Dice_Score + diceState_value);
-    console.log(diceState_value, Accumurate_Dice_Score);
   }, [diceState_value]);
+  useEffect(() => {
+    if (1 <= Accumurate_Dice_Score && Accumurate_Dice_Score < 8) {
+      let select_more = confirm('더 하시겠습니까?');
+      if (select_more) {
+        setDice_active(true);
+      } else {
+        setDice_active(false);
+      }
+      setDice_active(true);
+    } else if (Accumurate_Dice_Score >= 8) {
+      setDice_active(false);
+    }
+  }, [Accumurate_Dice_Score]);
   return (
     <div>
       <h1>{Accumurate_Dice_Score}</h1>

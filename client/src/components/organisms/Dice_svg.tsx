@@ -35,6 +35,7 @@ const Dice_Button = styled.button`
   position: absolute;
   width: 100px;
 `;
+
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
   const [diceImage, setDiceImage] = useState(dice_list[0]);
@@ -61,12 +62,12 @@ const Dice = () => {
     console.log(diceNumber);
     setDiceImage(dice_list[diceNumber - 1]);
 
-    const a = diceNumber;
+    let a = diceNumber;
     setResult_score(a);
   };
 
   useEffect(() => {
-    tick();
+    // tick();
   }, []);
 
   return (
