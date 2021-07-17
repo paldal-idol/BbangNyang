@@ -33,7 +33,6 @@ const WaitingRoomChat = () => {
   useEffect(() => {
     socket = io(ENDPOINT);
 
-    console.log(`room = ${room}`);
     socket.emit('join', { name, room }, (error) => {
       if (error) {
         history.push(`/waiting`);
@@ -49,6 +48,12 @@ const WaitingRoomChat = () => {
     socket.on('roomData', ({ users }) => {
       setUsers(users);
     });
+
+    return () => {
+      // socket.emit('disconnect');
+      console.log('left room');
+      socket.disconnect();
+    };
   }, []);
 
   const sendMessage = (event) => {
