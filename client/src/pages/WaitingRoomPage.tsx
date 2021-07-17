@@ -75,11 +75,9 @@ const WaitingRoomPage = () => {
   // let socket = useContext(WebSocketContext);
   useEffect(() => {
     console.log(user, room);
-    // console.log(`socket info : ${socket.id}`);
   }, []);
 
   const selectCharacter = () => {
-    // TODO : 올바른 입장 코드인지 확인하는 코드 작성
     setIsOpen(true);
     setModal('SelectCharacterModal');
   };
@@ -141,6 +139,7 @@ const WaitingRoomPage = () => {
         <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
           도움말
         </RoundSquareButton>
+
         <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
           로비로 돌아가기
         </RoundSquareButton>
