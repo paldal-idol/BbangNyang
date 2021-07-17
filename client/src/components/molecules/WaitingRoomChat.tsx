@@ -1,59 +1,68 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import io from 'socket.io-client';
 import styled from 'styled-components';
-import RoundSquareButton from '@atoms/RoundSquareButton';
+
+import userState from '@store/user';
+import roomState from '@store/room';
+import usersState from '@store/users';
+
+import Messages from '@atoms/Messages';
+import Input from '@atoms/ChatInput';
+
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  padding: 5px;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 8px;
 `;
-const StyledInput = styled.input`
-  flex-grow: 1;
-  border: 0px;
-  margin-right: 1px;
-`;
-const StyledButton = styled.button`
-  background-color: white;
-  border: 1px solid gray;
-  padding: 8px 12px;
-  radius: 8px;
-  margin-left: 1px;
-`;
+
+const ENDPOINT = 'localhost:8000';
+let socket;
+
 const WaitingRoomChat = () => {
-  const [chat, setChat] = React.useState('');
-  const [chatList, setChatList] = React.useState([]);
+  const history = useHistory();
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const name = useRecoilValue(userState);
+  const room = useRecoilValue(roomState);
+  const [users, setUsers] = useRecoilState(usersState);
 
-  const onTyping = (e) => {
-    setChat((current) => e.target.value);
-  };
+  useEffect(() => {
+    socket = io(ENDPOINT);
 
-  const onSubmit = () => {
-    if (chat !== '') {
-      const newChatList = chatList.concat();
-      newChatList.push(chat);
-      setChatList((current) => newChatList);
-      setChat((current) => '');
+    console.log(`room = ${room}`);
+    socket.emit('join', { name, room }, (error) => {
+      if (error) {
+        history.push(`/waiting`);
+      }
+    });
+  }, [name, room]);
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+
+    socket.on('roomData', ({ users }) => {
+      setUsers(users);
+    });
+  }, []);
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if (message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
-
-  //할 일 : const sendChat = () => {};
-
   return (
-    <div className="chat-container">
-      <div className="chat-list-container">
-        <ul className="chat-list">
-          {chatList.map((chat) => {
-            return <li className="chat-message">username : {chat}</li>;
-          })}
-        </ul>
-        <Container>
-          <StyledInput type="text" name="chatting" value={chat} onChange={onTyping} />
-          <RoundSquareButton size="sm" variant="gray" onClick={onSubmit}>
-            전송
-          </RoundSquareButton>
-        </Container>
-      </div>
-    </div>
+    <Container>
+      <Messages messages={messages} name={name} />
+      <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+    </Container>
   );
 };
 export default WaitingRoomChat;

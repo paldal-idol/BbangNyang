@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+
+import modalState from '@store/modal';
+import userState from '@store/user';
+import roomState from '@store/room';
 
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
-import { useHistory } from 'react-router-dom';
 import RoundSquareButton from '@atoms/RoundSquareButton';
-import styled from 'styled-components';
-import tigerCat from '@img/cat/tiger.PNG';
 
+interface ButtonProps {
+  isOpen: boolean;
+}
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -52,14 +59,37 @@ const Footer = styled.div`
 const SelectCharacter = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
 `;
 const CharacterImg = styled.img`
   width: 400px;
 `;
+const SelectCharacterButton = styled.button<ButtonProps>``;
 
 const WaitingRoomPage = () => {
   const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modal, setModal] = useRecoilState(modalState);
+  const [user, setUser] = useRecoilState(userState);
+  const [room, setRoom] = useRecoilState(roomState);
+  // let socket = useContext(WebSocketContext);
+  useEffect(() => {
+    console.log(user, room);
+    // console.log(`socket info : ${socket.id}`);
+  }, []);
+
+  const selectCharacter = () => {
+    // TODO : 올바른 입장 코드인지 확인하는 코드 작성
+    setIsOpen(true);
+    setModal('SelectCharacterModal');
+  };
+
+  useEffect(() => {
+    if (modal !== 'SelectCharacterModal') {
+      setIsOpen(false);
+    }
+  }, [modal]);
+
   function goRobby() {
     let selected = confirm('대기방을 나갑니다.');
 
@@ -97,16 +127,11 @@ const WaitingRoomPage = () => {
             <h2>캐릭터 선택</h2>
           </div>
           <SelectCharacter>
-            <button>이전</button>
-            <CharacterImg src={tigerCat} alt="캐릭터" />
-            <button>다음</button>
+            <CharacterImg alt="캐릭터" />
+            <SelectCharacterButton isOpen={isOpen} onClick={selectCharacter}>
+              캐릭터 선택
+            </SelectCharacterButton>
           </SelectCharacter>
-          <div>
-            <span>닉네임</span>
-            <input type="text" />
-          </div>
-          <br />
-          <button>설정 완료</button>
         </Character>
       </Content>
       <Footer>
@@ -116,7 +141,6 @@ const WaitingRoomPage = () => {
         <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
           도움말
         </RoundSquareButton>
-
         <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
           로비로 돌아가기
         </RoundSquareButton>

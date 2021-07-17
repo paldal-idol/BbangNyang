@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import modalState from '@store/modal';
+import userState from '@store/user';
+import roomState from '@store/room';
 import Modal from '@atoms/Modal';
 import color from '@theme/color';
 
@@ -43,11 +45,13 @@ const Button = styled.button<buttonProps>`
 const EntryCodeModal: React.FC = () => {
   const history = useHistory();
   const setModal = useSetRecoilState(modalState);
+  const [user, setUser] = useRecoilState(userState);
+  const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
     // TODO : 올바른 입장 코드인지 확인하는 코드 작성
     closeModal();
-    history.push('/waiting');
+    history.push(`/waiting`);
   };
 
   const closeModal = () => {
@@ -57,7 +61,18 @@ const EntryCodeModal: React.FC = () => {
   return (
     <Modal>
       <Content>
-        <CodeInput placeholder="코드를 입력해주세요." />
+        <CodeInput
+          placeholder="코드를 입력해주세요."
+          onChange={(event) => {
+            setRoom(event.target.value);
+          }}
+        />
+        <CodeInput
+          placeholder="닉네임을 입력해주세요"
+          onChange={(event) => {
+            setUser(event.target.value);
+          }}
+        ></CodeInput>
         <Button backgroundColor={color.button.orange} onClick={codeHandler}>
           입장
         </Button>
