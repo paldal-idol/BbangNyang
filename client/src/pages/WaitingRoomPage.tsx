@@ -10,6 +10,7 @@ import roomState from '@store/room';
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import RoundSquareButton from '@atoms/RoundSquareButton';
+import RuleBookButton from '@atoms/RuleBookButton'
 
 interface ButtonProps {
   isOpen: boolean;
@@ -65,6 +66,12 @@ const CharacterImg = styled.img`
   width: 400px;
 `;
 const SelectCharacterButton = styled.button<ButtonProps>``;
+
+const RuleBookContainer = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+`;
 
 const WaitingRoomPage = () => {
   const history = useHistory();
@@ -144,6 +151,9 @@ const WaitingRoomPage = () => {
           로비로 돌아가기
         </RoundSquareButton>
       </Footer>
+      <RuleBookContainer>
+        <RuleBookButton />
+      </RuleBookContainer>
     </Container>
   );
 };
