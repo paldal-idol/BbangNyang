@@ -18,6 +18,9 @@ const Container = styled.div`
   // top: 50%;
   // left: 50%;
   // transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FillImage = styled.img`
@@ -32,8 +35,6 @@ const Arrow = styled.div<ArrowProps>`
   height: 50px;
   background-color: gray;
   border-radius: 50%;
-  // position: absolute;
-  // top: 50%;
   ${(props) => (props.isLeft ? 'left: 5px' : 'right: 5px')};
   // transform: translate(-5px, -50%);
   justify-content: center;
@@ -64,18 +65,18 @@ const RuleBook: React.FC = () => {
   }, [manualIndex]);
 
   return (
-    // <Container>
-    //   <FillImage src={images[manualIndex]} />
+    <Container>
+      <Arrow isLeft={true} onClick={handlePrevClick} id="left_arrow">
+        <AiOutlineArrowLeft />
+      </Arrow>
 
-    //   <Arrow isLeft={true} onClick={handlePrevClick} id="left_arrow">
-    //     <AiOutlineArrowLeft />
-    //   </Arrow>
+      <FillImage src={images[manualIndex]} />
 
-    //   <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
-    //     <AiOutlineArrowRight />
-    //   </Arrow>
-    // </Container>
-    <Test>테스트</Test>
+      <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
+        <AiOutlineArrowRight />
+      </Arrow>
+    </Container>
+    // <Test>테스트</Test>
   );
 };
 

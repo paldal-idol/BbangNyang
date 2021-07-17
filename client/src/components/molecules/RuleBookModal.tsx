@@ -6,14 +6,28 @@ import modalState from '@store/modal';
 import RuleBook from '@organisms/RuleBook';
 
 const Content = styled.div`
-  width: 600px;
-  height: 200px;
-  background-color: white;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
-
-
-const CloseButton = styled.button``;
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`
+const CloseButton = styled.div`
+  display: flex;
+  width: 50px;
+  height: 50px;
+  background-color: gray;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+`;
 
 const RuleBookModal: React.FC = () => {
 
@@ -26,7 +40,9 @@ const RuleBookModal: React.FC = () => {
   return (
     <Modal>
       <Content>
-        <CloseButton onClick={closeModal}>X</CloseButton>
+        <ButtonContainer>
+          <CloseButton onClick={closeModal}>X</CloseButton>
+        </ButtonContainer>
         <RuleBook/>
       </Content>
     </Modal>
