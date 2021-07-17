@@ -8,7 +8,6 @@ const addUser = ({ id, name, room }) => {
   const user = { id, name, room };
 
   users.push(user);
-  console.log(`add user : ${user.id}, ${user.name}, ${user.room}`);
   return { user };
 };
 

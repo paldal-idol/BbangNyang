@@ -19,7 +19,6 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./socket/users
 io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
     const { error, user } = addUser({ id: socket.id, name, room });
-    console.log(room);
     if (error) return callback(error);
 
     socket.join(user.room);
@@ -50,7 +49,7 @@ io.on('connect', (socket: any) => {
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
-
+    console.log(`${socket.id} has left`);
     if (user) {
       io.to(user.room).emit('message', {
         user: 'Admin',
