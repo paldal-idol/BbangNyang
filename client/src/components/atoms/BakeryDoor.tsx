@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import styled, { css } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import modalState from '@store/modal';
@@ -57,6 +58,7 @@ const DoorContainer = styled.div<DoorProps>`
 `;
 
 const BakeryDoor: React.FC = () => {
+  const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
 
@@ -66,7 +68,9 @@ const BakeryDoor: React.FC = () => {
   };
 
   const CreatNewRoom = () => {
-    alert('new!');
+    if (confirm('새로운 방을 생성하시겠습니까?')) {
+      history.push('/waiting');
+    }
   };
 
   useEffect(() => {
