@@ -3,7 +3,28 @@ import styled from 'styled-components';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import Dice from '@organisms/Dice_svg';
 import diceState from '@store/Dice_number';
-
+const Map_div = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 500px;
+  margin-left: 1100px;
+  z-index: 2;
+  top: 500;
+  left: 800;
+`;
+const Map_button = styled.button`
+  position: absolute;
+  z-index: 1;
+  top: 500;
+  left: 800;
+`;
+const Map_h1 = styled.h1`
+  position: absolute;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+`;
 const Allow_dice_again = () => {
   const [dice_n, setDice_n] = useState(0);
   let [Accumurate_Dice_Score, setScore] = useState(0);
@@ -36,11 +57,11 @@ const Allow_dice_again = () => {
   }, [diceState_value]);
 
   return (
-    <div>
+    <Map_div>
       <h1>{diceState_value}</h1>
-      <button onClick={active}>주사위 클릭</button>
+      <Map_button onClick={active}>주사위 클릭</Map_button>
       {dice_active && <Dice></Dice>}
-    </div>
+    </Map_div>
   );
 };
 export default Allow_dice_again;

@@ -13,6 +13,8 @@ const dice_list = [dice_1, dice_2, dice_3, dice_4, dice_5, dice_6];
 const Dice_svg = styled.svg`
   z-index: 1;
   position: absolute;
+  width: 100vw;
+  height: 100vh;
 `;
 const Dice_img = styled.img`
   margin-top: 200px;
@@ -20,6 +22,8 @@ const Dice_img = styled.img`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_h1 = styled.h1`
   margin-top: 240px;
@@ -27,6 +31,8 @@ const Dice_h1 = styled.h1`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_Button = styled.button`
   margin-top: 300px;
@@ -34,6 +40,8 @@ const Dice_Button = styled.button`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
