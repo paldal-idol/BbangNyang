@@ -35,12 +35,12 @@ const Dice_Button = styled.button`
   position: absolute;
   width: 100px;
 `;
-
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
   const [diceImage, setDiceImage] = useState(dice_list[0]);
   const [diceNumber, setDiceNumber] = useState(0);
   const [coordinate, setCoordinate] = useState({ x: 150, y: 50 });
+  const [count_num, setCount_Num] = useState(0);
   const [result_score, setResult_score] = useRecoilState(diceState);
   const tick = () => {
     const time = Date.now() / 250;
@@ -61,14 +61,10 @@ const Dice = () => {
     clearInterval(intervalFunc);
     console.log(diceNumber);
     setDiceImage(dice_list[diceNumber - 1]);
-
+    setCount_Num(count_num + 1);
     let a = diceNumber;
-    setResult_score(a);
+    setResult_score(result_score + a);
   };
-
-  useEffect(() => {
-    // tick();
-  }, []);
 
   return (
     <>
