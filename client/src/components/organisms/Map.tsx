@@ -19,23 +19,29 @@ const Map_div = styled.div`
 `;
 
 const Map = () => {
-  const [ar, setAr] = useState(
-    Array.from({ length: 21 }, (v, i) => {
-      i * 17;
-    }),
-  );
+  const [ar, setAr] = useState([]);
+  useEffect(() => {
+    const arr = Array.from({ length: 21 }, (v, i) => {
+      return [
+        500 * Math.cos((Math.PI * 34.5 * i) / 360) + 600,
+        800 * Math.sin((Math.PI * 34.5 * i) / 360) + 1100,
+      ];
+    });
+    setAr(arr);
+    console.log(arr);
+  }, []);
   return (
     <>
       <Map_svg width="100vw" height="100vh">
         <ellipse cx="1200" cy="700" rx="900" ry="600" fill="white"></ellipse>
       </Map_svg>
       <Map_div>
-        {ar.map((undefined, i) => (
+        {ar.map((item, idx) => (
           <Map_img
             src={bowl}
             style={{
-              top: `${500 * Math.cos((Math.PI * 34.5 * i) / 360) + 600}px`,
-              left: `${800 * Math.sin((Math.PI * 34.5 * i) / 360) + 1100}px`,
+              top: `${item[0]}px`,
+              left: `${item[1]}px`,
             }}
           />
         ))}
