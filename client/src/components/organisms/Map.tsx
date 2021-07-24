@@ -18,60 +18,53 @@ const Map_div = styled.div`
   height: 100vh;
 `;
 
-class Node {
-  element;
-  next;
-  prev;
-  constructor(element) {
-    this.element = element;
-    this.next = null;
-    this.prev = null;
+class node {
+  data;
+  link;
+  constructor(item) {
+    this.data = item;
+    this.link = null;
   }
-}
-class playerSequence {
-  head;
-  constructor() {
-    this.head = new Node('head');
-    this.head.next = this.head;
-  }
-  find(item) {
-    let currNode = this.head;
-    while (currNode.element != item) {
-      currNode = currNode.next;
-    }
-    return currNode;
-  }
-  insert(newElement, item) {
-    let newNode = new Node(newElement);
-    let current = this.find(item);
-    if (current.next == null) {
-      newNode.next = null;
-      newNode.prev = current;
-      current.next = newNode;
+
+  insert(item) {
+    let newNode = new node(item);
+    let p = this;
+    if (this.link === null) {
+      this.link = newNode;
+      newNode.link = this;
     } else {
-      newNode.next = current.next;
-      newNode.prev = current;
-      current.next.prev = newNode;
-      current.next = newNode;
+      while (p.link !== this) {
+        p = p.link;
+      }
+      p.link = newNode;
+      newNode.link = this;
     }
   }
-  // display() {
-  //   let currNode = this.head;
-  //   while (!(currNode.next == null) && !(currNode.next.element == 'head')) {
-  //     console.log(currNode.next.element);
-  //     currNode = currNode.next;
-  //   }
-  // }
+
   remove(item) {
-    let currNode = this.find(item);
-    if (!(currNode.next == null)) {
-      //자신 노드가 삭제되기 위해 앞뒤 노드를 연결시켜주는 과정
-      currNode.prev.next = currNode.next;
-      currNode.next.prev = currNode.prev;
-      currNode.next = null;
-      currNode.prev = null;
+    if (this.link == null) return null;
+    console.log('dw');
+    let p = this;
+    let q;
+    while (p.link !== this) {
+      q = p;
+      p = p.link;
+      if (p.data == item) {
+        break;
+      }
     }
+    q.link = p.link;
   }
+  // print() {
+  //   let string = `${this.data} | `;
+  //   let p = this.link;
+  //   while (p !== this) {
+  //     string += `${p.data} | `;
+  //     p = p.link;
+  //   }
+  //   string += p.data;
+  //   console.log(string);
+  // }
 }
 
 class player {
@@ -87,11 +80,6 @@ class player {
 const Map = () => {
   //플레이어 실행 순서, 원형 링크드리스트로 구현
   const [player_list, setPayer_list] = useState([]);
-  const playersequence = new playerSequence();
-  player_list.reduce((i, p) => {
-    playersequence.insert(i, p);
-    return p;
-  });
 
   const [ar, setAr] = useState([]);
   useEffect(() => {
@@ -102,7 +90,11 @@ const Map = () => {
       ];
     });
     setAr(arr);
-    console.log(arr);
+
+    let player_sequence = new node('head');
+    for (let i = 0; i < player_list.length; i++) {
+      player_sequence.insert(player_list[i]);
+    }
   }, []);
   return (
     <>
