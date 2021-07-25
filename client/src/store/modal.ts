@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const modalState = atom({
   key: 'modalState',
-  default: '',
+  default: 'SelectCharacterModal',
 });
 
 export default modalState;

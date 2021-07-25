@@ -8,18 +8,20 @@ interface ButtonProps {
   isOpen: boolean;
 }
 
-const SelectCharacter = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
 `;
 const CharacterImg = styled.img`
-  width: 400px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
 `;
 
 const SelectCharacterButton = styled.button<ButtonProps>``;
 
-const CatSelector: React.FC = () => {
+const SelectCharacter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
 
@@ -35,15 +37,13 @@ const CatSelector: React.FC = () => {
   }, [modal]);
 
   return (
-    <>
-      <SelectCharacter>
-        <CharacterImg alt="캐릭터" />
-        <SelectCharacterButton isOpen={isOpen} onClick={selectCharacter}>
-          캐릭터 선택
-        </SelectCharacterButton>
-      </SelectCharacter>
-    </>
+    <Container>
+      <CharacterImg alt="character" />
+      <SelectCharacterButton isOpen={isOpen} onClick={selectCharacter}>
+        캐릭터 선택
+      </SelectCharacterButton>
+    </Container>
   );
 };
 
-export default CatSelector;
+export default SelectCharacter;
