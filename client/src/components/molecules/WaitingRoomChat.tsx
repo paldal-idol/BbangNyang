@@ -50,7 +50,6 @@ const WaitingRoomChat = () => {
     });
 
     return () => {
-      // socket.emit('disconnect');
       console.log('left room');
       socket.disconnect();
     };
