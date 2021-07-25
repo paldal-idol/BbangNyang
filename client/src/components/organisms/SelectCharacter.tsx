@@ -4,6 +4,9 @@ import { useRecoilState } from 'recoil';
 
 import modalState from '@store/modal';
 
+import { CatImages } from '@utils/cat';
+import color from '@theme/color';
+
 interface ButtonProps {
   isOpen: boolean;
 }
@@ -15,15 +18,27 @@ const Container = styled.div`
 `;
 const CharacterImg = styled.img`
   width: 200px;
-  height: 200px;
-  border: 1px solid red;
 `;
 
-const SelectCharacterButton = styled.button<ButtonProps>``;
+const SelectCharacterButton = styled.button<ButtonProps>`
+  font-size: 14px;
+  font-weight: bold;
+  border: 0px;
+  border-radius: 25px;
+  cursor: pointer;
+  background-color: transparent;
+  margin-top: -24px;
+
+  &:hover {
+    color: ${color.button.orange};
+  }
+`;
 
 const SelectCharacter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
+
+  const selectedCatIndex = 0; //TODO : 랜덤 생성 및 상태 로직 짜기
 
   const selectCharacter = () => {
     setIsOpen(true);
@@ -38,9 +53,9 @@ const SelectCharacter: React.FC = () => {
 
   return (
     <Container>
-      <CharacterImg alt="character" />
+      <CharacterImg alt="character" src={CatImages[selectedCatIndex]} />
       <SelectCharacterButton isOpen={isOpen} onClick={selectCharacter}>
-        캐릭터 선택
+        캐릭터 변경
       </SelectCharacterButton>
     </Container>
   );
