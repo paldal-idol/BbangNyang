@@ -1,23 +1,30 @@
+import { resolveSoa } from 'dns/promises';
+
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const http = require('http');
 const socketio = require('socket.io');
 
-const server = http.createServer(app);
+const indexRouter = require('./router/index');
+app.use(indexRouter);
+
 const corsOptions = {
   cors: true,
   origins: [process.env.CLIENT || 'http://localhost:3000'],
 };
+app.use(cors());
+
+const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
-const indexRouter = require('./router/index');
-
-app.use(indexRouter);
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./socket/users.tsx');
+const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
+const { addUser, removeUser, getUser, getUsersInRoom, checkRoom } = require('./socket/users.tsx');
 
 io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
+    console.log(`join user : ${name}, room : ${room}`);
     const { error, user } = addUser({ id: socket.id, name, room });
     if (error) return callback(error);
 
@@ -61,6 +68,11 @@ io.on('connect', (socket: any) => {
       });
     }
   });
+});
+
+app.get('/makeRoom', (req: any, res: any) => {
+  res.data = roomCodeGenerator();
+  res.send(roomCodeGenerator());
 });
 
 const port = process.env.PORT || 8000;
