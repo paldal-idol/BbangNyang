@@ -24,22 +24,23 @@ const Content = styled.div`
 `;
 
 const CodeInput = styled.input`
-  width: 220px;
-  height: 45px;
+  width: 230px;
+  height: 60px;
   font-size: 20px;
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
   border: 0px solid black;
 `;
 
 const Button = styled.button<buttonProps>`
   width: 230px;
-  height: 35px;
+  height: 60px;
   font-size: 18px;
   color: white;
   background-color: ${(props) => props.backgroundColor};
   cursor: pointer;
   border: 0px;
+  margin: 5px;
 `;
 
 const ENDPOINT = 'localhost:8000';
@@ -55,6 +56,7 @@ const EntryCodeModal: React.FC = () => {
     // TODO : 올바른 입장 코드인지 확인하는 코드 작성
     // TODO : 방장 채팅 오류 -> 소켓 문제인 것 같습니다
     // TODO : 입장시에 닉네임 중복 체크 OR 랜덤 닉네임 생성, 중복되면 채팅 오류
+    // setUser('test..');
     closeModal();
     history.push(`/waiting`);
   };
@@ -72,21 +74,22 @@ const EntryCodeModal: React.FC = () => {
     <Modal>
       <Content>
         <CodeInput
-          placeholder="입장코드를 입력해주세요."
+          placeholder="입장코드"
           onChange={(event) => {
             setRoom(event.target.value);
+            setUser('test..');
           }}
         />
-        <CodeInput
+        {/* <CodeInput
           placeholder="닉네임을 입력해주세요"
           onChange={(event) => {
             setUser(event.target.value);
           }}
-        ></CodeInput>
+        ></CodeInput> */}
         <Button backgroundColor={color.button.orange} onClick={codeHandler}>
-          입장
+          입장하기
         </Button>
-        <Button
+        {/* <Button
           backgroundColor={color.button.orange}
           onClick={() => {
             if (!user) {
@@ -100,7 +103,7 @@ const EntryCodeModal: React.FC = () => {
           }}
         >
           방만들기
-        </Button>
+        </Button> */}
         <Button backgroundColor={color.button.darkGray} onClick={closeModal}>
           돌아가기
         </Button>
