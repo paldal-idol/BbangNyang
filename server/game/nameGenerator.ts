@@ -19,3 +19,4 @@ function generateName() {
     capFirst(lastName[getRandomInt(0, lastName.length + 1)]);
   return name;
 }
+module.exports = {generateName};

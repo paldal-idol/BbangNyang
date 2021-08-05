@@ -21,9 +21,10 @@ const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
 const { addUser, removeUser, getUser, getUsersInRoom, checkRoom } = require('./socket/users.tsx');
+const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
-  socket.on('join', ({ name, room }: any, callback: any) => {
+  socket.on('join', ({ name , room }: any, callback: any) => {
     console.log(`join user : ${name}, room : ${room}`);
     const { error, user } = addUser({ id: socket.id, name, room });
     if (error) return callback(error);
@@ -71,10 +72,12 @@ io.on('connect', (socket: any) => {
 });
 
 app.get('/makeRoom', (req: any, res: any) => {
-  res.data = roomCodeGenerator();
-  res.send(roomCodeGenerator());
+  res.send({code:roomCodeGenerator(),name:generateName()});
 });
 
+app.get('/getName', (req:any,res:any)=>{
+  res.send({name:generateName()});
+})
 const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listening on port : ${port}`);
