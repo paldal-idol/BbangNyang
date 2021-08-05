@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Modal from '@atoms/Modal';
 import { useSetRecoilState } from 'recoil';
 import modalState from '@store/modal';
-import RuleBook from '@organisms/RuleBook';
+import RuleBook from '@molecules/RuleBook';
 
 const Content = styled.div`
   border-radius: 10px;
