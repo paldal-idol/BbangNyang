@@ -78,9 +78,9 @@ const BakeryDoor: React.FC = () => {
 
   const CreatNewRoom = async () => {
     if (confirm('새로운 방을 생성하시겠습니까?')) {
-      getCode(async (code) => {
-        setRoom(code);
-        setUser('Testing...');
+      getCode(async (data) => {
+        setRoom(data.code);
+        setUser(data.name);
 
         history.push('/waiting');
       });
