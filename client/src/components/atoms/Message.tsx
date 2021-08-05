@@ -54,15 +54,15 @@ const UserText = styled.p`
 const Message = ({ message: { text, user }, name }) => {
   let isSentByCurrentUser = false;
 
-  const trimmedName = name.trim().toLowerCase();
+  // const trimmedName = name.trim().toLowerCase();
 
-  if (user === trimmedName) {
+  if (user === name) {
     isSentByCurrentUser = true;
   }
 
   return isSentByCurrentUser ? (
     <MyMessage>
-      <MyName>{trimmedName}</MyName>
+      <MyName>{name}</MyName>
       <MyMessageBox>
         <MyText>{ReactEmoji.emojify(text)}</MyText>
       </MyMessageBox>

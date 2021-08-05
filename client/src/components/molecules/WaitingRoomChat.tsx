@@ -14,13 +14,15 @@ import Input from '@atoms/ChatInput';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height:100%;
+  justify-content:space-between;
   background: #ffffff;
   border-radius: 8px;
+
 `;
 
 const ENDPOINT = 'localhost:8000';
-let socket;
+let socket=io(ENDPOINT);
 
 const WaitingRoomChat = () => {
   const history = useHistory();
@@ -30,17 +32,18 @@ const WaitingRoomChat = () => {
   const room = useRecoilValue(roomState);
   const [users, setUsers] = useRecoilState(usersState);
 
+  // useEffect(() => {
+    
+  // }, [name, room]);
+
   useEffect(() => {
-    socket = io(ENDPOINT);
 
     socket.emit('join', { name, room }, (error) => {
       if (error) {
         history.push(`/waiting`);
       }
     });
-  }, [name, room]);
 
-  useEffect(() => {
     socket.on('message', (message) => {
       setMessages((messages) => [...messages, message]);
     });

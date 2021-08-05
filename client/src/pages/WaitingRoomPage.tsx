@@ -45,6 +45,8 @@ const Chat = styled.div`
   padding: 10px;
   margin-left: 20px;
   width: 360px;
+  min-height:512px;
+  height:600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
