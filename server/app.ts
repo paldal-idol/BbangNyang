@@ -20,7 +20,7 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
-const { addUser, removeUser, getUser, getUsersInRoom, checkRoom } = require('./socket/users.tsx');
+const { addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.tsx');
 const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
@@ -54,7 +54,7 @@ io.on('connect', (socket: any) => {
 
     callback();
   });
-
+  
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
     console.log(`${socket.id} has left`);
@@ -69,7 +69,29 @@ io.on('connect', (socket: any) => {
       });
     }
   });
+
+  socket.on('changeName', (name: string, callback: any)=>{
+    const user = getUser(socket.id);
+    const oldName = user.name;
+    changeUser({id:socket.id, name:name});
+
+    socket.broadcast
+    .to(user.room)
+    .emit('changeName', {oldUser : oldName, newUser : name});
+
+    socket.emit('message', {
+      user: 'admin',
+      text: `${oldName}, success name change to ${name}.`,
+    });
+    socket.broadcast
+      .to(user.room)
+      .emit('message', { user: 'admin', text: `${oldName} changed name to ${name}` });
+
+    callback();
+  })
 });
+
+
 
 app.get('/makeRoom', (req: any, res: any) => {
   res.send({code:roomCodeGenerator(),name:generateName()});

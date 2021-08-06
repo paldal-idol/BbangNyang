@@ -1,12 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import usersState from '@store/users';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import _ from 'lodash';
+
+import socket from '@store/socket';
+import usersState from '@store/users';
 
 const WaitingRoomUsers = () => {
-  const userList = useRecoilValue(usersState);
+  const [userList,setUsersList] = useRecoilState(usersState);
   const [users, setUsers] = useState([]);
+
+  useEffect(()=>{
+    
+  },[]);
   useEffect(() => {
+    if(userList.length>=1){
+      socket.on('changeName',({oldUser,newUser})=>{
+        //TODO : socket broadcast를 통해 방의 모든 유저가 이름을 변경한 유저를 갱신해야 함.
+        // console.log(oldUser, newUser);
+        // console.log(userList); => null?
+        // const isUser = (existUser)=>existUser.name===oldUser;
+        // const oldUserIndex = userList.findIndex(isUser);
+        // const newUsers = _.cloneDeep(userList);
+        // console.log(newUsers);
+        // newUsers[oldUserIndex].name=newUser;
+        // console.log(newUsers);
+        // setUsersList(newUsers);
+        // setUsers(newUsers);
+      })
+    }
     console.log(userList);
     setUsers(userList);
   }, [userList]);

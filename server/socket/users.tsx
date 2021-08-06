@@ -21,6 +21,14 @@ const getUser = (id) => users.find((user) => user.id === id);
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
+const changeUser = ({id,name})=>{
+  const user = users.find((user) => user.id === id);;
+  console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`)
+  console.log(`Change user name: ${user.name} to ${name}`);
+  user.name = name;
+  removeUser(id);
+  addUser(user);
+};
 const checkRoom = (roomCode) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
@@ -29,4 +37,4 @@ const checkRoom = (roomCode) => {
     return true;
   }
 };
-module.exports = { addUser, removeUser, getUser, getUsersInRoom };
+module.exports = { addUser, removeUser, getUser, getUsersInRoom, changeUser };

@@ -2,9 +2,11 @@ import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import _ from 'lodash';
 
-import socket from '@store/socket'
-import userState from '@store/user'
+import socket from '@store/socket';
+import userState from '@store/user';
+import usersState from '@store/users';
 import modalState from '@store/modal';
 import roomState from '@store/room';
 import Modal from '@atoms/Modal';
@@ -72,6 +74,7 @@ const CatSelectModal: React.FC = () => {
   const setModal = useSetRecoilState(modalState);
   // TODO : Recoil로 초기이름 정보 가져오기
   const [user,setUser] = useRecoilState(userState);
+  const [users,setUsers] = useRecoilState(usersState);
   const [userName, setUserName] = useState(user);
   const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
@@ -83,12 +86,19 @@ const CatSelectModal: React.FC = () => {
       return false;
     }
     // TODO : Recoil로 이름 정보 변경하기
-  
-    const callback = (newName)=>{
-        setUser(userName);
+    if(users){
+      const isUser = (existUser)=>existUser.name===user;
+      const oldUserIndex = users.findIndex(isUser);
+      console.log(oldUserIndex);
+
+      socket.emit('changeName',userName, ()=>setUser(userName));
+      
+      const newUsers = _.cloneDeep(users);
+      newUsers[oldUserIndex].name=userName;
+ 
+      setUsers(newUsers);
     }
-    socket.emit('changeName',{userName,callback});
-    
+
     closeModal();
   };
 
