@@ -18,7 +18,7 @@ const Map_div = styled.div`
   height: 100vh;
 `;
 
-class node {
+class Node {
   data;
   link;
   constructor(item) {
@@ -27,7 +27,7 @@ class node {
   }
 
   insert(item) {
-    let newNode = new node(item);
+    let newNode = new Node(item);
     let p = this;
     if (this.link === null) {
       this.link = newNode;
@@ -67,18 +67,16 @@ class node {
   // }
 }
 
-class player {
+class Player {
   score;
   lift_list;
   init = () => {
-    //얼마나 업힐까 리스트
     this.lift_list = [];
     this.score = 0;
   };
 }
 
 const Map = () => {
-  //플레이어 실행 순서, 원형 링크드리스트로 구현
   const [player_list, setPayer_list] = useState([]);
 
   const [ar, setAr] = useState([]);
@@ -91,7 +89,7 @@ const Map = () => {
     });
     setAr(arr);
 
-    let player_sequence = new node('head');
+    let player_sequence = new Node('head');
     for (let i = 0; i < player_list.length; i++) {
       player_sequence.insert(player_list[i]);
     }
