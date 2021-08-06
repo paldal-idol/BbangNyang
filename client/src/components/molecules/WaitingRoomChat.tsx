@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import io from 'socket.io-client';
+
 import styled from 'styled-components';
 
+import socket from '@store/socket'
 import userState from '@store/user';
 import roomState from '@store/room';
 import usersState from '@store/users';
@@ -21,8 +22,6 @@ const Container = styled.div`
 
 `;
 
-const ENDPOINT = 'localhost:8000';
-let socket=io(ENDPOINT);
 
 const WaitingRoomChat = () => {
   const history = useHistory();
@@ -37,25 +36,26 @@ const WaitingRoomChat = () => {
   // }, [name, room]);
 
   useEffect(() => {
+    if(socket){
+      socket.emit('join', { name, room }, (error) => {
+        if (error) {
+          history.push(`/waiting`);
+        }
+      });
 
-    socket.emit('join', { name, room }, (error) => {
-      if (error) {
-        history.push(`/waiting`);
-      }
-    });
+      socket.on('message', (message) => {
+        setMessages((messages) => [...messages, message]);
+      });
 
-    socket.on('message', (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
+      socket.on('roomData', ({ users }) => {
+        setUsers(users);
+      });
 
-    socket.on('roomData', ({ users }) => {
-      setUsers(users);
-    });
-
-    return () => {
-      console.log('left room');
-      socket.disconnect();
-    };
+      return () => {
+        console.log('left room');
+        socket.disconnect();
+      };
+    }
   }, []);
 
   const sendMessage = (event) => {

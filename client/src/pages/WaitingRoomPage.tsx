@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import socket from '@store/socket'
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
@@ -74,6 +75,9 @@ const RuleBookContainer = styled.div`
   top: 10px;
   right: 10px;
 `;
+
+// const ENDPOINT = 'localhost:8000';
+// let socket=io(ENDPOINT);
 
 const WaitingRoomPage = () => {
   const history = useHistory();

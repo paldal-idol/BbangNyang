@@ -3,6 +3,8 @@ import { useHistory } from 'react-router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import socket from '@store/socket'
+import userState from '@store/user'
 import modalState from '@store/modal';
 import roomState from '@store/room';
 import Modal from '@atoms/Modal';
@@ -69,7 +71,8 @@ const CatSelectModal: React.FC = () => {
   const history = useHistory();
   const setModal = useSetRecoilState(modalState);
   // TODO : Recoil로 초기이름 정보 가져오기
-  const [userName, setUserName] = useState('초기이름');
+  const [user,setUser] = useRecoilState(userState);
+  const [userName, setUserName] = useState(user);
   const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
 
@@ -80,6 +83,12 @@ const CatSelectModal: React.FC = () => {
       return false;
     }
     // TODO : Recoil로 이름 정보 변경하기
+  
+    const callback = (newName)=>{
+        setUser(userName);
+    }
+    socket.emit('changeName',{userName,callback});
+    
     closeModal();
   };
 
@@ -102,6 +111,7 @@ const CatSelectModal: React.FC = () => {
             onChange={(event) => {
               setUserName(event.target.value);
             }}
+            
             value={userName}
           ></CodeInput>
           <Button backgroundColor={color.button.orange} onClick={codeHandler}>
