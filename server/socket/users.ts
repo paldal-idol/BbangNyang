@@ -1,6 +1,6 @@
-const users = [];
+const users:any[] = [];
 
-const addUser = ({ id, name, room }) => {
+const addUser = ({ id, name, room }:any) => {
   const existingUser = users.find((user) => user.room === room && user.name === name);
   if (!name || !room) return { error: 'Username and room are required.' };
   if (existingUser) return { error: 'Username is taken.' };
@@ -11,17 +11,17 @@ const addUser = ({ id, name, room }) => {
   return { user };
 };
 
-const removeUser = (id) => {
+const removeUser = (id:string) => {
   const index = users.findIndex((user) => user.id === id);
 
   if (index !== -1) return users.splice(index, 1)[0];
 };
 
-const getUser = (id) => users.find((user) => user.id === id);
+const getUser = (id:string) => users.find((user) => user.id === id);
 
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
+const getUsersInRoom = (room:string) => users.filter((user) => user.room === room);
 
-const changeUser = ({id,name})=>{
+const changeUser = ({id,name}:any)=>{
   const user = users.find((user) => user.id === id);;
   console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`)
   console.log(`Change user name: ${user.name} to ${name}`);
@@ -29,7 +29,7 @@ const changeUser = ({id,name})=>{
   removeUser(id);
   addUser(user);
 };
-const checkRoom = (roomCode) => {
+const checkRoom = (roomCode:string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
     return false;

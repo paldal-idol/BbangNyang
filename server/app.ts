@@ -20,7 +20,7 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
-const { addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.tsx');
+const { addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.ts');
 const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
