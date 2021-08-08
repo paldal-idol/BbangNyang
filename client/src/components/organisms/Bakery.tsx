@@ -7,7 +7,7 @@ import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
 import EntryCodeModal from '@molecules/EntryCodeModal';
 import DeveloperImform from '@atoms/DeveloperImform';
-import StartPageGuideModal from '../molecules/StartPageGuideModal';
+import StartPageGuideModal from '@molecules/StartPageGuideModal';
 
 const Container = styled.div`
   position: absolute;
