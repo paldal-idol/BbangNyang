@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import diceState from '@store/Dice_number';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import dice_1 from '@img/dice/dice_1.PNG';
 import dice_2 from '@img/dice/dice_2.PNG';
@@ -11,6 +13,8 @@ const dice_list = [dice_1, dice_2, dice_3, dice_4, dice_5, dice_6];
 const Dice_svg = styled.svg`
   z-index: 1;
   position: absolute;
+  width: 100vw;
+  height: 100vh;
 `;
 const Dice_img = styled.img`
   margin-top: 200px;
@@ -18,6 +22,8 @@ const Dice_img = styled.img`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_h1 = styled.h1`
   margin-top: 240px;
@@ -25,6 +31,8 @@ const Dice_h1 = styled.h1`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_Button = styled.button`
   margin-top: 300px;
@@ -32,20 +40,23 @@ const Dice_Button = styled.button`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
   const [diceImage, setDiceImage] = useState(dice_list[0]);
   const [diceNumber, setDiceNumber] = useState(0);
   const [coordinate, setCoordinate] = useState({ x: 150, y: 50 });
-
+  const [count_num, setCount_Num] = useState(0);
+  const [result_score, setResult_score] = useRecoilState(diceState);
   const tick = () => {
-    const time = Date.now() / 500;
+    const time = Date.now() / 250;
     setCoordinate({
       x: 150 + 100 * Math.cos(time),
       y: 150 + 100 * -Math.abs(Math.sin(time)),
     });
-    setDiceImage(dice_list[Math.floor(time % 6)]);
+    setDiceImage(dice_list[Math.floor((time * 8) % 6)]);
     let d = Math.random() * (coordinate.x + coordinate.y) + coordinate.y;
     setDiceNumber(Math.floor(((Math.random() * d) % 10) % 6) + 1);
   };
@@ -58,18 +69,16 @@ const Dice = () => {
     clearInterval(intervalFunc);
     console.log(diceNumber);
     setDiceImage(dice_list[diceNumber - 1]);
+    setCount_Num(count_num + 1);
+    let a = diceNumber;
+    setResult_score(result_score + a);
   };
-
-  useEffect(() => {
-    tick();
-  }, []);
 
   return (
     <>
       <div>
         <Dice_svg width="300" height="300">
           {/* center */}
-
           <circle r="5" cx="150" cy="150" fill="black" />
           <circle r="5" cx={coordinate.x} cy={coordinate.y} fill="black" />
         </Dice_svg>
@@ -82,5 +91,4 @@ const Dice = () => {
     </>
   );
 };
-
 export default Dice;

@@ -4,6 +4,14 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 
 import Message from './Message';
 
+const ScrollContainer = styled.div`
+  padding: 5% 0;
+  width: 100%;
+  height: 60vh;
+  min-height: 440px;
+  max-height: 500px;
+  overflow-y:scroll;       
+`;
 
 const Messages = ({ messages, name }) => {
   const messagesEndRef = useRef(null)
@@ -15,13 +23,11 @@ const Messages = ({ messages, name }) => {
   useEffect(scrollToBottom, [messages]);
   
   return(
-    <div style={{overflowY:'scroll', maxHeight:'490px'}}>
+    <ScrollContainer>
       {messages.map((message, i) => (
-        <div key={i}>
-          <Message message={message} name={name} />
-        </div>
+        <Message key={i} message={message} name={name} />
       ))}
       <div ref={messagesEndRef}/>
-    </div>
+    </ScrollContainer>
 );}
 export default Messages;

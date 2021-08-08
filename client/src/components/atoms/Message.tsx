@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactEmoji from 'react-emoji';
+import color from '@theme/color';
 
 const OtherMessage = styled.div`
   display: flex;
@@ -31,18 +32,53 @@ const OtherName = styled.div`
   letter-spacing: 0.3px;
 `;
 const MessageBox = styled.div`
-  background: #f3f3f3;
+  background: ${color.primary.gray};
   letter-spacing: 0;
   float: left;
-  font-size: 1.1em;
+  font-size: 14px;
   word-wrap: break-word;
+  position: relative;
+  padding: 8px 12px;
+  max-width: 200px;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border: 16px solid transparent;
+    border-right-color: ${color.primary.gray};
+    border-left: 0;
+    border-top: 0;
+    margin-top: -8px;
+    margin-left: -16px;
+  }
 `;
+
 const MyMessageBox = styled.div`
-  background: #2979ff;
+  background: ${color.primary.darkYellow};
   letter-spacing: 0;
   float: left;
-  font-size: 1.1em;
+  font-size: 14px;
   word-wrap: break-word;
+  position: relative;
+  padding: 8px 12px;
+  max-width: 200px;
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border: 16px solid transparent;
+    border-left-color: ${color.primary.darkYellow};
+    border-right: 0;
+    border-top: 0;
+    margin-top: -8px;
+    margin-right: -16px;
+  }
 `;
 const MyText = styled.p`
   text-align: right;

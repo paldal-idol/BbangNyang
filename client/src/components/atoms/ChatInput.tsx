@@ -1,14 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import color from '@theme/color';
 
 const Form = styled.form`
   display: flex;
+  margin-top: 4px;
 `;
+
 const Input = styled.input`
   flex: 1;
-  height: 2rem;
+  height: 32px;
+  padding: 4px 20px;
+  border: 0px;
 `;
-const Button = styled.button``;
+
+const Button = styled.button`
+  width: 60px;
+  border: 0px;
+  cursor: pointer;
+  background-color: ${color.button.darkYellow};
+`;
 
 const ChatInput = ({ setMessage, sendMessage, message }) => (
   <Form className="form">
@@ -20,7 +31,7 @@ const ChatInput = ({ setMessage, sendMessage, message }) => (
       onKeyPress={(event) => (event.key === 'Enter' ? sendMessage(event) : null)}
     />
     <Button className="sendButton" onClick={(e) => sendMessage(e)}>
-      Send
+      전송
     </Button>
   </Form>
 );

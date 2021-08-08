@@ -18,7 +18,7 @@
 
 ## Development Stack ⚙️
 
-|  division  |         stact          |
+|  division  |         stack          |
 | :--------: | :--------------------: |
 |    Web     | babel, webpack, socket |
 | Front-end  |         react.js         |

@@ -10,6 +10,7 @@ const color: Colors = {
   primary: {
     darkYellow: '#FFD46E',
     lightBrown: '#DCA660',
+    gray: '#d3d3d3',
   },
   bakery: {
     doorBack: '#DDA660',
