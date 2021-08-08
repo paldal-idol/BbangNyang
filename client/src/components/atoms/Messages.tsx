@@ -7,7 +7,10 @@ import Message from './Message';
 const ScrollContainer = styled.div`
   padding: 5% 0;
   overflow: auto;
-  flex: auto;
+  width: 100%;
+  height: 60vh;
+  min-height: 440px;
+  max-height: 500px;
 `;
 
 const Messages = ({ messages, name }) => (

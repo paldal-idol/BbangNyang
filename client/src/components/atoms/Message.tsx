@@ -35,7 +35,7 @@ const MessageBox = styled.div`
   background: ${color.primary.gray};
   letter-spacing: 0;
   float: left;
-  font-size: 16px;
+  font-size: 14px;
   word-wrap: break-word;
   position: relative;
   padding: 8px 12px;
@@ -60,7 +60,7 @@ const MyMessageBox = styled.div`
   background: ${color.primary.darkYellow};
   letter-spacing: 0;
   float: left;
-  font-size: 16px;
+  font-size: 14px;
   word-wrap: break-word;
   position: relative;
   padding: 8px 12px;
