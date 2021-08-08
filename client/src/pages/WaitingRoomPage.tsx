@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import color from '@theme/color';
 
+import socket from '@store/socket'
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
@@ -49,6 +50,8 @@ const Chat = styled.div`
   padding: 10px;
   margin-left: 20px;
   width: 360px;
+  min-height:512px;
+  height:600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,14 +93,9 @@ const WaitingRoomPage = () => {
   const [modal, setModal] = useRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
   const [room, setRoom] = useRecoilState(roomState);
-  // let socket = useContext(WebSocketContext);
-  useEffect(() => {
-    console.log(user, room);
-  }, []);
 
   const goRobby = () => {
     let selected = confirm('대기방을 나가시겠습니까?');
-
     if (selected) {
       history.push('/');
     }

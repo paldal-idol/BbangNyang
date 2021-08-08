@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router';
 import styled, { css } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import modalState from '@store/modal';
+import userState from '@store/user';
+import roomState from '@store/room';
 import color from '@theme/color';
 import Door from '@img/bakery/door.PNG';
-
 interface DoorProps {
   isOpen: boolean;
 }
@@ -61,15 +63,27 @@ const BakeryDoor: React.FC = () => {
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
+  const [user, setUser] = useRecoilState(userState);
+  const [room, setRoom] = useRecoilState(roomState);
 
   const OpenDoor = () => {
     setIsOpen(true);
     setModal('EntryCode');
   };
+  const getCode = (callback) => {
+    axios.get('http://localhost:8000/makeRoom').then((res) => {
+      callback(res.data);
+    });
+  };
 
   const CreatNewRoom = () => {
     if (confirm('새로운 방을 생성하시겠습니까?')) {
-      history.push('/waiting');
+      getCode((data) => {
+        setRoom(data.code);
+        setUser(data.name);
+
+        history.push('/waiting');
+      });
     }
   };
 

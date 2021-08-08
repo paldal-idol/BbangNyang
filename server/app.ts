@@ -20,10 +20,14 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
-const { addUser, removeUser, getUser, getUsersInRoom, checkRoom } = require('./socket/users.tsx');
+const { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.ts');
+const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
-  socket.on('join', ({ name, room }: any, callback: any) => {
+  socket.on('join', ({ name , room }: any, callback: any) => {
+    if(checkNumberOfUsers(room)===false){
+      callback(true);
+    }
     console.log(`join user : ${name}, room : ${room}`);
     const { error, user } = addUser({ id: socket.id, name, room });
     if (error) return callback(error);
@@ -53,7 +57,7 @@ io.on('connect', (socket: any) => {
 
     callback();
   });
-
+  
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
     console.log(`${socket.id} has left`);
@@ -68,12 +72,40 @@ io.on('connect', (socket: any) => {
       });
     }
   });
+
+  socket.on('changeName', (name: string, callback: any)=>{
+    const user = getUser(socket.id);
+    const oldName = user.name;
+    changeUser({id:socket.id, name:name});
+    const users = getUsersInRoom(user.room);
+    console.log(users);
+
+    socket.broadcast
+    .to(user.room)
+    .emit('changeUsers', {users:users});
+    
+    socket.emit('message', {
+      user: 'admin',
+      text: `${oldName}, success name change to ${name}.`,
+    });
+
+    socket.broadcast
+      .to(user.room)
+      .emit('message', { user: 'admin', text: `${oldName} changed name to ${name}` });
+
+    callback();
+  })
 });
 
+
+
 app.get('/makeRoom', (req: any, res: any) => {
-  res.data = roomCodeGenerator();
-  res.send(roomCodeGenerator());
+  res.send({code:roomCodeGenerator(),name:generateName()});
 });
+
+app.get('/getName', (req:any,res:any)=>{
+  res.send({name:generateName()});
+})
 
 const port = process.env.PORT || 8000;
 server.listen(port, () => {
