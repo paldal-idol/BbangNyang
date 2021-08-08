@@ -12,7 +12,11 @@ const Image = styled.img`
 `;
 
 const BakeryImage: React.FC = () => {
-  return <Image src={Bakery} />;
+  return (
+    <>
+      <Image src={Bakery} />
+    </>
+  );
 };
 
 export default BakeryImage;
