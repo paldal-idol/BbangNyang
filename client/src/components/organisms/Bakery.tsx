@@ -6,6 +6,7 @@ import Title from '@atoms/BbangNyangTitle';
 import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
 import EntryCodeModal from '@molecules/EntryCodeModal';
+import DeveloperImform from '@atoms/DeveloperImform';
 import StartPageGuideModal from '../molecules/StartPageGuideModal';
 
 const Container = styled.div`
@@ -16,7 +17,6 @@ const Container = styled.div`
 
 const Bakery: React.FC = () => {
   const modal = useRecoilValue(modalState);
-
   return (
     <>
       <BakeryBackground />
@@ -24,6 +24,7 @@ const Bakery: React.FC = () => {
       <Container>
         <Title />
       </Container>
+      <DeveloperImform />
       {modal === 'EntryCode' && <EntryCodeModal />}
       {modal === 'BakeryGuide' && <StartPageGuideModal />}
     </>

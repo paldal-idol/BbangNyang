@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import diceState from '@store/Dice_number';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import dice_1 from '@img/dice/dice_1.PNG';
 import dice_2 from '@img/dice/dice_2.PNG';
@@ -38,14 +40,14 @@ const Dice = () => {
   const [diceImage, setDiceImage] = useState(dice_list[0]);
   const [diceNumber, setDiceNumber] = useState(0);
   const [coordinate, setCoordinate] = useState({ x: 150, y: 50 });
-
+  const [result_score, setResult_score] = useRecoilState(diceState);
   const tick = () => {
-    const time = Date.now() / 500;
+    const time = Date.now() / 250;
     setCoordinate({
       x: 150 + 100 * Math.cos(time),
       y: 150 + 100 * -Math.abs(Math.sin(time)),
     });
-    setDiceImage(dice_list[Math.floor(time % 6)]);
+    setDiceImage(dice_list[Math.floor((time * 8) % 6)]);
     let d = Math.random() * (coordinate.x + coordinate.y) + coordinate.y;
     setDiceNumber(Math.floor(((Math.random() * d) % 10) % 6) + 1);
   };
@@ -58,6 +60,9 @@ const Dice = () => {
     clearInterval(intervalFunc);
     console.log(diceNumber);
     setDiceImage(dice_list[diceNumber - 1]);
+
+    const a = diceNumber;
+    setResult_score(a);
   };
 
   useEffect(() => {
@@ -69,7 +74,6 @@ const Dice = () => {
       <div>
         <Dice_svg width="300" height="300">
           {/* center */}
-
           <circle r="5" cx="150" cy="150" fill="black" />
           <circle r="5" cx={coordinate.x} cy={coordinate.y} fill="black" />
         </Dice_svg>
@@ -82,5 +86,4 @@ const Dice = () => {
     </>
   );
 };
-
 export default Dice;
