@@ -6,6 +6,7 @@ import Title from '@atoms/BbangNyangTitle';
 import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
 import EntryCodeModal from '@molecules/EntryCodeModal';
+import StartPageGuideModal from '../molecules/StartPageGuideModal';
 
 const Container = styled.div`
   position: absolute;
@@ -24,6 +25,7 @@ const Bakery: React.FC = () => {
         <Title />
       </Container>
       {modal === 'EntryCode' && <EntryCodeModal />}
+      {modal === 'BakeryGuide' && <StartPageGuideModal />}
     </>
   );
 };
