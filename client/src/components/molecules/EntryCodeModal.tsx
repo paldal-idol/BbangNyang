@@ -51,17 +51,12 @@ const EntryCodeModal: React.FC = () => {
   const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
-    // TODO : 올바른 입장 코드인지 확인하는 코드 작성
-    // TODO : 방장 채팅 오류 -> 소켓 문제인 것 같습니다
-    // TODO : 입장시에 닉네임 중복 체크 OR 랜덤 닉네임 생성, 중복되면 채팅 오류
-    // setUser('test..');
-    
     axios.get('http://localhost:8000/getName').then(res=>{
       setUser(res.data.name);
     }).then(()=>{
       closeModal();
       history.push(`/waiting`);
-    })
+    });
   };
 
   const closeModal = () => {
