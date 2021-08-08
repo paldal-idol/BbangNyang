@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import bowl from '@img/map/bowl.PNG';
+import pie from '@img/map/pie.PNG';
 import Allow_dice_again from '@organisms/Allow_dice_again';
 const Map_svg = styled.svg`
   z-index: 1;
@@ -9,7 +9,7 @@ const Map_svg = styled.svg`
 `;
 const Map_img = styled.img`
   position: absolute;
-  width: 200px;
+  width: 210px;
   z-index: 2;
 `;
 const Map_div = styled.div`
@@ -78,17 +78,15 @@ class Player {
 
 const Map = () => {
   const [player_list, setPayer_list] = useState([]);
-
-  const [ar, setAr] = useState([]);
+  const mapPosition = Array(21)
+    .fill(0)
+    .map((v, i) =>
+      Object({
+        x: 500 * Math.cos((Math.PI * 34.5 * i) / 360) + 600,
+        y: 800 * Math.sin((Math.PI * 34.5 * i) / 360) + 1100,
+      }),
+    );
   useEffect(() => {
-    const arr = Array.from({ length: 21 }, (v, i) => {
-      return [
-        500 * Math.cos((Math.PI * 34.5 * i) / 360) + 600,
-        800 * Math.sin((Math.PI * 34.5 * i) / 360) + 1100,
-      ];
-    });
-    setAr(arr);
-
     let player_sequence = new Node('head');
     for (let i = 0; i < player_list.length; i++) {
       player_sequence.insert(player_list[i]);
@@ -100,12 +98,12 @@ const Map = () => {
         <ellipse cx="1200" cy="700" rx="900" ry="600" fill="white"></ellipse>
       </Map_svg>
       <Map_div>
-        {ar.map((item, idx) => (
+        {mapPosition.map((item, idx) => (
           <Map_img
-            src={bowl}
+            src={pie}
             style={{
-              top: `${item[0]}px`,
-              left: `${item[1]}px`,
+              top: `${item.x}px`,
+              left: `${item.y}px`,
             }}
           />
         ))}
