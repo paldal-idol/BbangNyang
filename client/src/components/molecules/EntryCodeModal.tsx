@@ -43,8 +43,6 @@ const Button = styled.button<buttonProps>`
   margin: 5px;
 `;
 
-const ENDPOINT = 'localhost:8000';
-let socket;
 
 const EntryCodeModal: React.FC = () => {
   const history = useHistory();
@@ -57,12 +55,7 @@ const EntryCodeModal: React.FC = () => {
     // TODO : 방장 채팅 오류 -> 소켓 문제인 것 같습니다
     // TODO : 입장시에 닉네임 중복 체크 OR 랜덤 닉네임 생성, 중복되면 채팅 오류
     // setUser('test..');
-    socket.on('checkNumberOfUsers',{room:room}, (error) => {
-      if (error) {
-        history.push(`/`);
-      }
-    })
-
+    
     axios.get('http://localhost:8000/getName').then(res=>{
       setUser(res.data.name);
     }).then(()=>{
