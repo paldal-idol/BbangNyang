@@ -1,5 +1,10 @@
 const users:any[] = [];
 
+const checkNumberOfUsers = (room:string)=>{
+  const userNumber = users.filter((user)=>user.room===room).length;
+  if(userNumber<6) return true;
+  else return false;
+}
 const addUser = ({ id, name, room }:any) => {
   const existingUser = users.find((user) => user.room === room && user.name === name);
   if (!name || !room) return { error: 'Username and room are required.' };
@@ -29,6 +34,7 @@ const changeUser = ({id,name}:any)=>{
   removeUser(id);
   addUser(user);
 };
+
 const checkRoom = (roomCode:string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
@@ -37,4 +43,4 @@ const checkRoom = (roomCode:string) => {
     return true;
   }
 };
-module.exports = { addUser, removeUser, getUser, getUsersInRoom, changeUser };
+module.exports = { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, changeUser };

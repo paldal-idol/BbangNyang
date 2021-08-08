@@ -28,7 +28,7 @@ const WaitingRoomChat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const name = useRecoilValue(userState);
-  const room = useRecoilValue(roomState);
+  const [room,setRoom] = useRecoilState(roomState);
   const [users, setUsers] = useRecoilState(usersState);
 
   // useEffect(() => {
@@ -38,9 +38,12 @@ const WaitingRoomChat = () => {
   useEffect(() => {
     if(socket){
       socket.emit('join', { name, room }, (error) => {
-        if (error) {
-          history.push(`/waiting`);
+        if(error){
+          setRoom('');
+          history.push(`/`);
+          alert('방이 꽉 찼습니다!!');
         }
+          
       });
 
       socket.on('message', (message) => {

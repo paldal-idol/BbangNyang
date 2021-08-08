@@ -20,11 +20,14 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
-const { addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.ts');
+const { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.ts');
 const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
   socket.on('join', ({ name , room }: any, callback: any) => {
+    if(checkNumberOfUsers(room)===false){
+      callback(true);
+    }
     console.log(`join user : ${name}, room : ${room}`);
     const { error, user } = addUser({ id: socket.id, name, room });
     if (error) return callback(error);
