@@ -74,15 +74,18 @@ io.on('connect', (socket: any) => {
     const user = getUser(socket.id);
     const oldName = user.name;
     changeUser({id:socket.id, name:name});
+    const users = getUsersInRoom(user.room);
+    console.log(users);
 
     socket.broadcast
     .to(user.room)
-    .emit('changeName', {oldUser : oldName, newUser : name});
-
+    .emit('changeUsers', {users:users});
+    
     socket.emit('message', {
       user: 'admin',
       text: `${oldName}, success name change to ${name}.`,
     });
+
     socket.broadcast
       .to(user.room)
       .emit('message', { user: 'admin', text: `${oldName} changed name to ${name}` });
@@ -100,6 +103,7 @@ app.get('/makeRoom', (req: any, res: any) => {
 app.get('/getName', (req:any,res:any)=>{
   res.send({name:generateName()});
 })
+
 const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listening on port : ${port}`);
