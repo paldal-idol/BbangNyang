@@ -13,6 +13,8 @@ const dice_list = [dice_1, dice_2, dice_3, dice_4, dice_5, dice_6];
 const Dice_svg = styled.svg`
   z-index: 1;
   position: absolute;
+  width: 100vw;
+  height: 100vh;
 `;
 const Dice_img = styled.img`
   margin-top: 200px;
@@ -20,6 +22,8 @@ const Dice_img = styled.img`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_h1 = styled.h1`
   margin-top: 240px;
@@ -27,6 +31,8 @@ const Dice_h1 = styled.h1`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice_Button = styled.button`
   margin-top: 300px;
@@ -34,12 +40,15 @@ const Dice_Button = styled.button`
   z-index: 2;
   position: absolute;
   width: 100px;
+  top: 500;
+  left: 800;
 `;
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
   const [diceImage, setDiceImage] = useState(dice_list[0]);
   const [diceNumber, setDiceNumber] = useState(0);
   const [coordinate, setCoordinate] = useState({ x: 150, y: 50 });
+  const [count_num, setCount_Num] = useState(0);
   const [result_score, setResult_score] = useRecoilState(diceState);
   const tick = () => {
     const time = Date.now() / 250;
@@ -60,14 +69,10 @@ const Dice = () => {
     clearInterval(intervalFunc);
     console.log(diceNumber);
     setDiceImage(dice_list[diceNumber - 1]);
-
-    const a = diceNumber;
-    setResult_score(a);
+    setCount_Num(count_num + 1);
+    let a = diceNumber;
+    setResult_score(result_score + a);
   };
-
-  useEffect(() => {
-    tick();
-  }, []);
 
   return (
     <>
