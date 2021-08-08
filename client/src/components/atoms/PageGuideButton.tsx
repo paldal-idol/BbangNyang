@@ -5,7 +5,7 @@ import RoundSquareButton from './RoundSquareButton';
 import styled from 'styled-components';
 
 
-const GuideContainer = styled.div`
+const ButtonContainer = styled.div`
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -20,11 +20,11 @@ const PageGuideButton: React.FC = () => {
     };
     
     return (
-        <GuideContainer>
+        <ButtonContainer>
             <RoundSquareButton variant="yellow" size="lg" onClick={openModal}>
                 ?
             </RoundSquareButton>
-        </GuideContainer>
+        </ButtonContainer>
     );
 }
 

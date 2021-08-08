@@ -39,10 +39,10 @@ const StartPageGuideModal: React.FC = () => {
 
   return (
     <Modal>
+      <ButtonContainer>
+        <CloseButton onClick={closeModal}>X</CloseButton>
+      </ButtonContainer>
       <Content>
-        <ButtonContainer>
-          <CloseButton onClick={closeModal}>X</CloseButton>
-        </ButtonContainer>
         <StartPageGuide/>
       </Content>
     </Modal>
