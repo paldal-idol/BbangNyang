@@ -15,7 +15,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #ffffff;
   border-radius: 8px;
 `;
 

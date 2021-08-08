@@ -20,12 +20,16 @@ const Text = styled.p`
   font-size: 2rem;
 `;
 
-const WindowSizeErrorPage: React.FC = () => {
+const ErrorPage = ({ message }: ErrorPageProps) => {
   return (
     <Container>
-      <Text>화면 크기는 최소 800px 이상이어야 합니다😅</Text>
+      <Text>{message}</Text>
     </Container>
   );
 };
 
-export default WindowSizeErrorPage;
+interface ErrorPageProps {
+  message: string;
+}
+
+export default ErrorPage;

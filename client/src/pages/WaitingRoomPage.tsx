@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import color from '@theme/color';
 
 import modalState from '@store/modal';
 import userState from '@store/user';
@@ -25,9 +26,12 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  text-align: center;
-  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid gray;
+  height: 60px;
+  font-size: 28px;
 `;
 
 const UserInfoContainer = styled.div`
@@ -73,6 +77,14 @@ const RuleBookContainer = styled.div`
   right: 10px;
 `;
 
+const CodeText = styled.p`
+  &:hover {
+    color: ${color.button.darkYellow};
+    cursor: pointer;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  }
+`;
+
 const WaitingRoomPage = () => {
   const history = useHistory();
   const [modal, setModal] = useRecoilState(modalState);
@@ -83,28 +95,39 @@ const WaitingRoomPage = () => {
     console.log(user, room);
   }, []);
 
-  function goRobby() {
+  const goRobby = () => {
     let selected = confirm('대기방을 나가시겠습니까?');
 
     if (selected) {
       history.push('/');
     }
-  }
+  };
 
-  function setReady() {
+  const setReady = () => {
     alert('레디완료');
-  }
+  };
 
-  function getHelp() {
+  const getHelp = () => {
     alert('도움말');
-  }
+  };
+
+  const copy = () => {
+    alert('방 코드가 복사되었습니다.');
+    const textArea = document.createElement('textarea');
+    document.body.appendChild(textArea);
+    textArea.value = room;
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  };
 
   return (
     <>
       {modal === 'SelectCharacterModal' && <SelectCharacterModal />}
       <Container>
         <Header>
-          <h1>Waiting Room Page</h1>
+          <p>CODE:&nbsp;</p>
+          <CodeText onClick={copy}>{room}</CodeText>
         </Header>
         <Content>
           <UserInfoContainer>
