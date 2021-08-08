@@ -110,7 +110,7 @@ const WaitingRoomPage = () => {
       {modal === 'SelectCharacterModal' && <SelectCharacterModal />}
       <Container>
         <Header>
-          <h1>Waiting Room Page</h1>
+          <h1>ROOM CODE : {room}</h1>
         </Header>
         <Content>
           <UserInfoContainer>
