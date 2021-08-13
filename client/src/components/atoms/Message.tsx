@@ -16,20 +16,20 @@ const MyMessage = styled.div`
   margin-top: 3px;
 `;
 const MyName = styled.div`
-  padding-right: 10px;
+  padding-right: 6px;
   display: flex;
   align-items: center;
-  font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
+  font-size: 14px;
 `;
 const OtherName = styled.div`
-  padding-left: 10px;
+  padding-left: 6px;
   display: flex;
   align-items: center;
-  font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
+  font-size: 14px;
 `;
 const MessageBox = styled.div`
   background: ${color.primary.gray};
@@ -87,16 +87,18 @@ const UserText = styled.p`
   text-align: left;
 `;
 
+const AdminText = styled.p`
+  width: 100%;
+  padding: 10px 0px;
+  text-align: 'center';
+  color: ${color.primary.black};
+`;
+
 const Message = ({ message: { text, user }, name }) => {
-  let isSentByCurrentUser = false;
-
-  // const trimmedName = name.trim().toLowerCase();
-
-  if (user === name) {
-    isSentByCurrentUser = true;
+  if (user === 'admin') {
+    return <AdminText>{text}</AdminText>;
   }
-
-  return isSentByCurrentUser ? (
+  return user === name ? (
     <MyMessage>
       <MyName>{name}</MyName>
       <MyMessageBox>
