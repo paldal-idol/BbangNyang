@@ -20,7 +20,7 @@ const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
-const { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUser } = require('./socket/users.ts');
+const { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, checkRoom, changeUserName, changeUserReady } = require('./socket/users.ts');
 const {generateName} = require('./game/nameGenerator');
 
 io.on('connect', (socket: any) => {
@@ -54,6 +54,16 @@ io.on('connect', (socket: any) => {
     const user = getUser(socket.id);
     //모든 사용자에게 메시지 전달
     io.to(user.room).emit('message', { user: user.name, text: message });
+
+    callback();
+  });
+
+  socket.on('ready', (readyState: any, callback: any) => {
+    const user = getUser(socket.id);
+    
+    changeUserReady(socket.id, readyState);
+    //모든 사용자에게 메시지 전달
+    io.to(user.room).emit('ready', { user: user.name, readyState: user.ready });
 
     callback();
   });

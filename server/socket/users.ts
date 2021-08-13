@@ -36,6 +36,18 @@ const getUser = (id:string) => users.find((user) => user.id === id);
 
 const getUsersInRoom = (room:string) => users.filter((user) => user.room === room);
 
+const changeUserReady = (id: string, readyState: boolean) => {
+  const user = getUser(id);
+  
+  if (user === undefined) {
+    return { error: 'Is not Users' };
+  }
+
+  console.log(`Change user ready state: ${readyState}`);
+
+  user.ready = readyState;
+}
+
 const changeUserName = (id: string ,name: string) => {
   const user = getUser(id);
 
@@ -56,4 +68,4 @@ const checkRoom = (roomCode:string) => {
     return true;
   }
 };
-module.exports = { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, changeUserName };
+module.exports = { checkNumberOfUsers, addUser, removeUser, getUser, getUsersInRoom, changeUserName, changeUserReady };
