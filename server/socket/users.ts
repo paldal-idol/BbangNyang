@@ -28,8 +28,8 @@ const getUser = (id:string) => users.find((user) => user.id === id);
 const getUsersInRoom = (room:string) => users.filter((user) => user.room === room);
 
 const changeUser = ({id,name}:any)=>{
-  const user = users.find((user) => user.id === id);;
-  console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`)
+  const user = users.find((user) => user.id === id);
+  console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`);
   console.log(`Change user name: ${user.name} to ${name}`);
   user.name = name;
   removeUser(id);
