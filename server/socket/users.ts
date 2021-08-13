@@ -5,12 +5,13 @@ const checkNumberOfUsers = (room:string)=>{
   if(userNumber<6) return true;
   else return false;
 }
+
 const addUser = ({ id, name, room }:any) => {
   const existingUser = users.find((user) => user.room === room && user.name === name);
   if (!name || !room) return { error: 'Username and room are required.' };
   if (existingUser) return { error: 'Username is taken.' };
 
-  const user = { id, name, room };
+  const user = { id, name, room, ready: false };
 
   users.push(user);
   return { user };
