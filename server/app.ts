@@ -76,7 +76,7 @@ io.on('connect', (socket: any) => {
   socket.on('changeName', (name: string, callback: any)=>{
     const user = getUser(socket.id);
     const oldName = user.name;
-    changeUser({id:socket.id, name:name});
+    changeUserName(socket.id, name);
     const users = getUsersInRoom(user.room);
     console.log(users);
 
