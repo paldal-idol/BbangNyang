@@ -7,7 +7,7 @@ import BakeryDoor from '@atoms/BakeryDoor';
 import BakeryBackground from '@atoms/BakeryImage';
 import EntryCodeModal from '@molecules/EntryCodeModal';
 import DeveloperImform from '@atoms/DeveloperImform';
-
+import ProjectImform from '@atoms/ProjectImform';
 const Container = styled.div`
   position: absolute;
   margin-left: 30px;
@@ -24,6 +24,7 @@ const Bakery: React.FC = () => {
         <Title />
       </Container>
       <DeveloperImform />
+      <ProjectImform />
       {modal === 'EntryCode' && <EntryCodeModal />}
     </>
   );

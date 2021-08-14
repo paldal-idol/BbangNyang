@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 
 import styled from 'styled-components';
 
-import socket from '@store/socket'
+import socket from '@store/socket';
 import userState from '@store/user';
 import roomState from '@store/room';
 import usersState from '@store/users';
@@ -24,17 +24,17 @@ const WaitingRoomChat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const name = useRecoilValue(userState);
-  const [room,setRoom] = useRecoilState(roomState);
+  const [room, setRoom] = useRecoilState(roomState);
   const [users, setUsers] = useRecoilState(usersState);
 
   useEffect(() => {
-    if(socket){
+    if (socket) {
       socket.emit('join', { name, room }, (error) => {
-        if(error){
+        if (error) {
           setRoom('');
           history.push(`/`);
-          alert('방이 꽉 찼습니다!!');
-        }     
+          // alert('방이 꽉 찼습니다!!');
+        }
       });
 
       socket.on('message', (message) => {

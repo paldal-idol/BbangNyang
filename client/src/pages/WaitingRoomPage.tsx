@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import color from '@theme/color';
 
-import socket from '@store/socket'
+import socket from '@store/socket';
 import modalState from '@store/modal';
 import userState from '@store/user';
+import usersState from '@store/users';
 import roomState from '@store/room';
 
 import RoundSquareButton from '@atoms/RoundSquareButton';
@@ -50,8 +51,8 @@ const Chat = styled.div`
   padding: 10px;
   margin-left: 20px;
   width: 360px;
-  min-height:512px;
-  height:600px;
+  min-height: 512px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -93,6 +94,12 @@ const WaitingRoomPage = () => {
   const [modal, setModal] = useRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
   const [room, setRoom] = useRecoilState(roomState);
+  const [gameStatus, setGameStatus] = useState('Ready');
+  let users = useRecoilValue(usersState);
+
+  useEffect(() => {
+    setGameStatus(users.length > 0 ? (users[0].name === user ? 'Game Start' : 'Ready') : 'Ready');
+  }, [users]);
 
   const goRobby = () => {
     let selected = confirm('대기방을 나가시겠습니까?');
@@ -102,7 +109,14 @@ const WaitingRoomPage = () => {
   };
 
   const setReady = () => {
-    alert('레디완료');
+    switch (gameStatus) {
+      case 'Ready':
+        alert('레디완료');
+        break;
+      case 'Game Start':
+        alert('게임시작');
+        break;
+    }
   };
 
   const getHelp = () => {
@@ -141,7 +155,7 @@ const WaitingRoomPage = () => {
         </Content>
         <Footer>
           <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
-            Ready
+            {gameStatus}
           </RoundSquareButton>
           <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
             도움말
