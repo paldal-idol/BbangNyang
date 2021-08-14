@@ -58,7 +58,7 @@ const WaitingRoomUsers = () => {
   const [isMaster, setIsMaster] = useState(true);
   const name = useRecoilValue(userState);
   const [users, setUsers] = useRecoilState(usersState);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(null);
 
   useEffect(() => {
     socket.on('changeUsers', ({ users }) => {
@@ -71,6 +71,11 @@ const WaitingRoomUsers = () => {
 
   useEffect(() => {
     setUserList(users);
+    socket.on('roomData', ({ room, users }: any) => {
+      console.log('socket.on : roomData');
+      setUserList(users);
+      console.log(users[0].character);
+    });
   }, [users]);
 
   const expulsionUser = () => {
@@ -89,19 +94,21 @@ const WaitingRoomUsers = () => {
   ];
 
   return (
-    <Container>
-      {testUserList.map((user, i) => {
-        return (
-          <UserItem key={i}>
-            <UserInfo isReady={user.isReady}>
-              <CatImg src={CatImages[user.catId]} />
-              <UserName>{user.name}</UserName>
-            </UserInfo>
-            {isMaster && <ExpulsionButton onClick={expulsionUser}>X</ExpulsionButton>}
-          </UserItem>
-        );
-      })}
-    </Container>
+    userList && (
+      <Container>
+        {userList.map((user, i) => {
+          return (
+            <UserItem key={i}>
+              <UserInfo isReady={user.isReady}>
+                <CatImg src={CatImages[user.character]} />
+                <UserName>{user.name}</UserName>
+              </UserInfo>
+              {isMaster && <ExpulsionButton onClick={expulsionUser}>X</ExpulsionButton>}
+            </UserItem>
+          );
+        })}
+      </Container>
+    )
   );
 };
 export default WaitingRoomUsers;
