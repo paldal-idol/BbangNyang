@@ -33,7 +33,7 @@ const WaitingRoomChat = () => {
         if (error) {
           setRoom('');
           history.push(`/`);
-          // alert('방이 꽉 찼습니다!!');
+          alert('방이 꽉 찼습니다!!');
         }
       });
 

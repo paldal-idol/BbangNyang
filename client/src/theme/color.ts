@@ -11,6 +11,7 @@ const color: Colors = {
     darkYellow: '#FFD46E',
     lightBrown: '#DCA660',
     gray: '#d3d3d3',
+    black: '#4a4a4a',
   },
   bakery: {
     doorBack: '#DDA660',
