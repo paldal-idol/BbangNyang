@@ -1,7 +1,7 @@
 const users:any[] = [];
 
-const checkNumberOfUsers = (room:string)=>{
-  const userNumber = users.filter((user)=>user.room===room).length;
+const checkNumberOfUsers = (room:string) => {
+  const userNumber = users.filter((user) => user.room===room).length;
   if(userNumber<6) return true;
   else return false;
 }

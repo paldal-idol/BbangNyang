@@ -98,7 +98,20 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
-    setGameStatus(users.length > 0 ? (users[0].name === user ? 'Game Start' : 'Ready') : 'Ready');
+    if (users.length > 0) {
+      if (users[0].name === user) {
+        setGameStatus('Game Start');
+      } else {
+        if (!users.find((e) => e.name === user).ready) {
+          setGameStatus('Ready');
+        } else {
+          setGameStatus('Cancel');
+        }
+      }
+    } else {
+      setGameStatus('Ready Button');
+    }
+    // setGameStatus(users.length > 0 ? (users[0].name === user ? 'Game Start' : 'Ready') : 'Ready');
   }, [users]);
 
   const goRobby = () => {
@@ -112,7 +125,11 @@ const WaitingRoomPage = () => {
     switch (gameStatus) {
       case 'Ready':
         alert('레디완료');
+        socket.emit('ready', true);
         break;
+      case 'Cancel':
+        alert('레디취소');
+        socket.emit('ready', false);
       case 'Game Start':
         alert('게임시작');
         break;
