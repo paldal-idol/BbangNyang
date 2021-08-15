@@ -72,6 +72,17 @@ const checkRoom = (roomCode: string) => {
     return true;
   }
 };
+//401 : notEnoughReady 402 : notEnoughUsers
+const isAllReady = () => {
+  return users.reduce((result, element, index) => {
+    result += element.isReady === true ? 1 : index === 0 ? 1 : 0;
+    return result;
+  }, 0) === users.length && users.length >= 3
+    ? 200
+    : users.length >= 3
+    ? 401
+    : 402;
+};
 module.exports = {
   checkNumberOfUsers,
   addUser,
@@ -80,4 +91,5 @@ module.exports = {
   getUsersInRoom,
   changeUserName,
   changeUserReady,
+  isAllReady,
 };
