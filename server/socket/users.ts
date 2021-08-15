@@ -64,6 +64,14 @@ const changeUserName = (id: string, name: string) => {
   user.name = name;
 };
 
+const changeUserCharacter = (id: string, character: number) => {
+  const user = getUser(id);
+
+  if (!isValidCharacter(character, user.room)) return { error: 'Selected character is taken.' };
+
+  user.character = character;
+};
+
 const checkRoom = (roomCode: string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
@@ -80,4 +88,5 @@ module.exports = {
   getUsersInRoom,
   changeUserName,
   changeUserReady,
+  changeUserCharacter,
 };

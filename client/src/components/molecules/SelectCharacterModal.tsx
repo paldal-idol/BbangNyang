@@ -9,6 +9,7 @@ import userState from '@store/user';
 import usersState from '@store/users';
 import modalState from '@store/modal';
 import roomState from '@store/room';
+import userCharacter from '@store/character';
 import Modal from '@atoms/Modal';
 import color from '@theme/color';
 import selectedCharacter from '@store/selectedCharacter';
@@ -71,6 +72,7 @@ const Button = styled.button<buttonProps>`
 
 const CatImg = styled.img<imageProps>`
   width: 150px;
+  cursor: pointer;
   opacity: ${(props) => (props.valid ? '100%' : '40%')};
 `;
 
@@ -83,7 +85,9 @@ const CatSelectModal: React.FC = () => {
   const [userName, setUserName] = useState(user);
   const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
+  const [character, setCharacter] = useRecoilState(userCharacter);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
+  const [changeCharacter, setChangeCharacter] = useState(null);
 
   useEffect(() => {
     console.log(characters);
@@ -95,17 +99,26 @@ const CatSelectModal: React.FC = () => {
       return false;
     }
     // TODO : Recoil로 이름 정보 변경하기
+
     if (users) {
       const isUser = (existUser) => existUser.name === user;
       const oldUserIndex = users.findIndex(isUser);
       console.log(oldUserIndex);
-
-      socket.emit('changeName', userName, () => setUser(userName));
-
       const newUsers = _.cloneDeep(users);
-      newUsers[oldUserIndex].name = userName;
-
-      setUsers(newUsers);
+      if (newUsers[oldUserIndex].name !== userName) {
+        socket.emit('changeName', userName, () => {
+          setUser(userName);
+          newUsers[oldUserIndex].name = userName;
+          setUsers(newUsers);
+        });
+      }
+      if (changeCharacter !== null) {
+        socket.emit('changeCharacter', changeCharacter, () => {
+          setCharacter(changeCharacter);
+          newUsers[oldUserIndex].character = changeCharacter;
+          setUsers(newUsers);
+        });
+      }
     }
 
     closeModal();
@@ -123,7 +136,14 @@ const CatSelectModal: React.FC = () => {
             <CatImg
               src={cats}
               key={index}
-              valid={characters.find((cat) => cat === index) ? false : true}
+              valid={characters.find((cat) => cat === index) !== undefined ? false : true}
+              onClick={() => {
+                if (characters.find((cat) => cat === index) === undefined) {
+                  //TODO: 선택된 고양이로 정보 업데이트
+                  console.log(index);
+                  setChangeCharacter(index);
+                }
+              }}
             />
           ))}
         </CatContainer>
