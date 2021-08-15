@@ -39,7 +39,7 @@ io.on('connect', (socket: any) => {
       callback(true);
     }
     console.log(`join user : ${name}, room : ${room}`);
-    const randomCharacter = getRandomCharacter();
+    const randomCharacter = getRandomCharacter(getUsersInRoom(room));
     console.log(randomCharacter);
     const { error, user } = addUser({ id: socket.id, name, room, character: randomCharacter });
     if (error) return callback(error);
