@@ -98,21 +98,31 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
-    if (users.length > 0) {
-      if (users[0].name === user) {
-        setGameStatus('Game Start');
-      } else {
-        if (!users.find((e) => e.name === user).isReady) {
-          setGameStatus('Ready');
-        } else {
-          setGameStatus('Cancel');
-        }
-      }
-    } else {
-      setGameStatus('Ready Button');
-    }
-    // setGameStatus(users.length > 0 ? (users[0].name === user ? 'Game Start' : 'Ready') : 'Ready');
+    // if (users.length > 0) {
+    //   if (users[0].name === user) {
+    //     setGameStatus('Game Start');
+    //   } else {
+    //     if (!users.find((e) => e.name === user).isReady) {
+    //       setGameStatus('Ready');
+    //     } else {
+    //       setGameStatus('Cancel');
+    //     }
+    //   }
+    // } else {
+    //   setGameStatus('Ready Button');
+    // }
+    setGameStatus(
+      users.length > 0
+        ? users[0].name === user
+          ? 'Game Start'
+          : !users.find((e) => e.name === user).isReady
+          ? 'Ready'
+          : 'Cancel'
+        : 'Ready Button',
+    );
   }, [users]);
+
+  useEffect(() => {}, [gameStatus]);
 
   const goRobby = () => {
     let selected = confirm('대기방을 나가시겠습니까?');
@@ -130,11 +140,21 @@ const WaitingRoomPage = () => {
       case 'Cancel':
         alert('레디취소');
         socket.emit('ready', false);
+        break;
       case 'Game Start':
         alert('게임시작');
+        socket.emit('gameStart');
+
         break;
     }
+    socket.once('listenEvent', (status) => {
+      alert(status);
+    });
   };
+
+  socket.on('startEvent', () => {
+    history.push('/game');
+  });
 
   const getHelp = () => {
     alert('도움말');

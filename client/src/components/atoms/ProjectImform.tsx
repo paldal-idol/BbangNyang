@@ -27,7 +27,7 @@ const ProjectImform: React.FC = () => {
   const [height, setHeight] = useState(0);
   const UpAndDown = () => {
     const time = Date.now() / 2500;
-    setHeight(70 * Math.abs(Math.sin(time)));
+    setHeight(70 * Math.abs(Math.sin(time) ** 2));
   };
   useEffect(() => {
     setInterval(UpAndDown, 0);

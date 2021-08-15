@@ -30,6 +30,7 @@ const {
   changeUserName,
   changeUserReady,
   changeUserCharacter,
+  isAllReady,
 } = require('./socket/users.ts');
 const { generateName } = require('./game/nameGenerator');
 const { getRandomCharacter } = require('./game/characterSelector');
@@ -133,6 +134,23 @@ io.on('connect', (socket: any) => {
     socket.broadcast.to(user.room).emit('changeUsers', { users: users });
     callback();
   });
+
+  socket.on('gameStart', () => {
+    const user = getUser(socket.id);
+    let status = isAllReady();
+
+    switch (status) {
+      case 200:
+        io.to(user.room).emit('startEvent');
+        break;
+      case 401:
+        socket.emit('listenEvent', '준비를 안한 사용자가 있습니다.');
+        break;
+      case 402:
+        socket.emit('listenEvent', '사용자가 부족합니다.');
+        break;
+    }
+  });
 });
 
 app.get('/makeRoom', (req: any, res: any) => {
@@ -147,5 +165,3 @@ const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listening on port : ${port}`);
 });
-
-// app.listen(port, () => console.log(`listening on port ${port}`));
