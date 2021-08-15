@@ -29,6 +29,7 @@ const {
   checkRoom,
   changeUserName,
   changeUserReady,
+  changeUserCharacter,
   isAllReady,
 } = require('./socket/users.ts');
 const { generateName } = require('./game/nameGenerator');
@@ -119,6 +120,21 @@ io.on('connect', (socket: any) => {
     callback();
   });
 
+  socket.on('changeCharacter', (character: number, callback: any) => {
+    const user = getUser(socket.id);
+    console.log(character);
+    const error = changeUserCharacter(socket.id, character);
+
+    if (error) {
+      console.log(error);
+    }
+    const users = getUsersInRoom(user.room);
+    console.log(users);
+
+    socket.broadcast.to(user.room).emit('changeUsers', { users: users });
+    callback();
+  });
+
   socket.on('gameStart', () => {
     const user = getUser(socket.id);
     let status = isAllReady();
@@ -149,5 +165,3 @@ const port = process.env.PORT || 8000;
 server.listen(port, () => {
   console.log(`listening on port : ${port}`);
 });
-
-// app.listen(port, () => console.log(`listening on port ${port}`));

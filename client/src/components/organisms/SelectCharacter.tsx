@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import users from '@store/users';
 import socket from '@store/socket';
 import modalState from '@store/modal';
+import userCharacter from '@store/character';
 import selectedCharacter from '@store/selectedCharacter';
 import { CatImages } from '@utils/cat';
 import color from '@theme/color';
@@ -40,8 +41,7 @@ const SelectCharacter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
-  const [selectedCatIndex, setSelectedCatIndex] = useState(0); //TODO : 랜덤 생성 및 상태 로직 짜기
-
+  const [character, setCharacter] = useRecoilState(userCharacter); //TODO : 랜덤 생성 및 상태 로직 짜기
   const selectCharacter = () => {
     setIsOpen(true);
     setModal('SelectCharacterModal');
@@ -51,12 +51,12 @@ const SelectCharacter: React.FC = () => {
     socket.on('roomData', ({ room, users }: any) => {
       console.log('socket.on : roomData');
       const my = users.find((user) => socket.id === user.id);
-      setSelectedCatIndex(my.character);
+      setCharacter(my.character);
 
       const isSelected = users.map((user) => user.character);
       setCharacters(isSelected);
     });
-  }, [users]);
+  }, [users, character]);
 
   useEffect(() => {
     if (modal !== 'SelectCharacterModal') {
@@ -66,7 +66,7 @@ const SelectCharacter: React.FC = () => {
 
   return (
     <Container>
-      <CharacterImg alt="character" src={CatImages[selectedCatIndex]} />
+      <CharacterImg alt="character" src={CatImages[character]} />
       <SelectCharacterButton isOpen={isOpen} onClick={selectCharacter}>
         캐릭터 변경
       </SelectCharacterButton>
