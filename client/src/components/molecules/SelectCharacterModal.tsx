@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import modalState from '@store/modal';
 import roomState from '@store/room';
 import Modal from '@atoms/Modal';
 import color from '@theme/color';
+import selectedCharacter from '@store/selectedCharacter';
 
 import { CatImages } from '@utils/cat';
 
@@ -18,6 +19,9 @@ interface buttonProps {
   backgroundColor: string;
 }
 
+interface imageProps {
+  valid: boolean;
+}
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,20 +69,25 @@ const Button = styled.button<buttonProps>`
   border: 0px;
 `;
 
-const CatImg = styled.img`
+const CatImg = styled.img<imageProps>`
   width: 150px;
+  opacity: ${(props) => (props.valid ? '100%' : '40%')};
 `;
 
 const CatSelectModal: React.FC = () => {
   const history = useHistory();
-  const setModal = useSetRecoilState(modalState);
+  const [modal, setModal] = useRecoilState(modalState);
   // TODO : Recoil로 초기이름 정보 가져오기
-  const [user,setUser] = useRecoilState(userState);
-  const [users,setUsers] = useRecoilState(usersState);
+  const [user, setUser] = useRecoilState(userState);
+  const [users, setUsers] = useRecoilState(usersState);
   const [userName, setUserName] = useState(user);
   const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
+  const [characters, setCharacters] = useRecoilState(selectedCharacter);
 
+  useEffect(() => {
+    console.log(characters);
+  }, [users]);
   const codeHandler = () => {
     const newUserName = userNameInput.current.value;
     if (newUserName.length < 2) {
@@ -86,16 +95,16 @@ const CatSelectModal: React.FC = () => {
       return false;
     }
     // TODO : Recoil로 이름 정보 변경하기
-    if(users){
-      const isUser = (existUser)=>existUser.name===user;
+    if (users) {
+      const isUser = (existUser) => existUser.name === user;
       const oldUserIndex = users.findIndex(isUser);
       console.log(oldUserIndex);
 
-      socket.emit('changeName',userName, ()=>setUser(userName));
-      
+      socket.emit('changeName', userName, () => setUser(userName));
+
       const newUsers = _.cloneDeep(users);
-      newUsers[oldUserIndex].name=userName;
- 
+      newUsers[oldUserIndex].name = userName;
+
       setUsers(newUsers);
     }
 
@@ -111,7 +120,11 @@ const CatSelectModal: React.FC = () => {
       <Content>
         <CatContainer>
           {CatImages.map((cats, index) => (
-            <CatImg src={cats} key={index} />
+            <CatImg
+              src={cats}
+              key={index}
+              valid={characters.find((cat) => cat === index) ? false : true}
+            />
           ))}
         </CatContainer>
         <ButtonContainer>
@@ -121,7 +134,6 @@ const CatSelectModal: React.FC = () => {
             onChange={(event) => {
               setUserName(event.target.value);
             }}
-            
             value={userName}
           ></CodeInput>
           <Button backgroundColor={color.button.orange} onClick={codeHandler}>
