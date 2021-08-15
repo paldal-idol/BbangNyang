@@ -20,7 +20,7 @@ const addUser = ({ id, name, room }:any) => {
   if (!isValidName(name, room)) 
     return { error: 'Username is taken.' };
 
-  const user = { id, name, room, ready: false };
+  const user = { id, name, room, isReady: false };
 
   users.push(user);
   return { user };
@@ -45,7 +45,7 @@ const changeUserReady = (id: string, readyState: boolean) => {
 
   console.log(`Change user ready state: ${readyState}`);
 
-  user.ready = readyState;
+  user.isReady = readyState;
 }
 
 const changeUserName = (id: string ,name: string) => {

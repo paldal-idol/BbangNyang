@@ -102,7 +102,7 @@ const WaitingRoomPage = () => {
       if (users[0].name === user) {
         setGameStatus('Game Start');
       } else {
-        if (!users.find((e) => e.name === user).ready) {
+        if (!users.find((e) => e.name === user).isReady) {
           setGameStatus('Ready');
         } else {
           setGameStatus('Cancel');
