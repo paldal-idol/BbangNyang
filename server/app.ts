@@ -70,14 +70,16 @@ io.on('connect', (socket: any) => {
     callback();
   });
 
-  socket.on('ready', (readyState: any, callback: any) => {
+  socket.on('ready', (readyState: boolean, callback: any) => {
     const user = getUser(socket.id);
 
     changeUserReady(socket.id, readyState);
-    //모든 사용자에게 메시지 전달
-    io.to(user.room).emit('ready', { user: user.name, readyState: user.ready });
 
-    callback();
+    //모든 사용자에게 사용자 상태 전달
+    io.to(user.room).emit('roomData', {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
   });
 
   socket.on('disconnect', () => {
