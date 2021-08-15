@@ -87,7 +87,7 @@ const CatSelectModal: React.FC = () => {
 
   useEffect(() => {
     console.log(characters);
-  }, [characters]);
+  }, [users]);
   const codeHandler = () => {
     const newUserName = userNameInput.current.value;
     if (newUserName.length < 2) {
@@ -120,7 +120,11 @@ const CatSelectModal: React.FC = () => {
       <Content>
         <CatContainer>
           {CatImages.map((cats, index) => (
-            <CatImg src={cats} key={index} valid={characters.indexOf(cats) >= 0 ? false : true} />
+            <CatImg
+              src={cats}
+              key={index}
+              valid={characters.find((cat) => cat === index) ? false : true}
+            />
           ))}
         </CatContainer>
         <ButtonContainer>
