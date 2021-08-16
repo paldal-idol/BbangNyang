@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { useRecoilState } from 'recoil';
 import modalState from '@store/modal';
 import userState from '@store/user';
+import usersState from '@store/users';
 import roomState from '@store/room';
 import color from '@theme/color';
 import Door from '@img/bakery/door.PNG';
@@ -64,6 +65,7 @@ const BakeryDoor: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
+  const [users, setUsers] = useRecoilState(usersState);
   const [room, setRoom] = useRecoilState(roomState);
 
   const OpenDoor = () => {
@@ -79,6 +81,7 @@ const BakeryDoor: React.FC = () => {
   const CreatNewRoom = () => {
     if (confirm('새로운 방을 생성하시겠습니까?')) {
       getCode((data) => {
+        setUsers([]);
         setRoom(data.code);
         setUser(data.name);
 

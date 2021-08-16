@@ -98,28 +98,16 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
-    // if (users.length > 0) {
-    //   if (users[0].name === user) {
-    //     setGameStatus('Game Start');
-    //   } else {
-    //     if (!users.find((e) => e.name === user).isReady) {
-    //       setGameStatus('Ready');
-    //     } else {
-    //       setGameStatus('Cancel');
-    //     }
-    //   }
-    // } else {
-    //   setGameStatus('Ready Button');
-    // }
-    setGameStatus(
-      users.length > 0
-        ? users[0].name === user
+    socket.connect();
+    if (users.find((e) => e.name === user) !== undefined) {
+      setGameStatus(
+        users[0].name === user
           ? 'Game Start'
           : !users.find((e) => e.name === user).isReady
           ? 'Ready'
-          : 'Cancel'
-        : 'Ready Button',
-    );
+          : 'Cancel',
+      );
+    }
   }, [users]);
 
   useEffect(() => {}, [gameStatus]);

@@ -28,6 +28,7 @@ const WaitingRoomChat = () => {
   const [users, setUsers] = useRecoilState(usersState);
 
   useEffect(() => {
+    console.log(socket.id);
     if (socket) {
       socket.emit('join', { name, room }, (error) => {
         if (error) {
