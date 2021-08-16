@@ -7,6 +7,7 @@ import { CatImages } from '@utils/cat';
 import socket from '@store/socket';
 import userState from '@store/user';
 import usersState from '@store/users';
+import selectedCharacter from '@store/selectedCharacter';
 import color from '@theme/color';
 
 interface UserInfoProps {
@@ -59,12 +60,15 @@ const WaitingRoomUsers = () => {
   const name = useRecoilValue(userState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userList, setUserList] = useState(null);
+  const [characters, setCharacters] = useRecoilState(selectedCharacter);
 
   useEffect(() => {
     socket.on('changeUsers', ({ users }) => {
       //TODO : socket broadcast를 통해 방의 모든 유저가 이름을 변경한 유저를 갱신해야 함.
       console.log(users);
       setUsers(users);
+      const newCharacters = users.map((user) => user.character);
+      setCharacters(newCharacters);
       // TODO : 방장인지 확인하는 코드 작성 -> isMaster 업데이트
     });
   }, []);
