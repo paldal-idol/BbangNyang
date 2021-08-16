@@ -98,12 +98,13 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
+    console.log('gugkr', user);
     socket.connect();
-    if (users.find((e) => e.name === user) !== undefined) {
+    if (users.find((e) => e.name === user.name) !== undefined) {
       setGameStatus(
-        users[0].name === user
+        users[0].name === user.name
           ? 'Game Start'
-          : !users.find((e) => e.name === user).isReady
+          : !users.find((e) => e.name === user.name).isReady
           ? 'Ready'
           : 'Cancel',
       );
@@ -132,7 +133,6 @@ const WaitingRoomPage = () => {
       case 'Game Start':
         alert('게임시작');
         socket.emit('gameStart');
-
         break;
     }
     socket.once('listenEvent', (status) => {

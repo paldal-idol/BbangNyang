@@ -83,7 +83,7 @@ const BakeryDoor: React.FC = () => {
       getCode((data) => {
         setUsers([]);
         setRoom(data.code);
-        setUser(data.name);
+        setUser({ ...user, name: data.name });
 
         history.push('/waiting');
       });

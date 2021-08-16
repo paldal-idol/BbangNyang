@@ -23,14 +23,15 @@ const WaitingRoomChat = () => {
   const history = useHistory();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const name = useRecoilValue(userState);
+  const user = useRecoilValue(userState);
   const [room, setRoom] = useRecoilState(roomState);
   const [users, setUsers] = useRecoilState(usersState);
 
   useEffect(() => {
     console.log(socket.id);
     if (socket) {
-      socket.emit('join', { name, room }, (error) => {
+      console.log('dwdww', user.name);
+      socket.emit('join', { name: user.name, room }, (error) => {
         if (error) {
           setRoom('');
           history.push(`/`);
@@ -62,7 +63,7 @@ const WaitingRoomChat = () => {
   };
   return (
     <Container>
-      <Messages messages={messages} name={name} />
+      <Messages messages={messages} name={user.name} />
       <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </Container>
   );

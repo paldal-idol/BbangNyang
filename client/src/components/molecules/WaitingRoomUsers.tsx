@@ -57,7 +57,7 @@ const ExpulsionButton = styled.button`
 
 const WaitingRoomUsers = () => {
   const [isMaster, setIsMaster] = useState(true);
-  const name = useRecoilValue(userState);
+  const user = useRecoilValue(userState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userList, setUserList] = useState(null);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
