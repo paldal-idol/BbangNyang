@@ -102,18 +102,28 @@ const CatSelectModal: React.FC = () => {
       const oldUserIndex = users.findIndex(isUser);
       console.log(oldUserIndex);
       const newUsers = _.cloneDeep(users);
-      if (newUsers[oldUserIndex].name !== userName) {
+
+      if (newUsers[oldUserIndex].name !== userName && changeCharacter !== null) {
+        socket.emit('changeName', userName, () => {
+          setUser(userName);
+          newUsers[oldUserIndex].name = userName;
+        });
+
+        socket.emit('changeCharacter', changeCharacter, () => {
+          setCharacter(changeCharacter);
+          newUsers[oldUserIndex].character = changeCharacter;
+          setUsers(newUsers);
+
+          const newCharacters = newUsers.map((user) => user.character);
+          setCharacters(newCharacters);
+        });
+      } else if (newUsers[oldUserIndex].name !== userName) {
         socket.emit('changeName', userName, () => {
           setUser(userName);
           newUsers[oldUserIndex].name = userName;
           setUsers(newUsers);
         });
-      }
-
-      if (changeCharacter === null) {
-        setChangeCharacter(character);
-      }
-      if (newUsers[oldUserIndex].character !== changeCharacter && changeCharacter !== null) {
+      } else if (changeCharacter !== null) {
         socket.emit('changeCharacter', changeCharacter, () => {
           setCharacter(changeCharacter);
           newUsers[oldUserIndex].character = changeCharacter;
