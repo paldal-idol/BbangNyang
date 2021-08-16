@@ -1,5 +1,5 @@
 import React from 'react';
-import RuleBook from '@organisms/RuleBook';
+import RuleBook from '@molecules/RuleBook';
 
 const RuleBookPage: React.FC = () => {
   return (
