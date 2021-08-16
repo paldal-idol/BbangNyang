@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Modal from '@atoms/Modal';
 import { useSetRecoilState } from 'recoil';
 import modalState from '@store/modal';
-import RuleBook from '@molecules/RuleBook';
+import StartPageGuide from './StartPageGuide';
 
 const Content = styled.div`
   border-radius: 10px;
@@ -29,7 +29,7 @@ const CloseButton = styled.div`
   color: white;
 `;
 
-const RuleBookModal: React.FC = () => {
+const StartPageGuideModal: React.FC = () => {
 
   const setModal = useSetRecoilState(modalState);
 
@@ -39,14 +39,14 @@ const RuleBookModal: React.FC = () => {
 
   return (
     <Modal>
+      <ButtonContainer>
+        <CloseButton onClick={closeModal}>X</CloseButton>
+      </ButtonContainer>
       <Content>
-        <ButtonContainer>
-          <CloseButton onClick={closeModal}>X</CloseButton>
-        </ButtonContainer>
-        <RuleBook/>
+        <StartPageGuide/>
       </Content>
     </Modal>
   );
 };
 
-export default RuleBookModal;
+export default StartPageGuideModal;

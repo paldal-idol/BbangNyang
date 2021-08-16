@@ -89,9 +89,6 @@ const CatSelectModal: React.FC = () => {
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
   const [changeCharacter, setChangeCharacter] = useState(null);
 
-  useEffect(() => {
-    console.log(characters);
-  }, [users]);
   const codeHandler = () => {
     const newUserName = userNameInput.current.value;
     if (newUserName.length < 2) {
@@ -112,11 +109,18 @@ const CatSelectModal: React.FC = () => {
           setUsers(newUsers);
         });
       }
-      if (changeCharacter !== null) {
+
+      if (changeCharacter === null) {
+        setChangeCharacter(character);
+      }
+      if (newUsers[oldUserIndex].character !== changeCharacter && changeCharacter !== null) {
         socket.emit('changeCharacter', changeCharacter, () => {
           setCharacter(changeCharacter);
           newUsers[oldUserIndex].character = changeCharacter;
           setUsers(newUsers);
+
+          const newCharacters = newUsers.map((user) => user.character);
+          setCharacters(newCharacters);
         });
       }
     }
@@ -142,6 +146,8 @@ const CatSelectModal: React.FC = () => {
                   //TODO: 선택된 고양이로 정보 업데이트
                   console.log(index);
                   setChangeCharacter(index);
+                } else {
+                  alert('사용중이거나 선택할 수 없는 캐릭터 입니다');
                 }
               }}
             />
