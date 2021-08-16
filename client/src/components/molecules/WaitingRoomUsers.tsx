@@ -57,7 +57,7 @@ const ExpulsionButton = styled.button`
 `;
 
 const WaitingRoomUsers = () => {
-  const [isMaster, setIsMaster] = useState(true);
+  const [isMaster, setIsMaster] = useState(false);
   const name = useRecoilValue(userState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userList, setUserList] = useState(null);
@@ -66,21 +66,24 @@ const WaitingRoomUsers = () => {
   useEffect(() => {
     socket.on('changeUsers', ({ users }) => {
       //TODO : socket broadcast를 통해 방의 모든 유저가 이름을 변경한 유저를 갱신해야 함.
-      console.log(users);
       setUsers(users);
       const newCharacters = users.map((user) => user.character);
       setCharacters(newCharacters);
-      // TODO : 방장인지 확인하는 코드 작성 -> isMaster 업데이트
     });
   }, []);
 
   useEffect(() => {
     setUserList(users);
     socket.on('roomData', ({ room, users }: any) => {
-      console.log('socket.on : roomData');
       setUserList(users);
-      console.log(users[0].character);
     });
+    if (users.length > 0 && users[0].hasOwnProperty('name')) {
+      if (users[0].name === name) {
+        setIsMaster(true);
+      } else {
+        setIsMaster(false);
+      }
+    }
   }, [users]);
 
   const expulsionUser = () => {
