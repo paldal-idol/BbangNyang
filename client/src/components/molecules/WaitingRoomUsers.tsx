@@ -38,6 +38,7 @@ const CatImg = styled.img`
 const UserName = styled.div`
   display: flex;
   align-items: center;
+  text-align: left;
   font-size: 20px;
   padding-left: 8px;
   color: ${color.primary.black};
@@ -86,16 +87,6 @@ const WaitingRoomUsers = () => {
     // TODO : 강퇴하는 코드 작성
     alert('강퇴하시겠습니까?');
   };
-
-  // TODO : 실제 데이터를 받아오도록 변경
-  const testUserList = [
-    { name: 'Test1', catId: 1, isReady: true },
-    { name: 'COCO', catId: 2, isReady: true },
-    { name: 'Hello', catId: 3, isReady: false },
-    { name: 'MOOMIN PAPA', catId: 4, isReady: false },
-    { name: 'DYKIM', catId: 5, isReady: true },
-    { name: 'TEST', catId: 6, isReady: false },
-  ];
 
   return (
     userList && (
