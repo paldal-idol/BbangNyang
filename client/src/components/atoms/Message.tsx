@@ -95,10 +95,10 @@ const AdminText = styled.p`
 `;
 
 const Message = ({ message: { text, user }, name }) => {
-  if (user === 'admin') {
+  if (user.id === 'admin') {
     return <AdminText>{text}</AdminText>;
   }
-  return user === name.id ? (
+  return user.id === name.id ? (
     <MyMessage>
       <MyName>{name.name}</MyName>
       <MyMessageBox>
@@ -110,7 +110,7 @@ const Message = ({ message: { text, user }, name }) => {
       <MessageBox>
         <UserText>{ReactEmoji.emojify(text)}</UserText>
       </MessageBox>
-      <OtherName>{user}</OtherName>
+      <OtherName>{user.name}</OtherName>
     </OtherMessage>
   );
 };
