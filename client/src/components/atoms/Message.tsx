@@ -98,9 +98,9 @@ const Message = ({ message: { text, user }, name }) => {
   if (user === 'admin') {
     return <AdminText>{text}</AdminText>;
   }
-  return user === name ? (
+  return user === name.id ? (
     <MyMessage>
-      <MyName>{name}</MyName>
+      <MyName>{name.name}</MyName>
       <MyMessageBox>
         <MyText>{ReactEmoji.emojify(text)}</MyText>
       </MyMessageBox>

@@ -30,7 +30,6 @@ const WaitingRoomChat = () => {
   useEffect(() => {
     console.log(socket.id);
     if (socket) {
-      console.log('dwdww', user.name);
       socket.emit('join', { name: user.name, room }, (error) => {
         if (error) {
           setRoom('');
@@ -63,7 +62,7 @@ const WaitingRoomChat = () => {
   };
   return (
     <Container>
-      <Messages messages={messages} name={user.name} />
+      <Messages messages={messages} name={user} />
       <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </Container>
   );

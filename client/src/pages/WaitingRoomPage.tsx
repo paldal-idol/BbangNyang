@@ -98,8 +98,8 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
-    console.log('gugkr', user);
     socket.connect();
+    setUser({ ...user, id: socket.id });
     if (users.find((e) => e.name === user.name) !== undefined) {
       setGameStatus(
         users[0].name === user.name

@@ -65,7 +65,6 @@ const WaitingRoomUsers = () => {
   useEffect(() => {
     socket.on('changeUsers', ({ users }) => {
       //TODO : socket broadcast를 통해 방의 모든 유저가 이름을 변경한 유저를 갱신해야 함.
-      console.log(users);
       setUsers(users);
       const newCharacters = users.map((user) => user.character);
       setCharacters(newCharacters);
