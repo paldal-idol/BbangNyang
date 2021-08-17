@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import { CatImages } from '@utils/cat';
 import pie from '@img/bakery/pie.PNG';
 import MiniGameTitle from '../atoms/MiniGameTitle';
-const Game_button = styled.button`
+
+const MiniGame_button = styled.button`
   position: absolute;
   display: inline-block;
 `;
-const Game_img = styled.img`
+const MiniGame_img = styled.img`
   position: absolute;
   width: 180px;
   z-index: 2;
 `;
+
 const MiniGame = () => {
   const [isStart, setIsStart] = useState(true);
   const [catList, setCatList] = useState(
@@ -39,38 +41,30 @@ const MiniGame = () => {
 
   const changeState = (idx, flag) => {
     setHide((hide) => ({ ...hide, [idx]: flag }));
-    if (flag && !hide[idx]) {
-      setQueue([...queue, idx]);
-    }
+    flag && !hide[idx] ? setQueue([...queue, idx]) : null;
   };
 
   useEffect(() => {
     if (queue.length >= 2) {
-      if (catList[queue[0]]['value'] !== catList[queue[1]]['value']) {
-        setTimeout(() => {
-          queue.map((element) => {
-            changeState(element, false);
-          });
-        }, 500);
-      } else {
-        setCount(count + 1);
-      }
+      catList[queue[0]]['value'] !== catList[queue[1]]['value']
+        ? setTimeout(() => {
+            queue.map((element) => {
+              changeState(element, false);
+            });
+          }, 500)
+        : setCount(count + 1);
       setQueue([]);
     }
   }, [queue]);
 
   useEffect(() => {
-    console.log(hide, hide.length, count);
-    if (
-      Object.values(hide).length ===
-        Object.values(hide).reduce((result, element) => {
-          result += element === true ? 1 : 0;
-          return result;
-        }, 0) &&
-      count > 0
-    ) {
-      setIsStart(true);
-    }
+    Object.values(hide).length ===
+      Object.values(hide).reduce((result, element) => {
+        result += element === true ? 1 : 0;
+        return result;
+      }, 0) && count > 0
+      ? setIsStart(true)
+      : null;
   }, [hide]);
 
   return (
@@ -81,7 +75,7 @@ const MiniGame = () => {
         }}
       >
         <MiniGameTitle />
-        <Game_button onClick={startGame}>시작하기</Game_button>
+        <MiniGame_button onClick={startGame}>시작하기</MiniGame_button>
       </div>
       <div
         style={{
@@ -89,7 +83,7 @@ const MiniGame = () => {
         }}
       >
         {catList.map((item, idx) => (
-          <Game_img
+          <MiniGame_img
             src={hide[idx] === true ? item['value'] : pie}
             style={{
               top: `${70 + item['y']}px`,
