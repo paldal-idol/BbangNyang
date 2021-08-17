@@ -16,6 +16,7 @@ import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
 import SelectCharacterModal from '@molecules/SelectCharacterModal';
 import SelectCharacter from '@organisms/SelectCharacter';
+import MiniGame from '@organisms/miniGame';
 
 const Container = styled.div`
   width: 100%;
@@ -176,7 +177,9 @@ const WaitingRoomPage = () => {
             <h2>채팅</h2>
             <WaitingRoomChat />
           </Chat>
-          <WaitingZone></WaitingZone>
+          <WaitingZone>
+            <MiniGame />
+          </WaitingZone>
         </Content>
         <Footer>
           <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
