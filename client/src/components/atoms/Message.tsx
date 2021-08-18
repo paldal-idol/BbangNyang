@@ -9,12 +9,14 @@ const OtherMessage = styled.div`
   padding: 0 5%;
   margin-top: 3px;
 `;
+
 const MyMessage = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0 5%;
   margin-top: 3px;
 `;
+
 const MyName = styled.div`
   padding-right: 6px;
   display: flex;
@@ -23,6 +25,7 @@ const MyName = styled.div`
   letter-spacing: 0.3px;
   font-size: 14px;
 `;
+
 const OtherName = styled.div`
   padding-left: 6px;
   display: flex;
@@ -31,6 +34,7 @@ const OtherName = styled.div`
   letter-spacing: 0.3px;
   font-size: 14px;
 `;
+
 const MessageBox = styled.div`
   background: ${color.primary.gray};
   letter-spacing: 0;
@@ -80,9 +84,11 @@ const MyMessageBox = styled.div`
     margin-right: -16px;
   }
 `;
+
 const MyText = styled.p`
   text-align: right;
 `;
+
 const UserText = styled.p`
   text-align: left;
 `;

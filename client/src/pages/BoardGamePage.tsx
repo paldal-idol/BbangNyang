@@ -1,6 +1,6 @@
 import React from 'react';
-import AllowDiceAgain from '@/components/organisms/AllowDiceAgain';
-import Board from '@/components/organisms/Board';
+import AllowDiceAgain from '@organisms/AllowDiceAgain';
+import Board from '@organisms/Board';
 
 const BoardGamePage: React.FC = () => {
   return (

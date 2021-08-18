@@ -8,6 +8,7 @@ const MiniGameButton = styled.button`
   position: absolute;
   display: inline-block;
 `;
+
 const MiniGameImage = styled.img`
   position: absolute;
   width: 180px;

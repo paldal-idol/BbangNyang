@@ -12,17 +12,20 @@ const Pie = styled.img`
   transform-origin: top;
   transform-style: preserve-3d;
 `;
+
 const RoadCat = styled.img`
   position: absolute;
   width: 225px;
   top: 840px;
   left: 590px;
 `;
+
 const Container = styled.div`
   position: absolute;
   margin-left: -2400px;
   margin-bottom: 1400px;
 `;
+
 const ProjectImform: React.FC = () => {
   const [height, setHeight] = useState(0);
   const UpAndDown = () => {

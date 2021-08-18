@@ -10,12 +10,14 @@ import dice5 from '@img/dice/dice5.PNG';
 import dice6 from '@img/dice/dice6.PNG';
 
 const diceList = [dice1, dice2, dice3, dice4, dice5, dice6];
+
 const Dice_svg = styled.svg`
   z-index: 1;
   position: absolute;
   width: 100vw;
   height: 100vh;
 `;
+
 const DiceImage = styled.img`
   margin-top: 200px;
   margin-left: 100px;
@@ -25,6 +27,7 @@ const DiceImage = styled.img`
   top: 500;
   left: 800;
 `;
+
 const Dice_h1 = styled.h1`
   margin-top: 240px;
   margin-left: 140px;
@@ -34,6 +37,7 @@ const Dice_h1 = styled.h1`
   top: 500;
   left: 800;
 `;
+
 const DiceButton = styled.button`
   margin-top: 300px;
   margin-left: 100px;
@@ -43,6 +47,7 @@ const DiceButton = styled.button`
   top: 500;
   left: 800;
 `;
+
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
   const [diceImage, setDiceImage] = useState(diceList[0]);

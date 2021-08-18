@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import pie from '@img/map/pie.PNG';
-import AllowDiceAgain from '@/components/organisms/AllowDiceAgain';
+import AllowDiceAgain from '@organisms/AllowDiceAgain';
 
 const Map_svg = styled.svg`
   z-index: 1;

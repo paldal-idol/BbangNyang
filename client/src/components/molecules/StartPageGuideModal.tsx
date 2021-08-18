@@ -12,6 +12,7 @@ const Content = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;

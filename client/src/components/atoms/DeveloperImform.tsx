@@ -6,6 +6,7 @@ const Container = styled.div`
   margin-left: -600px;
   margin-bottom: 100px;
 `;
+
 const Svg = styled.svg`
   position: absolute;
   height: 200px;
@@ -13,10 +14,12 @@ const Svg = styled.svg`
   margin-left: 60px;
   overflow: hidden;
 `;
+
 const Rect = styled.rect`
   overflow: hidden;
   fill-opacity: 0;
 `;
+
 const DeveloperImform: React.FC = () => {
   return (
     <Container>
