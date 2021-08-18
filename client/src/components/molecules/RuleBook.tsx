@@ -66,13 +66,13 @@ const RuleBook: React.FC = () => {
 
   return (
     <Container>
-      <Arrow isLeft={true} onClick={handlePrevClick} id="left_arrow">
+      <Arrow isLeft={true} onClick={handlePrevClick} id="leftArrow">
         <AiOutlineArrowLeft />
       </Arrow>
 
       <FillImage src={rules[manualIndex]} />
 
-      <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
+      <Arrow isLeft={false} onClick={handleNextClick} id="rightArrow">
         <AiOutlineArrowRight />
       </Arrow>
     </Container>

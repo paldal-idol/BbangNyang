@@ -4,11 +4,11 @@ import { CatImages } from '@utils/cat';
 import pie from '@img/bakery/pie.PNG';
 import MiniGameTitle from '../atoms/MiniGameTitle';
 
-const MiniGame_button = styled.button`
+const MiniGameButton = styled.button`
   position: absolute;
   display: inline-block;
 `;
-const MiniGame_img = styled.img`
+const MiniGameImage = styled.img`
   position: absolute;
   width: 180px;
   z-index: 2;
@@ -75,7 +75,7 @@ const MiniGame = () => {
         }}
       >
         <MiniGameTitle />
-        <MiniGame_button onClick={startGame}>시작하기</MiniGame_button>
+        <MiniGameButton onClick={startGame}>시작하기</MiniGameButton>
       </div>
       <div
         style={{
@@ -83,7 +83,7 @@ const MiniGame = () => {
         }}
       >
         {catList.map((item, idx) => (
-          <MiniGame_img
+          <MiniGameImage
             src={hide[idx] === true ? item['value'] : pie}
             style={{
               top: `${70 + item['y']}px`,

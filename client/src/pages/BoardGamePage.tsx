@@ -6,7 +6,7 @@ const BoardGamePage: React.FC = () => {
     <>
       <p>보드게임 페이지입니다.</p>
       {/* <AllowDiceAgain /> */}
-      <Map></Map>
+      <Map />
     </>
   );
 };

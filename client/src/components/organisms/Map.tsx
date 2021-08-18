@@ -7,12 +7,12 @@ const Map_svg = styled.svg`
   z-index: 1;
   position: absolute;
 `;
-const Map_img = styled.img`
+const MapImage = styled.img`
   position: absolute;
   width: 210px;
   z-index: 2;
 `;
-const Map_div = styled.div`
+const MapContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -69,15 +69,15 @@ class Node {
 
 class Player {
   score;
-  lift_list;
+  liftList;
   init = () => {
-    this.lift_list = [];
+    this.liftList = [];
     this.score = 0;
   };
 }
 
 const Map = () => {
-  const [player_list, setPayer_list] = useState([]);
+  const [playerList, setPayerList] = useState([]);
   const mapPosition = Array(21)
     .fill(0)
     .map((v, i) =>
@@ -87,9 +87,9 @@ const Map = () => {
       }),
     );
   useEffect(() => {
-    let player_sequence = new Node('head');
-    for (let i = 0; i < player_list.length; i++) {
-      player_sequence.insert(player_list[i]);
+    let playerSequence = new Node('head');
+    for (let i = 0; i < playerList.length; i++) {
+      playerSequence.insert(playerList[i]);
     }
   }, []);
   return (
@@ -97,9 +97,9 @@ const Map = () => {
       <Map_svg width="100vw" height="100vh">
         <ellipse cx="1200" cy="700" rx="900" ry="600" fill="white"></ellipse>
       </Map_svg>
-      <Map_div>
+      <MapContainer>
         {mapPosition.map((item, idx) => (
-          <Map_img
+          <MapImage
             src={pie}
             style={{
               top: `${item.x}px`,
@@ -107,7 +107,7 @@ const Map = () => {
             }}
           />
         ))}
-      </Map_div>
+      </MapContainer>
       <AllowDiceAgain />
     </>
   );

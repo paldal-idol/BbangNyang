@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import Dice from '@organisms/Dice';
 import diceState from '@store/dice';
 
-const Map_div = styled.div`
+const MapContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -14,7 +14,7 @@ const Map_div = styled.div`
   top: 500;
   left: 800;
 `;
-const Map_button = styled.button`
+const MapButton = styled.button`
   position: absolute;
   z-index: 1;
   top: 500;
@@ -27,42 +27,42 @@ const Map_h1 = styled.h1`
   height: 100vh;
 `;
 const AllowDiceAgain = () => {
-  const [dice_n, setDice_n] = useState(0);
-  let [Accumurate_Dice_Score, setScore] = useState(0);
-  let diceState_value = useRecoilValue(diceState);
-  const [dice_active, setDice_active] = useState(false);
+  const [diceNum, setDiceNum] = useState(0);
+  let diceValue = useRecoilValue(diceState);
+  const [diceActive, setDiceActive] = useState(false);
 
   const active = () => {
-    setDice_n(0);
-    setDice_active(true);
+    setDiceNum(0);
+    setDiceActive(true);
   };
 
   useEffect(() => {
-    console.log(diceState_value);
-    if (0 < diceState_value && diceState_value < 8) {
-      setDice_n(dice_n + 1);
+    console.log(diceValue);
+    if (0 < diceValue && diceValue < 8) {
+      setDiceNum(diceNum + 1);
       setTimeout(function () {
-        if (dice_n == 3) {
-          setDice_active(false);
+        if (diceNum >= 3) {
+          setDiceActive(false);
         }
-        let set_more = confirm('더 하시겠습니까?');
-        if (set_more) {
-          setDice_active(true);
-        } else {
-          setDice_active(false);
+        else {
+          if (confirm('더 하시겠습니까?')) {
+            setDiceActive(true);
+          } else {
+            setDiceActive(false);
+          }
         }
       }, 500);
-    } else if (diceState_value >= 8) {
-      setDice_active(false);
+    } else if (diceValue >= 8) {
+      setDiceActive(false);
     }
-  }, [diceState_value]);
+  }, [diceValue]);
 
   return (
-    <Map_div>
-      <h1>{diceState_value}</h1>
-      <Map_button onClick={active}>주사위 클릭</Map_button>
-      {dice_active && <Dice></Dice>}
-    </Map_div>
+    <MapContainer>
+      <h1>{diceValue}</h1>
+      <MapButton onClick={active}>주사위 클릭</MapButton>
+      {diceActive && <Dice />}
+    </MapContainer>
   );
 };
 export default AllowDiceAgain;

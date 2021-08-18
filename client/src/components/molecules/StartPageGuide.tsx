@@ -41,11 +41,11 @@ const StartPageGuide: React.FC = () => {
   const handlePrevClick = useCallback((): void => {
     if (guideIndex <= 0) {
         setGuideIndex(images.length - 1);
-        document.getElementById('left_arrow').style.display = "none";
+        document.getElementById('leftArrow').style.display = "none";
       return;
     }
     if (guideIndex === 1) {
-      document.getElementById('left_arrow').style.display = "block";
+      document.getElementById('leftArrow').style.display = "block";
     }
 
     setGuideIndex(guideIndex - 1);
@@ -54,11 +54,11 @@ const StartPageGuide: React.FC = () => {
   const handleNextClick = useCallback((): void => {
     if (guideIndex + 1 === images.length) {
         setGuideIndex(0);
-        document.getElementById('right_arrow').style.display = "none";
+        document.getElementById('rightArrow').style.display = "none";
       return;
     } 
     if (guideIndex + 2 === images.length) {
-      document.getElementById('right_arrow').style.display = "block";
+      document.getElementById('rightArrow').style.display = "block";
     }
 
     setGuideIndex(guideIndex + 1);
@@ -66,13 +66,13 @@ const StartPageGuide: React.FC = () => {
 
   return (
     <Container>
-      <Arrow id="left_arrow" isLeft={true} onClick={handlePrevClick}>
+      <Arrow id="leftArrow" isLeft={true} onClick={handlePrevClick}>
         <AiOutlineArrowLeft />
       </Arrow>
 
       <FillImage src={images[guideIndex]} />
 
-      <Arrow id="right_arrow" isLeft={false} onClick={handleNextClick}>
+      <Arrow id="rightArrow" isLeft={false} onClick={handleNextClick}>
         <AiOutlineArrowRight />
       </Arrow>
     </Container>

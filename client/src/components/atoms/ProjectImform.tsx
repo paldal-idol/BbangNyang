@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import pie from '@img/bakery/pie.PNG';
 import roadcat from '@img/bakery/Roadcat.PNG';
 
-const Pie_img = styled.img`
+const Pie = styled.img`
   position: absolute;
   width: 200px;
   top: 861px;
@@ -12,7 +12,7 @@ const Pie_img = styled.img`
   transform-origin: top;
   transform-style: preserve-3d;
 `;
-const RoadCat_img = styled.img`
+const RoadCat = styled.img`
   position: absolute;
   width: 225px;
   top: 840px;
@@ -34,11 +34,11 @@ const ProjectImform: React.FC = () => {
   });
   return (
     <Container>
-      <RoadCat_img
+      <RoadCat
         src={roadcat}
         onClick={() => window.open('https://github.com/paldal-idol/BbangNyang')}
       />
-      <Pie_img
+      <Pie
         src={pie}
         style={{ transform: `perspective(800px) rotateX(${height}deg)` }}
         onClick={() => window.open('https://github.com/paldal-idol/BbangNyang')}
