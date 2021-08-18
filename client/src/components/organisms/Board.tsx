@@ -3,15 +3,18 @@ import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import pie from '@img/map/pie.PNG';
 import AllowDiceAgain from '@/components/organisms/AllowDiceAgain';
+
 const Map_svg = styled.svg`
   z-index: 1;
   position: absolute;
 `;
+
 const MapImage = styled.img`
   position: absolute;
   width: 210px;
   z-index: 2;
 `;
+
 const MapContainer = styled.div`
   position: absolute;
   width: 100vw;

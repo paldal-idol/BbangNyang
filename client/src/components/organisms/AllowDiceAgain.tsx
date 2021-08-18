@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilState } from 'recoil';
 import Dice from '@organisms/Dice';
 import diceState from '@store/dice';
 
-const MapContainer = styled.div`
+const BoardContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -14,18 +14,14 @@ const MapContainer = styled.div`
   top: 500;
   left: 800;
 `;
-const MapButton = styled.button`
+
+const DiceButton = styled.button`
   position: absolute;
   z-index: 1;
   top: 500;
   left: 800;
 `;
-const Map_h1 = styled.h1`
-  position: absolute;
-  z-index: 2;
-  width: 100vw;
-  height: 100vh;
-`;
+
 const AllowDiceAgain = () => {
   const [diceNum, setDiceNum] = useState(0);
   let diceValue = useRecoilValue(diceState);
@@ -58,11 +54,11 @@ const AllowDiceAgain = () => {
   }, [diceValue]);
 
   return (
-    <MapContainer>
+    <BoardContainer>
       <h1>{diceValue}</h1>
-      <MapButton onClick={active}>주사위 클릭</MapButton>
+      <DiceButton onClick={active}>주사위 클릭</DiceButton>
       {diceActive && <Dice />}
-    </MapContainer>
+    </BoardContainer>
   );
 };
 export default AllowDiceAgain;
