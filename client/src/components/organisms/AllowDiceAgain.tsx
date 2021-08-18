@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import Dice from '@organisms/Dice_svg';
-import diceState from '@store/Dice_number';
+import Dice from '@organisms/Dice';
+import diceState from '@store/dice';
+
 const Map_div = styled.div`
   position: absolute;
   width: 100vw;
@@ -25,7 +26,7 @@ const Map_h1 = styled.h1`
   width: 100vw;
   height: 100vh;
 `;
-const Allow_dice_again = () => {
+const AllowDiceAgain = () => {
   const [dice_n, setDice_n] = useState(0);
   let [Accumurate_Dice_Score, setScore] = useState(0);
   let diceState_value = useRecoilValue(diceState);
@@ -64,4 +65,4 @@ const Allow_dice_again = () => {
     </Map_div>
   );
 };
-export default Allow_dice_again;
+export default AllowDiceAgain;

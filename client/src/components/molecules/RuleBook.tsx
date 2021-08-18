@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import manual_1 from '@img/rule_book/manual_1.PNG';
-import manual_2 from '@img/rule_book/manual_2.PNG';
-import manual_3 from '@img/rule_book/manual_3.PNG';
-import manual_4 from '@img/rule_book/manual_4.PNG';
+import rule1 from '@img/rules/rule1.PNG';
+import rule2 from '@img/rules/rule2.PNG';
+import rule3 from '@img/rules/rule3.PNG';
+import rule4 from '@img/rules/rule4.PNG';
 
 interface ArrowProps {
   isLeft: boolean;
 }
-const images = [manual_1, manual_2, manual_3, manual_4];
+const rules = [rule1, rule2, rule3, rule4];
 
 const Container = styled.div`
   width: 800px;
@@ -50,14 +50,14 @@ const RuleBook: React.FC = () => {
 
   const handlePrevClick = useCallback((): void => {
     if (manualIndex <= 0) {
-      setManualIndex(images.length - 1);
+      setManualIndex(rules.length - 1);
       return;
     }
     setManualIndex(manualIndex - 1);
   }, [manualIndex]);
 
   const handleNextClick = useCallback((): void => {
-    if (manualIndex + 1 === images.length) {
+    if (manualIndex + 1 === rules.length) {
       setManualIndex(0);
       return;
     }
@@ -70,7 +70,7 @@ const RuleBook: React.FC = () => {
         <AiOutlineArrowLeft />
       </Arrow>
 
-      <FillImage src={images[manualIndex]} />
+      <FillImage src={rules[manualIndex]} />
 
       <Arrow isLeft={false} onClick={handleNextClick} id="right_arrow">
         <AiOutlineArrowRight />
