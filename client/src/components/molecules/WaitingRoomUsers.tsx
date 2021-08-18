@@ -38,6 +38,7 @@ const CatImg = styled.img`
 const UserName = styled.div`
   display: flex;
   align-items: center;
+  text-align: left;
   font-size: 20px;
   padding-left: 8px;
   color: ${color.primary.black};
@@ -56,8 +57,8 @@ const ExpulsionButton = styled.button`
 `;
 
 const WaitingRoomUsers = () => {
-  const [isMaster, setIsMaster] = useState(true);
-  const user = useRecoilValue(userState);
+  const [isMaster, setIsMaster] = useState(false);
+  const name = useRecoilValue(userState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userList, setUserList] = useState(null);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
@@ -68,33 +69,27 @@ const WaitingRoomUsers = () => {
       setUsers(users);
       const newCharacters = users.map((user) => user.character);
       setCharacters(newCharacters);
-      // TODO : 방장인지 확인하는 코드 작성 -> isMaster 업데이트
     });
   }, []);
 
   useEffect(() => {
     setUserList(users);
     socket.on('roomData', ({ room, users }: any) => {
-      console.log('socket.on : roomData');
       setUserList(users);
-      console.log(users[0].character);
     });
+    if (users.length > 0 && users[0].hasOwnProperty('name')) {
+      if (users[0].name === name) {
+        setIsMaster(true);
+      } else {
+        setIsMaster(false);
+      }
+    }
   }, [users]);
 
   const expulsionUser = () => {
     // TODO : 강퇴하는 코드 작성
     alert('강퇴하시겠습니까?');
   };
-
-  // TODO : 실제 데이터를 받아오도록 변경
-  const testUserList = [
-    { name: 'Test1', catId: 1, isReady: true },
-    { name: 'COCO', catId: 2, isReady: true },
-    { name: 'Hello', catId: 3, isReady: false },
-    { name: 'MOOMIN PAPA', catId: 4, isReady: false },
-    { name: 'DYKIM', catId: 5, isReady: true },
-    { name: 'TEST', catId: 6, isReady: false },
-  ];
 
   return (
     userList && (
