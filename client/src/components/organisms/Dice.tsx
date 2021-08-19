@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import diceState from '@store/Dice_number';
+import diceState from '@store/dice';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import dice_1 from '@img/dice/dice_1.PNG';
-import dice_2 from '@img/dice/dice_2.PNG';
-import dice_3 from '@img/dice/dice_3.PNG';
-import dice_4 from '@img/dice/dice_4.PNG';
-import dice_5 from '@img/dice/dice_5.PNG';
-import dice_6 from '@img/dice/dice_6.PNG';
+import dice1 from '@img/dice/dice1.PNG';
+import dice2 from '@img/dice/dice2.PNG';
+import dice3 from '@img/dice/dice3.PNG';
+import dice4 from '@img/dice/dice4.PNG';
+import dice5 from '@img/dice/dice5.PNG';
+import dice6 from '@img/dice/dice6.PNG';
 
-const dice_list = [dice_1, dice_2, dice_3, dice_4, dice_5, dice_6];
+const diceList = [dice1, dice2, dice3, dice4, dice5, dice6];
+
 const Dice_svg = styled.svg`
   z-index: 1;
   position: absolute;
   width: 100vw;
   height: 100vh;
 `;
-const Dice_img = styled.img`
+
+const DiceImage = styled.img`
   margin-top: 200px;
   margin-left: 100px;
   z-index: 2;
@@ -25,6 +27,7 @@ const Dice_img = styled.img`
   top: 500;
   left: 800;
 `;
+
 const Dice_h1 = styled.h1`
   margin-top: 240px;
   margin-left: 140px;
@@ -34,7 +37,8 @@ const Dice_h1 = styled.h1`
   top: 500;
   left: 800;
 `;
-const Dice_Button = styled.button`
+
+const DiceButton = styled.button`
   margin-top: 300px;
   margin-left: 100px;
   z-index: 2;
@@ -43,9 +47,10 @@ const Dice_Button = styled.button`
   top: 500;
   left: 800;
 `;
+
 const Dice = () => {
   const [intervalFunc, setIntervalFunc] = useState(null);
-  const [diceImage, setDiceImage] = useState(dice_list[0]);
+  const [diceImage, setDiceImage] = useState(diceList[0]);
   const [diceNumber, setDiceNumber] = useState(0);
   const [coordinate, setCoordinate] = useState({ x: 150, y: 50 });
   const [count_num, setCount_Num] = useState(0);
@@ -56,7 +61,7 @@ const Dice = () => {
       x: 150 + 100 * Math.cos(time),
       y: 150 + 100 * -Math.abs(Math.sin(time)),
     });
-    setDiceImage(dice_list[Math.floor((time * 8) % 6)]);
+    setDiceImage(diceList[Math.floor((time * 8) % 6)]);
     let d = Math.random() * (coordinate.x + coordinate.y) + coordinate.y;
     setDiceNumber(Math.floor(((Math.random() * d) % 10) % 6) + 1);
   };
@@ -68,7 +73,7 @@ const Dice = () => {
   const up = () => {
     clearInterval(intervalFunc);
     console.log(diceNumber);
-    setDiceImage(dice_list[diceNumber - 1]);
+    setDiceImage(diceList[diceNumber - 1]);
     setCount_Num(count_num + 1);
     let a = diceNumber;
     setResult_score(result_score + a);
@@ -82,11 +87,11 @@ const Dice = () => {
           <circle r="5" cx="150" cy="150" fill="black" />
           <circle r="5" cx={coordinate.x} cy={coordinate.y} fill="black" />
         </Dice_svg>
-        <Dice_img src={diceImage} />
+        <DiceImage src={diceImage} />
         {/* <Dice_h1>{diceNumber}</Dice_h1> */}
-        <Dice_Button onMouseDown={down} onMouseUp={up}>
+        <DiceButton onMouseDown={down} onMouseUp={up}>
           클릭
-        </Dice_Button>
+        </DiceButton>
       </div>
     </>
   );

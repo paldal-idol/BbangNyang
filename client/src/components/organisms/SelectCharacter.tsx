@@ -19,6 +19,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 const CharacterImg = styled.img`
   width: 200px;
 `;

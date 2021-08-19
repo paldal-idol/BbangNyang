@@ -3,6 +3,7 @@
 Random Name Generator for Javascript
 */
 import { firstName, lastName } from './nameList';
+
 const {users}=require('../socket/users');
 
 function capFirst(string: string) {

@@ -23,14 +23,13 @@ const WaitingRoomChat = () => {
   const history = useHistory();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const name = useRecoilValue(userState);
+  const user = useRecoilValue(userState);
   const [room, setRoom] = useRecoilState(roomState);
   const [users, setUsers] = useRecoilState(usersState);
 
   useEffect(() => {
-    console.log(socket.id);
     if (socket) {
-      socket.emit('join', { name, room }, (error) => {
+      socket.emit('join', { name: user.name, room }, (error) => {
         if (error) {
           setRoom('');
           history.push(`/`);
@@ -55,14 +54,13 @@ const WaitingRoomChat = () => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
   return (
     <Container>
-      <Messages messages={messages} name={name} />
+      <Messages messages={messages} name={user} />
       <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </Container>
   );

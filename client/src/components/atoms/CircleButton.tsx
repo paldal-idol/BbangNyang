@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 import color from '@theme/color';
+
 const StyledButton = styled.button<Props>`
   ${(p) => p.size}
   ${(p) => p.variant}

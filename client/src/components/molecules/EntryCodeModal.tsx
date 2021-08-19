@@ -43,7 +43,6 @@ const Button = styled.button<buttonProps>`
   margin: 5px;
 `;
 
-
 const EntryCodeModal: React.FC = () => {
   const history = useHistory();
   const setModal = useSetRecoilState(modalState);
@@ -51,18 +50,22 @@ const EntryCodeModal: React.FC = () => {
   const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
-    axios.get('http://localhost:8000/getName').then(res=>{
-      setUser(res.data.name);
-    }).then(()=>{
-      closeModal();
-      history.push(`/waiting`);
-    });
+    axios
+      .get('http://localhost:8000/getName')
+      .then((res) => {
+        setUser({ ...user, name: res.data.name });
+        console.log('ggu', user);
+      })
+      .then(() => {
+        closeModal();
+        history.push(`/waiting`);
+      });
   };
 
   const closeModal = () => {
     setModal('');
   };
-  
+
   return (
     <Modal>
       <Content>

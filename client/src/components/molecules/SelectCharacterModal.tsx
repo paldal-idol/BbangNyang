@@ -98,15 +98,15 @@ const CatSelectModal: React.FC = () => {
     // TODO : Recoil로 이름 정보 변경하기
 
     if (users) {
-      const isUser = (existUser) => existUser.name === user;
+      const isUser = (existUser) => existUser.name === user.name;
       const oldUserIndex = users.findIndex(isUser);
       console.log(oldUserIndex);
       const newUsers = _.cloneDeep(users);
 
-      if (newUsers[oldUserIndex].name !== userName && changeCharacter !== null) {
+      if (newUsers[oldUserIndex].name !== userName.name && changeCharacter !== null) {
         socket.emit('changeName', userName, () => {
           setUser(userName);
-          newUsers[oldUserIndex].name = userName;
+          newUsers[oldUserIndex].name = userName.name;
         });
 
         socket.emit('changeCharacter', changeCharacter, () => {
@@ -117,10 +117,10 @@ const CatSelectModal: React.FC = () => {
           const newCharacters = newUsers.map((user) => user.character);
           setCharacters(newCharacters);
         });
-      } else if (newUsers[oldUserIndex].name !== userName) {
-        socket.emit('changeName', userName, () => {
+      } else if (newUsers[oldUserIndex].name !== userName.name) {
+        socket.emit('changeName', userName.name, () => {
           setUser(userName);
-          newUsers[oldUserIndex].name = userName;
+          newUsers[oldUserIndex].name = userName.name;
           setUsers(newUsers);
         });
       } else if (changeCharacter !== null) {
@@ -168,9 +168,9 @@ const CatSelectModal: React.FC = () => {
             placeholder="변경할 닉네임을 입력해주세요"
             ref={userNameInput}
             onChange={(event) => {
-              setUserName(event.target.value);
+              setUserName({ ...userName, name: event.target.value });
             }}
-            value={userName}
+            value={userName.name}
           ></CodeInput>
           <Button backgroundColor={color.button.orange} onClick={codeHandler}>
             변경
