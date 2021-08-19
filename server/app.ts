@@ -49,12 +49,12 @@ io.on('connect', (socket: any) => {
     socket.join(user.room);
 
     socket.emit('message', {
-      user: 'admin',
+      user: user,
       text: `${user.name}, welcome to room ${user.room}.`,
     });
     socket.broadcast
       .to(user.room)
-      .emit('message', { user: 'admin', text: `${user.name} has joined!` });
+      .emit('message', { user: user, text: `${user.name} has joined!` });
 
     io.to(user.room).emit('roomData', {
       room: user.room,
@@ -67,7 +67,7 @@ io.on('connect', (socket: any) => {
   socket.on('sendMessage', (message: any, callback: any) => {
     const user = getUser(socket.id);
     //모든 사용자에게 메시지 전달
-    io.to(user.room).emit('message', { user: user.name, text: message });
+    io.to(user.room).emit('message', { user: user, text: message });
 
     callback();
   });
