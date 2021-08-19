@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { CatImages } from '@utils/cat';
-import pie from '@img/bakery/pie.PNG';
+import random from '@img/bakery/random.PNG';
 import MiniGameTitle from '../atoms/MiniGameTitle';
 
 const MiniGameButton = styled.button`
@@ -85,7 +85,7 @@ const MiniGame = () => {
       >
         {catList.map((item, idx) => (
           <MiniGameImage
-            src={hide[idx] === true ? item['value'] : pie}
+            src={hide[idx] === true ? item['value'] : random}
             style={{
               top: `${70 + item['y']}px`,
               left: `${670 + item['x']}px`,
