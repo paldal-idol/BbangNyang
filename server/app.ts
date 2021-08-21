@@ -36,6 +36,15 @@ const { generateName } = require('./game/nameGenerator');
 const { getRandomCharacter } = require('./game/characterSelector');
 
 io.on('connect', (socket: any) => {
+  socket.on('checkRoom', (roomCode: string) => {
+    const check = checkRoom(roomCode);
+    if (check) {
+      socket.emit('existRoom');
+    } else {
+      socket.emit('nonExistRoom');
+    }
+  });
+
   socket.on('join', ({ name, room }: any, callback: any) => {
     if (checkNumberOfUsers(room) === false) {
       callback(true);

@@ -75,9 +75,9 @@ const changeUserCharacter = (id: string, character: number) => {
 const checkRoom = (roomCode: string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
-    return false;
-  } else {
     return true;
+  } else {
+    return false;
   }
 };
 //401 : notEnoughReady 402 : notEnoughUsers
@@ -93,6 +93,7 @@ const isAllReady = () => {
 };
 module.exports = {
   checkNumberOfUsers,
+  checkRoom,
   addUser,
   removeUser,
   getUser,
