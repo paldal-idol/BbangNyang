@@ -103,34 +103,10 @@ const CatSelectModal: React.FC = () => {
       console.log(oldUserIndex);
       const newUsers = _.cloneDeep(users);
 
-      if (newUsers[oldUserIndex].name !== userName.name && changeCharacter !== null) {
-        socket.emit('changeName', userName, () => {
-          setUser(userName);
-          newUsers[oldUserIndex].name = userName.name;
-        });
-
-        socket.emit('changeCharacter', changeCharacter, () => {
-          setCharacter(changeCharacter);
-          newUsers[oldUserIndex].character = changeCharacter;
-          setUsers(newUsers);
-
-          const newCharacters = newUsers.map((user) => user.character);
-          setCharacters(newCharacters);
-        });
-      } else if (newUsers[oldUserIndex].name !== userName.name) {
+      if (newUsers[oldUserIndex].name !== userName.name) {
         socket.emit('changeName', userName.name, () => {
           setUser(userName);
           newUsers[oldUserIndex].name = userName.name;
-          setUsers(newUsers);
-        });
-      } else if (changeCharacter !== null) {
-        socket.emit('changeCharacter', changeCharacter, () => {
-          setCharacter(changeCharacter);
-          newUsers[oldUserIndex].character = changeCharacter;
-          setUsers(newUsers);
-
-          const newCharacters = newUsers.map((user) => user.character);
-          setCharacters(newCharacters);
         });
       }
     }
@@ -152,10 +128,24 @@ const CatSelectModal: React.FC = () => {
               key={index}
               valid={characters.find((cat) => cat === index) !== undefined ? false : true}
               onClick={() => {
+                setChangeCharacter(index);
                 if (characters.find((cat) => cat === index) === undefined) {
                   //TODO: 선택된 고양이로 정보 업데이트
-                  console.log(index);
-                  setChangeCharacter(index);
+                  if (users) {
+                    const isUser = (existUser) => existUser.name === user.name;
+                    const oldUserIndex = users.findIndex(isUser);
+                    console.log(oldUserIndex);
+                    const newUsers = _.cloneDeep(users);
+
+                    socket.emit('changeCharacter', index, () => {
+                      setCharacter(index);
+                      newUsers[oldUserIndex].character = index;
+                      setUsers(newUsers);
+
+                      const newCharacters = newUsers.map((user) => user.character);
+                      setCharacters(newCharacters);
+                    });
+                  }
                 } else {
                   alert('사용중이거나 선택할 수 없는 캐릭터 입니다');
                 }
