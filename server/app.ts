@@ -151,6 +151,14 @@ io.on('connect', (socket: any) => {
         break;
     }
   });
+
+  socket.on('kickOutUser', (user: any) => {
+    io.to(user.room).emit('kickOutUserId', user.name);
+    io.to(user.room).emit('message', {
+      user: 'Admin',
+      text: `${user.name} has been kicked out.`,
+    });
+  });
 });
 
 app.get('/makeRoom', (req: any, res: any) => {

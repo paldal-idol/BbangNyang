@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import _ from 'lodash';
@@ -7,6 +8,7 @@ import { CatImages } from '@utils/cat';
 import socket from '@store/socket';
 import userState from '@store/user';
 import usersState from '@store/users';
+import roomState from '@store/room';
 import selectedCharacter from '@store/selectedCharacter';
 import color from '@theme/color';
 
@@ -57,8 +59,10 @@ const ExpulsionButton = styled.button`
 `;
 
 const WaitingRoomUsers = () => {
+  const history = useHistory();
   const [isMaster, setIsMaster] = useState(false);
-  const name = useRecoilValue(userState);
+  const user = useRecoilValue(userState);
+  const [room, setRoom] = useRecoilState(roomState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userList, setUserList] = useState(null);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
@@ -77,8 +81,16 @@ const WaitingRoomUsers = () => {
     socket.on('roomData', ({ room, users }: any) => {
       setUserList(users);
     });
+    socket.on('kickOutUserId', (name) => {
+      console.log(name, user);
+      if (name === user.name) {
+        setRoom('');
+        history.push('/');
+        alert('방장이 회원님을 강퇴했습니다.');
+      }
+    });
     if (users.length > 0 && users[0].hasOwnProperty('name')) {
-      if (users[0].name === name) {
+      if (users[0].name === user.name) {
         setIsMaster(true);
       } else {
         setIsMaster(false);
@@ -86,9 +98,11 @@ const WaitingRoomUsers = () => {
     }
   }, [users]);
 
-  const expulsionUser = () => {
-    // TODO : 강퇴하는 코드 작성
-    alert('강퇴하시겠습니까?');
+  const expulsionUser = (user) => {
+    const result = confirm(`${user.name}님을 강퇴하시겠습니까?`);
+    if (result) {
+      socket.emit('kickOutUser', user);
+    }
   };
 
   return (
@@ -101,7 +115,9 @@ const WaitingRoomUsers = () => {
                 <CatImg src={CatImages[user.character]} />
                 <UserName>{user.name}</UserName>
               </UserInfo>
-              {isMaster && <ExpulsionButton onClick={expulsionUser}>X</ExpulsionButton>}
+              {isMaster && users[0].name !== user.name && (
+                <ExpulsionButton onClick={() => expulsionUser(user)}>X</ExpulsionButton>
+              )}
             </UserItem>
           );
         })}

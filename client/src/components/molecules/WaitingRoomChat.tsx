@@ -32,7 +32,7 @@ const WaitingRoomChat = () => {
       socket.emit('join', { name: user.name, room }, (error) => {
         if (error) {
           setRoom('');
-          history.push(`/`);
+          history.push('/');
           alert('방이 꽉 찼습니다!!');
         }
       });
