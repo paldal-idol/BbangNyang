@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import modalState from '@store/modal';
 import RuleBookModal from '@molecules/RuleBookModal';
-import RoundSquareButton from './RoundSquareButton';
+import TextButton from '@atoms/TextButton';
 
 const RuleBookButton: React.FC = () => {
   const [modal, setModal] = useRecoilState(modalState);
@@ -13,7 +13,7 @@ const RuleBookButton: React.FC = () => {
 
   return (
     <>
-      <RoundSquareButton variant="yellow" size="lg" onClick={openModal}>Rule Book</RoundSquareButton>
+      <TextButton onClick={openModal}>Rule Book</TextButton>
       {modal === 'RuleBook' && <RuleBookModal />}
     </>
   );

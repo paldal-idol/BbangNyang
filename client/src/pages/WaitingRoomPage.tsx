@@ -10,7 +10,7 @@ import userState from '@store/user';
 import usersState from '@store/users';
 import roomState from '@store/room';
 
-import RoundSquareButton from '@atoms/RoundSquareButton';
+import TextButton from '@atoms/TextButton';
 import RuleBookButton from '@atoms/RuleBookButton';
 import WaitingRoomChat from '@molecules/WaitingRoomChat';
 import WaitingRoomUsers from '@molecules/WaitingRoomUsers';
@@ -182,15 +182,9 @@ const WaitingRoomPage = () => {
           </WaitingZone>
         </Content>
         <Footer>
-          <RoundSquareButton variant="yellow" size="lg" onClick={setReady}>
-            {gameStatus}
-          </RoundSquareButton>
-          <RoundSquareButton variant="yellow" size="lg" onClick={getHelp}>
-            도움말
-          </RoundSquareButton>
-          <RoundSquareButton variant="yellow" size="lg" onClick={goRobby}>
-            로비로 돌아가기
-          </RoundSquareButton>
+          <TextButton onClick={setReady}>{gameStatus}</TextButton>
+          <TextButton onClick={getHelp}>도움말</TextButton>
+          <TextButton onClick={goRobby}>로비로 돌아가기</TextButton>
         </Footer>
         <RuleBookContainer>
           <RuleBookButton />
