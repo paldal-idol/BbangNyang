@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+
+import socket from '@store/socket';
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
@@ -50,18 +52,23 @@ const EntryCodeModal: React.FC = () => {
   const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
-    axios
-      .get('http://localhost:8000/getName')
-      .then((res) => {
-        setUser({ ...user, name: res.data.name });
-        console.log('ggu', user);
-      })
-      .then(() => {
-        closeModal();
-        history.push(`/waiting`);
-      });
+    socket.emit('checkRoom', room);
+    socket.on('existRoom', () => {
+      axios
+        .get('http://localhost:8000/getName')
+        .then((res) => {
+          setUser({ ...user, name: res.data.name });
+          console.log('ggu', user);
+        })
+        .then(() => {
+          closeModal();
+          history.push(`/waiting`);
+        });
+    });
+    socket.on('nonExistRoom', () => {
+      alert('존재하지 않는 방입니다.');
+    });
   };
-
   const closeModal = () => {
     setModal('');
   };
