@@ -68,19 +68,23 @@ const WaitingRoomUsers = () => {
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
 
   useEffect(() => {
+    console.log(`changed user to ${user}`);
+
     socket.on('changeUsers', ({ users }) => {
-      //TODO : socket broadcast를 통해 방의 모든 유저가 이름을 변경한 유저를 갱신해야 함.
+      console.log(users);
       setUsers(users);
+      setUserList(users);
       const newCharacters = users.map((user) => user.character);
       setCharacters(newCharacters);
     });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setUserList(users);
     socket.on('roomData', ({ room, users }: any) => {
       setUserList(users);
     });
+
     socket.on('kickOutUserId', (name) => {
       console.log(name, user);
       if (name === user.name) {

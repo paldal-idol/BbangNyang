@@ -97,18 +97,17 @@ const CatSelectModal: React.FC = () => {
     }
     // TODO : Recoil로 이름 정보 변경하기
 
-    if (users) {
-      const isUser = (existUser) => existUser.name === user.name;
-      const oldUserIndex = users.findIndex(isUser);
-      console.log(oldUserIndex);
-      const newUsers = _.cloneDeep(users);
+    const isUser = (existUser) => existUser.name === user.name;
+    const oldUserIndex = users.findIndex(isUser);
+    console.log(oldUserIndex);
+    const newUsers = _.cloneDeep(users);
 
-      if (newUsers[oldUserIndex].name !== userName.name) {
-        socket.emit('changeName', userName.name, () => {
-          setUser(userName);
-          newUsers[oldUserIndex].name = userName.name;
-        });
-      }
+    if (newUsers[oldUserIndex].name !== userName.name) {
+      socket.emit('changeName', userName.name, () => {
+        console.log(userName);
+        setUser(userName);
+        newUsers[oldUserIndex].name = userName.name;
+      });
     }
 
     closeModal();

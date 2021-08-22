@@ -115,12 +115,14 @@ io.on('connect', (socket: any) => {
     const users = getUsersInRoom(user.room);
     console.log(users);
 
-    socket.broadcast.to(user.room).emit('changeUsers', { users: users });
+    socket.emit('changeUsers', { users: users });
 
     socket.emit('message', {
       user: 'admin',
       text: `${oldName}, success name change to ${name}.`,
     });
+
+    socket.broadcast.to(user.room).emit('changeUsers', { users: users });
 
     socket.broadcast
       .to(user.room)
