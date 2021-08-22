@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import pie from '@img/map/pie.PNG';
 import AllowDiceAgain from '@organisms/AllowDiceAgain';
 
-const Map_svg = styled.svg`
-  z-index: 1;
-  position: absolute;
-`;
 
-const MapImage = styled.img`
+const BoardImage = styled.img`
   position: absolute;
   width: 210px;
-  z-index: 2;
+  z-index: 1;
 `;
 
-const MapContainer = styled.div`
+const BoardContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -58,16 +53,6 @@ class Node {
     }
     q.link = p.link;
   }
-  // print() {
-  //   let string = `${this.data} | `;
-  //   let p = this.link;
-  //   while (p !== this) {
-  //     string += `${p.data} | `;
-  //     p = p.link;
-  //   }
-  //   string += p.data;
-  //   console.log(string);
-  // }
 }
 
 class Player {
@@ -81,7 +66,7 @@ class Player {
 
 const Map = () => {
   const [playerList, setPayerList] = useState([]);
-  const mapPosition = Array(21)
+  const boardPosition = Array(21)
     .fill(0)
     .map((v, i) =>
       Object({
@@ -97,12 +82,9 @@ const Map = () => {
   }, []);
   return (
     <>
-      <Map_svg width="100vw" height="100vh">
-        <ellipse cx="1200" cy="700" rx="900" ry="600" fill="white"></ellipse>
-      </Map_svg>
-      <MapContainer>
-        {mapPosition.map((item, idx) => (
-          <MapImage
+      <BoardContainer>
+        {boardPosition.map((item, idx) => (
+          <BoardImage
             src={pie}
             style={{
               top: `${item.x}px`,
@@ -110,7 +92,7 @@ const Map = () => {
             }}
           />
         ))}
-      </MapContainer>
+      </BoardContainer>
       <AllowDiceAgain />
     </>
   );
