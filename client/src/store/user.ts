@@ -6,7 +6,7 @@ const userState = atom({
     id: '',
     name: '',
     isReady: false,
-    catId: 0,
+    character: 0,
   },
 });
 
