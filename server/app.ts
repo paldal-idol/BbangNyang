@@ -98,7 +98,7 @@ io.on('connect', (socket: any) => {
     console.log(`${socket.id} has left`);
     if (user) {
       io.to(user.room).emit('message', {
-        user: 'Admin',
+        user: 'admin',
         text: `${user.name} has left.`,
       });
       io.to(user.room).emit('roomData', {
@@ -166,7 +166,7 @@ io.on('connect', (socket: any) => {
   socket.on('kickOutUser', (user: any) => {
     io.to(user.room).emit('kickOutUserId', user.name);
     io.to(user.room).emit('message', {
-      user: 'Admin',
+      user: 'admin',
       text: `${user.name} has been kicked out.`,
     });
   });
