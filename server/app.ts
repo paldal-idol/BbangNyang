@@ -21,15 +21,15 @@ const io = socketio(server, corsOptions);
 
 const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
 const {
-  checkNumberOfUsers,
   addUser,
   removeUser,
   getUser,
   getUsersInRoom,
-  checkRoom,
   changeUserName,
   changeUserReady,
   changeUserCharacter,
+  isValidNumberOfUsers,
+  isExistRoom,
   isAllReady,
 } = require('./socket/users.ts');
 const { generateName } = require('./game/nameGenerator');
@@ -37,18 +37,19 @@ const { getRandomCharacter } = require('./game/characterSelector');
 
 io.on('connect', (socket: any) => {
   socket.on('checkRoom', (roomCode: string) => {
-    const check = checkRoom(roomCode);
+    const check = isExistRoom(roomCode);
     if (check) {
-      socket.emit('existRoom');
+      if (isValidNumberOfUsers(roomCode) === false) {
+        socket.emit('fullRoom');
+      } else {
+        socket.emit('existRoom');
+      }
     } else {
       socket.emit('nonExistRoom');
     }
   });
 
   socket.on('join', ({ name, room }: any, callback: any) => {
-    if (checkNumberOfUsers(room) === false) {
-      callback(true);
-    }
     console.log(`join user : ${name}, room : ${room}`);
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
     console.log(randomCharacter);

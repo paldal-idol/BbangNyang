@@ -53,6 +53,11 @@ const EntryCodeModal: React.FC = () => {
 
   const codeHandler = () => {
     socket.emit('checkRoom', room);
+
+    socket.on('fullRoom', () => {
+      alert('꽉 찬 방입니다.');
+    });
+
     socket.on('existRoom', () => {
       axios
         .get('http://localhost:8000/getName')

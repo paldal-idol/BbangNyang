@@ -1,11 +1,5 @@
 const users: any[] = [];
 
-const checkNumberOfUsers = (room: string) => {
-  const userNumber = users.filter((user) => user.room === room).length;
-  if (userNumber < 6) return true;
-  else return false;
-};
-
 const isValidName = (name: string, room: string) => {
   if (!name) {
     return false;
@@ -72,7 +66,7 @@ const changeUserCharacter = (id: string, character: number) => {
   user.character = character;
 };
 
-const checkRoom = (roomCode: string) => {
+const isExistRoom = (roomCode: string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
     return true;
@@ -80,6 +74,13 @@ const checkRoom = (roomCode: string) => {
     return false;
   }
 };
+
+const isValidNumberOfUsers = (room: string) => {
+  const userNumber = users.filter((user) => user.room === room).length;
+  if (userNumber < 6) return true;
+  else return false;
+};
+
 //401 : notEnoughReady 402 : notEnoughUsers
 const isAllReady = () => {
   return users.reduce((result, element, index) => {
@@ -92,8 +93,8 @@ const isAllReady = () => {
     : 402;
 };
 module.exports = {
-  checkNumberOfUsers,
-  checkRoom,
+  isValidNumberOfUsers,
+  isExistRoom,
   addUser,
   removeUser,
   getUser,
