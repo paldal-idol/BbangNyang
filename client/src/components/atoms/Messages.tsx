@@ -13,7 +13,7 @@ const ScrollContainer = styled.div`
   overflow-y: scroll;
 `;
 
-const Messages = ({ messages, name }) => {
+const Messages = ({ messages, user }) => {
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -24,7 +24,7 @@ const Messages = ({ messages, name }) => {
   return (
     <ScrollContainer>
       {messages.map((message, i) => (
-        <Message key={i} message={message} name={name} />
+        <Message key={i} message={message} id={user.id} />
       ))}
       <div ref={messagesEndRef} />
     </ScrollContainer>

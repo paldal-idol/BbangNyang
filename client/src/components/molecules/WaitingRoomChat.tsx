@@ -71,7 +71,7 @@ const WaitingRoomChat = () => {
   };
   return (
     <Container>
-      <Messages messages={messages} name={user} />
+      <Messages messages={messages} user={user} />
       <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </Container>
   );

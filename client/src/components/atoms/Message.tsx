@@ -100,13 +100,13 @@ const AdminText = styled.p`
   color: ${color.primary.black};
 `;
 
-const Message = ({ message: { text, user }, name }) => {
-  if (user.id === 'admin') {
+const Message = ({ message: { text, user }, id }) => {
+  if (user === 'admin') {
     return <AdminText>{text}</AdminText>;
   }
-  return user.id === name.id ? (
+  return user.id === id ? (
     <MyMessage>
-      <MyName>{name.name}</MyName>
+      <MyName>{user.name}</MyName>
       <MyMessageBox>
         <MyText>{ReactEmoji.emojify(text)}</MyText>
       </MyMessageBox>
