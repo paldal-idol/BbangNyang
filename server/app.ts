@@ -59,12 +59,13 @@ io.on('connect', (socket: any) => {
     socket.join(user.room);
 
     socket.emit('message', {
-      user: user,
+      user: 'admin',
       text: `${user.name}, welcome to room ${user.room}.`,
     });
+
     socket.broadcast
       .to(user.room)
-      .emit('message', { user: user, text: `${user.name} has joined!` });
+      .emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
     io.to(user.room).emit('roomData', {
       room: user.room,
