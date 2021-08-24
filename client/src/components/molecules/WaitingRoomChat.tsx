@@ -28,6 +28,17 @@ const WaitingRoomChat = () => {
   const [users, setUsers] = useRecoilState(usersState);
 
   useEffect(() => {
+    messages.forEach((item) => {
+      users.forEach((user) => {
+        if (item.user !== 'admin' && user.id === item.user.id && user.name !== item.user.name) {
+          item.user = { ...item.user, name: user.name };
+        }
+      });
+    });
+    setMessages(messages);
+  }, [users]);
+
+  useEffect(() => {
     if (socket) {
       socket.emit('join', { name: user.name, room }, (error) => {
         if (error) {
