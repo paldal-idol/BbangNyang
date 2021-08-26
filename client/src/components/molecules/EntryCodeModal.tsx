@@ -60,9 +60,9 @@ const EntryCodeModal: React.FC = () => {
 
     socket.on('existRoom', () => {
       axios
-        .get('http://localhost:8000/getUserId')
+        .get('http://localhost:8000/getName')
         .then((res) => {
-          setUser({ ...user, userId: res.data.userId });
+          setUser({ ...user, name: res.data.name });
           console.log('ggu', user);
         })
         .then(() => {
