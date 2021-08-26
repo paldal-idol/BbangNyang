@@ -19,10 +19,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
-const { getNewRoomCode } = require('./game/roomCodeGenerator');
-const { getNewName } = require('./game/nameGenerator');
-const { getRandomCharacter } = require('./game/characterSelector');
-
+const { roomCodeGenerator } = require('./game/roomCodeGenerator.ts');
 const {
   addUser,
   removeUser,
@@ -35,10 +32,10 @@ const {
   isExistRoom,
   isAllReady,
 } = require('./socket/users.ts');
+const { generateName } = require('./game/nameGenerator');
+const { getRandomCharacter } = require('./game/characterSelector');
 
 io.on('connect', (socket: any) => {
-  console.log(`user( ${socket.id} ) is connected`);
-
   socket.on('checkRoom', (roomCode: string) => {
     const check = isExistRoom(roomCode);
     if (check) {
@@ -53,18 +50,10 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('join', ({ name, room }: any, callback: any) => {
-    console.log(`join user : ${socket.id}, room : ${room}`);
-
-    const randomName = getNewName();
+    console.log(`join user : ${name}, room : ${room}`);
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
-    const { error, user } = addUser({
-      id: socket.id,
-      name: randomName,
-      room: room,
-      isReady: false,
-      character: randomCharacter,
-    });
-
+    console.log(randomCharacter);
+    const { error, user } = addUser({ id: socket.id, name, room, character: randomCharacter });
     if (error) return callback(error);
 
     socket.join(user.room);
@@ -186,11 +175,11 @@ io.on('connect', (socket: any) => {
 });
 
 app.get('/makeRoom', (req: any, res: any) => {
-  res.send({ code: getNewRoomCode(), name: getNewName() });
+  res.send({ code: roomCodeGenerator(), name: generateName() });
 });
 
 app.get('/getName', (req: any, res: any) => {
-  res.send({ name: getNewName() });
+  res.send({ name: generateName() });
 });
 
 const port = process.env.PORT || 8000;
