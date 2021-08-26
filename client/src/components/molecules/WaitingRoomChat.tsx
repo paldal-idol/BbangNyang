@@ -40,7 +40,7 @@ const WaitingRoomChat = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit('join', { name: user.name, room }, (error) => {
+      socket.emit('join', { userId: user.userId, room }, (error) => {
         if (error) {
           // setRoom('');
           // history.push('/');
