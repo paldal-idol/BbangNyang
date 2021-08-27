@@ -66,7 +66,7 @@ const WaitingRoomChat = () => {
         socketIO.socket.disconnect();
       };
     }
-  }, []);
+  }, [user]);
 
   const sendMessage = (event) => {
     event.preventDefault();

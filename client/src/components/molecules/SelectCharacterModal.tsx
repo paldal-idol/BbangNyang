@@ -94,6 +94,9 @@ const CatSelectModal: React.FC = () => {
     //   console.log(users);
     //   setUsers(users);
     // });
+    console.log(user);
+    console.log(userName);
+    console.log(userName.name);
     socketIO.socket.on('changeUsers', ({ users }: any) => {
       console.log(users);
       setUsers(users);
@@ -172,7 +175,7 @@ const CatSelectModal: React.FC = () => {
             onChange={(event) => {
               setUserName({ ...userName, name: event.target.value });
             }}
-            value={userName.name}
+            value={user.name}
           ></CodeInput>
           <Button backgroundColor={color.button.orange} onClick={codeHandler}>
             변경

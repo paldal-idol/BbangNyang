@@ -69,7 +69,7 @@ io.on('connect', (socket: any) => {
         character: randomCharacter,
       });
       console.log(user);
-      if (error) return callback({ error: error, name: user.name });
+      if (error) return callback({ error: error, name: randomName });
 
       socket.join(user.room);
 
