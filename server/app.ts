@@ -58,34 +58,39 @@ io.on('connect', (socket: any) => {
 
     const randomName = getNewName();
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
-    const { error, user } = addUser({
-      id: socket.id,
-      userId: userId,
-      name: randomName,
-      room: room,
-      isReady: false,
-      character: randomCharacter,
-    });
 
-    if (error) return callback({ error: error, name: randomName });
+    if (randomCharacter && randomName.length > 0) {
+      const { error, user } = addUser({
+        id: socket.id,
+        userId: userId,
+        name: randomName,
+        room: room,
+        isReady: false,
+        character: randomCharacter,
+      });
+      console.log(user);
+      if (error) return callback({ error: error, name: user.name });
 
-    socket.join(user.room);
+      socket.join(user.room);
 
-    socket.emit('message', {
-      user: 'admin',
-      text: `${user.name}, welcome to room ${user.room}.`,
-    });
+      socket.emit('message', {
+        user: 'admin',
+        text: `${user.name}, welcome to room ${user.room}.`,
+      });
 
-    socket.broadcast
-      .to(user.room)
-      .emit('message', { user: 'admin', text: `${user.name} has joined!` });
+      socket.broadcast
+        .to(user.room)
+        .emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
-    io.to(user.room).emit('roomData', {
-      room: user.room,
-      users: getUsersInRoom(user.room),
-    });
+      socket.emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
-    callback({ error: error, name: randomName });
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+
+      callback({ error: error, name: randomName });
+    }
   });
 
   socket.on('sendMessage', (message: any, callback: any) => {

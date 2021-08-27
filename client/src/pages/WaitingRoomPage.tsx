@@ -135,11 +135,11 @@ const WaitingRoomPage = () => {
     socketIO.socket.once('listenEvent', (status) => {
       alert(status);
     });
-  };
 
-  socketIO.socket.on('startEvent', () => {
-    history.push('/game');
-  });
+    socketIO.socket.on('startEvent', () => {
+      history.push('/game');
+    });
+  };
 
   const getHelp = () => {
     alert('도움말');

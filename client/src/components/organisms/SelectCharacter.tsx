@@ -49,13 +49,20 @@ const SelectCharacter: React.FC = () => {
     setIsOpen(true);
     setModal('SelectCharacterModal');
   };
-
   useEffect(() => {
     socketIO.socket.on('roomData', ({ room, users }: any) => {
       const my = users.find((item) => item.userId === user.userId);
       setUser({ ...user, character: my.character });
+      console.log(`character : ${user.character}`);
     });
-  });
+    console.log(user.character);
+  }, []);
+  // useEffect(() => {
+  //   socketIO.socket.on('roomData', ({ room, users }: any) => {
+  //     const my = users.find((item) => item.userId === user.userId);
+  //     setUser({ ...user, character: my.character });
+  //   });
+  // });
 
   useEffect(() => {
     if (modal !== 'SelectCharacterModal') {
