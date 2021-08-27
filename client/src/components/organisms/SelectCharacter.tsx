@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import socket from '@store/socket';
+import socketIO from '@store/socket';
 import modalState from '@store/modal';
 // import userCharacter from '@store/character';
 import selectedCharacter from '@store/selectedCharacter';
@@ -51,7 +51,7 @@ const SelectCharacter: React.FC = () => {
   };
 
   useEffect(() => {
-    socket.on('roomData', ({ room, users }: any) => {
+    socketIO.socket.on('roomData', ({ room, users }: any) => {
       const my = users.find((item) => item.userId === user.userId);
       setUser({ ...user, character: my.character });
     });

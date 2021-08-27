@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import socket from '@store/socket';
+import socketIO from '@store/socket';
 import userState from '@store/user';
 import usersState from '@store/users';
 import modalState from '@store/modal';
@@ -94,7 +94,7 @@ const CatSelectModal: React.FC = () => {
     //   console.log(users);
     //   setUsers(users);
     // });
-    socket.on('changeUsers', ({ users }: any) => {
+    socketIO.socket.on('changeUsers', ({ users }: any) => {
       console.log(users);
       setUsers(users);
     });
@@ -116,7 +116,7 @@ const CatSelectModal: React.FC = () => {
     const newUsers = _.cloneDeep(users);
 
     if (newUsers[oldUserIndex].name !== userName.name) {
-      socket.emit('changeName', userName.name, () => {
+      socketIO.socket.emit('changeName', userName.name, () => {
         setUser(userName);
         newUsers[oldUserIndex].name = userName.name;
       });
@@ -154,7 +154,7 @@ const CatSelectModal: React.FC = () => {
                 if (isValidCat(index)) {
                   //TODO: 선택된 고양이로 정보 업데이트
                   if (users) {
-                    socket.emit('changeCharacter', index, () => {
+                    socketIO.socket.emit('changeCharacter', index, () => {
                       setCharacter(index);
                     });
                   }

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import _ from 'lodash';
 
 import { CatImages } from '@utils/cat';
-import socket from '@store/socket';
+import SocketIO from '@store/socket';
 import userState from '@store/user';
 import usersState from '@store/users';
 import roomState from '@store/room';
@@ -70,7 +70,7 @@ const WaitingRoomUsers = () => {
   useEffect(() => {
     console.log(`changed user to ${user}`);
 
-    socket.on('changeUsers', ({ users }) => {
+    SocketIO.socket.on('changeUsers', ({ users }) => {
       console.log(users);
       setUsers(users);
       setUserList(users);
@@ -81,11 +81,11 @@ const WaitingRoomUsers = () => {
 
   useEffect(() => {
     setUserList(users);
-    socket.on('roomData', ({ room, users }: any) => {
+    SocketIO.socket.on('roomData', ({ room, users }: any) => {
       setUserList(users);
     });
 
-    socket.on('kickOutUserId', (userId) => {
+    SocketIO.socket.on('kickOutUserId', (userId) => {
       console.log(userId, user);
       if (userId === user.userId) {
         setRoom('');
@@ -105,7 +105,7 @@ const WaitingRoomUsers = () => {
   const expulsionUser = (user) => {
     const result = confirm(`${user.name}님을 강퇴하시겠습니까?`);
     if (result) {
-      socket.emit('kickOutUser', user);
+      SocketIO.socket.emit('kickOutUser', user);
     }
   };
 

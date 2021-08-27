@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import color from '@theme/color';
 
-import socket from '@store/socket';
+import socketIO from '@store/socket';
 import modalState from '@store/modal';
 import userState from '@store/user';
 import usersState from '@store/users';
@@ -99,8 +99,8 @@ const WaitingRoomPage = () => {
   let users = useRecoilValue(usersState);
 
   useEffect(() => {
-    socket.connect();
-    setUser({ ...user, id: socket.id });
+    socketIO.socket.connect();
+    setUser({ ...user, id: socketIO.socket.id });
     if (users.find((e) => e.userId === user.userId) !== undefined) {
       setGameStatus(
         users[0].userId === user.userId ? 'Game Start' : user.isReady ? 'Cancel' : 'Ready',
@@ -121,23 +121,23 @@ const WaitingRoomPage = () => {
     switch (gameStatus) {
       case 'Ready':
         alert('레디완료');
-        socket.emit('ready', true);
+        socketIO.socket.emit('ready', true);
         break;
       case 'Cancel':
         alert('레디취소');
-        socket.emit('ready', false);
+        socketIO.socket.emit('ready', false);
         break;
       case 'Game Start':
         alert('게임시작');
-        socket.emit('gameStart');
+        socketIO.socket.emit('gameStart');
         break;
     }
-    socket.once('listenEvent', (status) => {
+    socketIO.socket.once('listenEvent', (status) => {
       alert(status);
     });
   };
 
-  socket.on('startEvent', () => {
+  socketIO.socket.on('startEvent', () => {
     history.push('/game');
   });
 

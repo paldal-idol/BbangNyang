@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import socket from '@store/socket';
+import SocketIO from '@store/socket';
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
@@ -52,13 +52,13 @@ const EntryCodeModal: React.FC = () => {
   const [room, setRoom] = useRecoilState(roomState);
 
   const codeHandler = () => {
-    socket.emit('checkRoom', room);
+    SocketIO.socket.emit('checkRoom', room);
 
-    socket.on('fullRoom', () => {
+    SocketIO.socket.on('fullRoom', () => {
       alert('꽉 찬 방입니다.');
     });
 
-    socket.on('existRoom', () => {
+    SocketIO.socket.on('existRoom', () => {
       axios
         .get('http://localhost:8000/getUserId')
         .then((res) => {
@@ -70,7 +70,7 @@ const EntryCodeModal: React.FC = () => {
           history.push(`/waiting`);
         });
     });
-    socket.on('nonExistRoom', () => {
+    SocketIO.socket.on('nonExistRoom', () => {
       alert('존재하지 않는 방입니다.');
     });
   };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Bakery from '@organisms/Bakery';
 import PageGuideButton from '@atoms/PageGuideButton';
+import SocketIO from '@store/socket';
 
 const Container = styled.div`
   display: flex;
@@ -10,9 +11,11 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-
-
 const StartPage: React.FC = () => {
+  useEffect(() => {
+    SocketIO.init();
+  }, []);
+
   return (
     <Container>
       <Bakery />
