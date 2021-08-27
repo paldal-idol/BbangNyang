@@ -82,7 +82,7 @@ const CatSelectModal: React.FC = () => {
   // TODO : Recoil로 초기이름 정보 가져오기
   const [user, setUser] = useRecoilState(userState);
   const [users, setUsers] = useRecoilState(usersState);
-  const [userName, setUserName] = useState(user);
+  const [userName, setUserName] = useState(user.name);
   // const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
   // const [character, setCharacter] = useRecoilState(userCharacter);
@@ -115,10 +115,10 @@ const CatSelectModal: React.FC = () => {
     const oldUserIndex = findMyIndex();
     const newUsers = _.cloneDeep(users);
 
-    if (newUsers[oldUserIndex].name !== userName.name) {
-      socket.emit('changeName', userName.name, () => {
-        setUser(userName);
-        newUsers[oldUserIndex].name = userName.name;
+    if (newUsers[oldUserIndex].name !== userName) {
+      socket.emit('changeName', userName, () => {
+        setUser({ ...user, name: userName });
+        newUsers[oldUserIndex].name = userName;
       });
     }
 
@@ -170,9 +170,9 @@ const CatSelectModal: React.FC = () => {
             placeholder="변경할 닉네임을 입력해주세요"
             ref={userNameInput}
             onChange={(event) => {
-              setUserName({ ...userName, name: event.target.value });
+              setUserName(event.target.value);
             }}
-            value={userName.name}
+            value={userName}
           ></CodeInput>
           <Button backgroundColor={color.button.orange} onClick={codeHandler}>
             변경
