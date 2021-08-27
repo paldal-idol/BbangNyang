@@ -21,7 +21,6 @@ const io = socketio(server, corsOptions);
 
 const { getNewRoomCode } = require('./game/roomCodeGenerator');
 const { getNewName } = require('./game/nameGenerator');
-const { getNewId } = require('./game/idGenerator');
 const { getRandomCharacter } = require('./game/characterSelector');
 
 const {
@@ -191,10 +190,6 @@ app.get('/makeRoom', (req: any, res: any) => {
 
 app.get('/getName', (req: any, res: any) => {
   res.send({ name: getNewName() });
-});
-
-app.get('/getUserId', (req: any, res: any) => {
-  res.send({ userId: getNewId() });
 });
 
 const port = process.env.PORT || 8000;
