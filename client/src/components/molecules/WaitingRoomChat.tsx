@@ -20,7 +20,7 @@ const Container = styled.div`
 `;
 
 const WaitingRoomChat = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const user = useRecoilValue(userState);
@@ -30,7 +30,11 @@ const WaitingRoomChat = () => {
   useEffect(() => {
     messages.forEach((item) => {
       users.forEach((user) => {
-        if (item.user !== 'admin' && user.id === item.user.id && user.name !== item.user.name) {
+        if (
+          item.user !== 'admin' &&
+          user.userId === item.user.userId &&
+          user.name !== item.user.name
+        ) {
           item.user = { ...item.user, name: user.name };
         }
       });
@@ -40,11 +44,9 @@ const WaitingRoomChat = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit('join', { name: user.name, room }, (error) => {
+      socket.emit('join', { userId: user.userId, room }, (error) => {
         if (error) {
-          // setRoom('');
-          // history.push('/');
-          // alert('방이 꽉 찼습니다!!');
+          alert(error);
         }
       });
 

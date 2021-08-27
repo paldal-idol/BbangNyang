@@ -85,16 +85,16 @@ const WaitingRoomUsers = () => {
       setUserList(users);
     });
 
-    socket.on('kickOutUserId', (name) => {
-      console.log(name, user);
-      if (name === user.name) {
+    socket.on('kickOutUserId', (userId) => {
+      console.log(userId, user);
+      if (userId === user.userId) {
         setRoom('');
         history.push('/');
         alert('방장이 회원님을 강퇴했습니다.');
       }
     });
     if (users.length > 0 && users[0].hasOwnProperty('name')) {
-      if (users[0].name === user.name) {
+      if (users[0].userId === user.userId) {
         setIsMaster(true);
       } else {
         setIsMaster(false);
@@ -119,7 +119,7 @@ const WaitingRoomUsers = () => {
                 <CatImg src={CatImages[user.character]} />
                 <UserName>{user.name}</UserName>
               </UserInfo>
-              {isMaster && users[0].name !== user.name && (
+              {isMaster && users[0].userId !== user.userId && (
                 <ExpulsionButton onClick={() => expulsionUser(user)}>X</ExpulsionButton>
               )}
             </UserItem>

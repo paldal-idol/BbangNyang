@@ -101,13 +101,9 @@ const WaitingRoomPage = () => {
   useEffect(() => {
     socket.connect();
     setUser({ ...user, id: socket.id });
-    if (users.find((e) => e.name === user.name) !== undefined) {
+    if (users.find((e) => e.userId === user.userId) !== undefined) {
       setGameStatus(
-        users[0].name === user.name
-          ? 'Game Start'
-          : !users.find((e) => e.name === user.name).isReady
-          ? 'Ready'
-          : 'Cancel',
+        users[0].userId === user.userId ? 'Game Start' : user.isReady ? 'Cancel' : 'Ready',
       );
     }
   }, [users]);

@@ -53,13 +53,15 @@ io.on('connect', (socket: any) => {
     }
   });
 
-  socket.on('join', ({ name, room }: any, callback: any) => {
-    console.log(`join user : ${socket.id}, room : ${room}`);
+  socket.on('join', ({ userId, room }: any, callback: any) => {
+    console.log(`join user : ${userId}, room : ${room}, socket: ${socket.id}`);
 
+    const randomName = getNewName();
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
     const { error, user } = addUser({
       id: socket.id,
-      name: name,
+      userId: userId,
+      name: randomName,
       room: room,
       isReady: false,
       character: randomCharacter,
@@ -128,14 +130,14 @@ io.on('connect', (socket: any) => {
     const users = getUsersInRoom(user.room);
     console.log(users);
 
-    socket.emit('changeUsers', { users: users });
+    // socket.emit('changeUsers', { users: users }); // broadcast와
 
     socket.emit('message', {
       user: 'admin',
       text: `${oldName}, success name change to ${name}.`,
     });
 
-    socket.broadcast.to(user.room).emit('changeUsers', { users: users });
+    io.to(user.room).emit('changeUsers', { users: users });
 
     socket.broadcast
       .to(user.room)
@@ -156,6 +158,7 @@ io.on('connect', (socket: any) => {
     console.log(users);
 
     socket.broadcast.to(user.room).emit('changeUsers', { users: users });
+
     callback();
   });
 
@@ -177,7 +180,7 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('kickOutUser', (user: any) => {
-    io.to(user.room).emit('kickOutUserId', user.name);
+    io.to(user.room).emit('kickOutUserId', user.userId);
     io.to(user.room).emit('message', {
       user: 'admin',
       text: `${user.name} has been kicked out.`,
@@ -186,15 +189,15 @@ io.on('connect', (socket: any) => {
 });
 
 app.get('/makeRoom', (req: any, res: any) => {
-  res.send({ code: getNewRoomCode(), name: getNewName() });
-});
-
-app.get('/getName', (req: any, res: any) => {
-  res.send({ name: getNewName() });
+  res.send({ code: getNewRoomCode(), userId: getNewId() });
 });
 
 app.get('/getUserId', (req: any, res: any) => {
   res.send({ userId: getNewId() });
+});
+
+app.get('/getUserInfo', (req: any, res: any) => {
+  res.send(getUser(req.query.userId));
 });
 
 const port = process.env.PORT || 8000;

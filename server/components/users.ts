@@ -1,3 +1,4 @@
+export {};
 const users: any[] = [];
 
 const isValidName = (name: string, room: string) => {
@@ -25,18 +26,20 @@ const addUser = ({ id, userId, name, room, isReady, character }: any) => {
   return { user };
 };
 
-const removeUser = (id: string) => {
-  const index = users.findIndex((user) => user.id === id);
+const removeUser = (userId: string) => {
+  const index = users.findIndex((user) => user.userId === userId);
 
   if (index !== -1) return users.splice(index, 1)[0];
 };
 
-const getUser = (id: string) => users.find((user) => user.id === id);
+const getUser = (userId: string) => users.find((user) => user.userId === userId);
+
+const getUserId = (socketId: string) => users.find((user) => user.id === socketId).userId;
 
 const getUsersInRoom = (room: string) => users.filter((user) => user.room === room);
 
-const changeUserReady = (id: string, readyState: boolean) => {
-  const user = getUser(id);
+const changeUserReady = (userId: string, readyState: boolean) => {
+  const user = getUser(userId);
 
   if (user === undefined) {
     return { error: 'Is not Users' };
@@ -47,8 +50,8 @@ const changeUserReady = (id: string, readyState: boolean) => {
   user.isReady = readyState;
 };
 
-const changeUserName = (id: string, name: string) => {
-  const user = getUser(id);
+const changeUserName = (userId: string, name: string) => {
+  const user = getUser(userId);
 
   console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`);
 
@@ -58,8 +61,8 @@ const changeUserName = (id: string, name: string) => {
   user.name = name;
 };
 
-const changeUserCharacter = (id: string, character: number) => {
-  const user = getUser(id);
+const changeUserCharacter = (userId: string, character: number) => {
+  const user = getUser(userId);
 
   if (!isValidCharacter(character, user.room)) return { error: 'Selected character is taken.' };
 
@@ -98,6 +101,7 @@ module.exports = {
   addUser,
   removeUser,
   getUser,
+  getUserId,
   getUsersInRoom,
   changeUserName,
   changeUserReady,

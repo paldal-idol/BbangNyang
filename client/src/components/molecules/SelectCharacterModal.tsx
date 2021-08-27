@@ -77,17 +77,33 @@ const CatImg = styled.img<imageProps>`
 `;
 
 const CatSelectModal: React.FC = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const [modal, setModal] = useRecoilState(modalState);
   // TODO : Recoil로 초기이름 정보 가져오기
   const [user, setUser] = useRecoilState(userState);
   const [users, setUsers] = useRecoilState(usersState);
   const [userName, setUserName] = useState(user);
-  const [room, setRoom] = useRecoilState(roomState);
+  // const [room, setRoom] = useRecoilState(roomState);
   const userNameInput = useRef(null);
-  const [character, setCharacter] = useRecoilState(userCharacter);
+  // const [character, setCharacter] = useRecoilState(userCharacter);
   const [characters, setCharacters] = useRecoilState(selectedCharacter);
-  const [changeCharacter, setChangeCharacter] = useState(null);
+  // const [changeCharacter, setChangeCharacter] = useState(null);
+
+  useEffect(() => {
+    // socket.on('roomData', ({ users }: any) => {
+    //   console.log(users);
+    //   setUsers(users);
+    // });
+    socket.on('changeUsers', ({ users }: any) => {
+      console.log(users);
+      setUsers(users);
+    });
+  }, []);
+
+  useEffect(() => {
+    const newCharacters = users.map((user) => user.character);
+    setCharacters(newCharacters);
+  }, [users]);
 
   const codeHandler = () => {
     const newUserName = userNameInput.current.value;
@@ -96,21 +112,29 @@ const CatSelectModal: React.FC = () => {
       return false;
     }
     // TODO : Recoil로 이름 정보 변경하기
-
-    const isUser = (existUser) => existUser.name === user.name;
-    const oldUserIndex = users.findIndex(isUser);
-    console.log(oldUserIndex);
+    const oldUserIndex = findMyIndex();
     const newUsers = _.cloneDeep(users);
 
     if (newUsers[oldUserIndex].name !== userName.name) {
       socket.emit('changeName', userName.name, () => {
-        console.log(userName);
         setUser(userName);
         newUsers[oldUserIndex].name = userName.name;
       });
     }
 
     closeModal();
+  };
+  const isValidCat = (index) => {
+    return characters.find((cat) => cat === index) === undefined;
+  };
+
+  const findMyIndex = () => {
+    const isUser = (existUser) => existUser.userId === user.userId;
+    return users.findIndex(isUser);
+  };
+
+  const setCharacter = (index) => {
+    setUser({ ...user, character: index });
   };
 
   const closeModal = () => {
@@ -125,24 +149,13 @@ const CatSelectModal: React.FC = () => {
             <CatImg
               src={cats}
               key={index}
-              valid={characters.find((cat) => cat === index) !== undefined ? false : true}
+              valid={isValidCat(index)}
               onClick={() => {
-                setChangeCharacter(index);
-                if (characters.find((cat) => cat === index) === undefined) {
+                if (isValidCat(index)) {
                   //TODO: 선택된 고양이로 정보 업데이트
                   if (users) {
-                    const isUser = (existUser) => existUser.name === user.name;
-                    const oldUserIndex = users.findIndex(isUser);
-                    console.log(oldUserIndex);
-                    const newUsers = _.cloneDeep(users);
-
                     socket.emit('changeCharacter', index, () => {
                       setCharacter(index);
-                      newUsers[oldUserIndex].character = index;
-                      setUsers(newUsers);
-
-                      const newCharacters = newUsers.map((user) => user.character);
-                      setCharacters(newCharacters);
                     });
                   }
                 } else {
