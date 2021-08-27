@@ -67,7 +67,7 @@ io.on('connect', (socket: any) => {
       character: randomCharacter,
     });
 
-    if (error) return callback(error);
+    if (error) return callback({ error: error, name: randomName });
 
     socket.join(user.room);
 
@@ -85,7 +85,7 @@ io.on('connect', (socket: any) => {
       users: getUsersInRoom(user.room),
     });
 
-    callback();
+    callback({ error: error, name: randomName });
   });
 
   socket.on('sendMessage', (message: any, callback: any) => {
