@@ -40,11 +40,11 @@ const WaitingRoomChat = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit('join', { name: user.name, room }, (error) => {
-        if (error) {
-          // setRoom('');
-          // history.push('/');
-          // alert('방이 꽉 찼습니다!!');
+      socket.emit('join', { name: user.name, room }, (errorMessage) => {
+        if (errorMessage) {
+          setRoom('');
+          history.push('/');
+          alert(errorMessage);
         }
       });
 

@@ -21,7 +21,6 @@ const io = socketio(server, corsOptions);
 
 const { getNewRoomCode } = require('./game/roomCodeGenerator');
 const { getNewName } = require('./game/nameGenerator');
-const { getNewId } = require('./game/idGenerator');
 const { getRandomCharacter } = require('./game/characterSelector');
 
 const {
@@ -56,6 +55,8 @@ io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
     console.log(`join user : ${socket.id}, room : ${room}`);
 
+    if (!room) return callback('잘못된 접근입니다!');
+
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
     const { error, user } = addUser({
       id: socket.id,
@@ -65,7 +66,7 @@ io.on('connect', (socket: any) => {
       character: randomCharacter,
     });
 
-    if (error) return callback(error);
+    if (error) return callback('방이 꽉 찼습니다!');
 
     socket.join(user.room);
 
@@ -191,10 +192,6 @@ app.get('/makeRoom', (req: any, res: any) => {
 
 app.get('/getName', (req: any, res: any) => {
   res.send({ name: getNewName() });
-});
-
-app.get('/getUserId', (req: any, res: any) => {
-  res.send({ userId: getNewId() });
 });
 
 const port = process.env.PORT || 8000;
