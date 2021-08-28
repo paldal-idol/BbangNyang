@@ -44,12 +44,14 @@ const WaitingRoomChat = () => {
 
   useEffect(() => {
     if (socketIO.socket) {
-      socketIO.socket.emit('join', { userId: user.userId, room }, ({ error, name }) => {
+      socketIO.socket.emit('join', { userId: user.userId, room }, ({ errorMessage, name }) => {
         if (name) {
           setUser({ ...user, name: name });
         }
-        if (error) {
-          alert(error);
+        if (errorMessage) {
+          setRoom('');
+          history.push('/');
+          alert(errorMessage);
         }
       });
 

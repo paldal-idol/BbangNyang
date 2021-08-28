@@ -1,51 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 import Modal from '@atoms/Modal';
-import { useSetRecoilState } from 'recoil';
-import modalState from '@store/modal';
-import StartPageGuide from './StartPageGuide';
+import color from '@theme/color';
 
-const Content = styled.div`
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+interface PositionProps {
+  top: number;
+  left: number;
+}
+
+const DescriptionContainer = styled.div<PositionProps>`
+  position: absolute;
+  margin-top: ${(props) => props.top + 'px'};
+  margin-left: ${(props) => props.left + 'px'};
 `;
 
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-`
-const CloseButton = styled.div`
-  display: flex;
-  width: 50px;
-  height: 50px;
-  background-color: gray;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  color: white;
+const Description = styled.div`
+  width: 80px;
+  background-color: white;
+  padding: 10px 20px;
+  margin-left: 100px;
+  text-align: center;
+`;
+
+const DescriptionBorder = styled.div`
+  width: 160px;
+  height: 24px;
+  border-right: 2px dashed white;
+  border-bottom: 2px dashed white;
 `;
 
 const StartPageGuideModal: React.FC = () => {
-
-  const setModal = useSetRecoilState(modalState);
-
-  const closeModal = () => {
-    setModal('');
-  };
-
   return (
     <Modal>
-      <ButtonContainer>
-        <CloseButton onClick={closeModal}>X</CloseButton>
-      </ButtonContainer>
-      <Content>
-        <StartPageGuide/>
-      </Content>
+      <DescriptionContainer top={10} left={190}>
+        <Description>방 생성</Description>
+        <DescriptionBorder />
+      </DescriptionContainer>
+      <DescriptionContainer top={100} left={230}>
+        <Description>방 입장</Description>
+        <DescriptionBorder />
+      </DescriptionContainer>
     </Modal>
   );
 };

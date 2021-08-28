@@ -32,26 +32,26 @@ const AllowDiceAgain = () => {
     setDiceActive(true);
   };
 
-  useEffect(() => {
-    console.log(diceValue);
-    if (0 < diceValue && diceValue < 8) {
-      setDiceNum(diceNum + 1);
-      setTimeout(function () {
-        if (diceNum >= 3) {
-          setDiceActive(false);
-        }
-        else {
-          if (confirm('더 하시겠습니까?')) {
-            setDiceActive(true);
-          } else {
-            setDiceActive(false);
-          }
-        }
-      }, 500);
-    } else if (diceValue >= 8) {
-      setDiceActive(false);
-    }
-  }, [diceValue]);
+  // useEffect(() => {
+  //   console.log(diceValue);
+  //   if (0 < diceValue && diceValue < 8) {
+  //     setDiceNum(diceNum + 1);
+  //     setTimeout(function () {
+  //       if (diceNum >= 3) {
+  //         setDiceActive(false);
+  //       }
+  //       else {
+  //         if (confirm('더 하시겠습니까?')) {
+  //           setDiceActive(true);
+  //         } else {
+  //           setDiceActive(false);
+  //         }
+  //       }
+  //     }, 500);
+  //   } else if (diceValue >= 8) {
+  //     setDiceActive(false);
+  //   }
+  // }, [diceValue]);
 
   return (
     <BoardContainer>
