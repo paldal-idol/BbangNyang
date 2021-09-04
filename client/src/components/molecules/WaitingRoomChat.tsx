@@ -56,10 +56,10 @@ const WaitingRoomChat = () => {
         setUsers(users);
       });
 
-      return () => {
-        console.log('left room');
-        socket.disconnect();
-      };
+      // return () => {
+      //   console.log('left room');
+      //   socket.disconnect();
+      // };
     }
   }, []);
 
