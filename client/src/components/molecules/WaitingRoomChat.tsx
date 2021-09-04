@@ -19,6 +19,15 @@ const Container = styled.div`
   border-radius: 8px;
 `;
 
+const ScrollContainer = styled.div`
+  padding: 5% 0;
+  width: 100%;
+  height: 30vh;
+  min-height: 440px;
+  max-height: 500px;
+  overflow-y: scroll;
+`;
+
 const WaitingRoomChat = () => {
   const history = useHistory();
   const [message, setMessage] = useState('');
@@ -40,11 +49,11 @@ const WaitingRoomChat = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit('join', { name: user.name, room }, (error) => {
-        if (error) {
-          // setRoom('');
-          // history.push('/');
-          // alert('방이 꽉 찼습니다!!');
+      socket.emit('join', { name: user.name, room }, (errorMessage) => {
+        if (errorMessage) {
+          setRoom('');
+          history.push('/');
+          alert(errorMessage);
         }
       });
 
@@ -71,7 +80,9 @@ const WaitingRoomChat = () => {
   };
   return (
     <Container>
-      <Messages messages={messages} user={user} />
+      <ScrollContainer>
+        <Messages messages={messages} user={user} />
+      </ScrollContainer>
       <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
     </Container>
   );

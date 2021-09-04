@@ -1,8 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import AllowDiceAgain from '@organisms/AllowDiceAgain';
-import Board from '@organisms/Board';
 import SelectGameOrder from '@organisms/SelectGameOrder';
 import styled from 'styled-components';
+import Dice from '@organisms/Dice';
+import Card from '@organisms/Card';
+import Board from '@organisms/Board';
+import GameInfo from '@organisms/GameInfo';
+import GameChat from '@organisms/GameChat';
+
+const GameContainer = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const BoardContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+`;
+
+const GameInfoContainer = styled.div`
+  width: 400px;
+  height: 100%;
+  border-left: 1px solid black;
+`;
 
 import { useRecoilState } from 'recoil';
 import userState from '@store/user';
@@ -41,16 +63,29 @@ const BoardGamePage: React.FC = () => {
     }, 1000);
   };
   return (
-    <Container>
-      {!user.isGame && <SelectGameOrder />}
-      {/* <AllowDiceAgain /> */}
-
+    <>
+      {!user.isGame && (
+        <Container>
+          <SelectGameOrder />
+        </Container>
+      )}
       {user.isGame && isGame ? (
-        <Board />
+        <GameContainer>
+          {/* <AllowDiceAgain /> */}
+          {/* <Dice />
+              <Card /> */}
+          <BoardContainer>
+            <Board />
+          </BoardContainer>
+          <GameInfoContainer>
+            <GameInfo />
+            <GameChat />
+          </GameInfoContainer>
+        </GameContainer>
       ) : user.isGame ? (
         <p>곧 게임이 시작됩니다! {startCount}초 전</p>
       ) : null}
-    </Container>
+    </>
   );
 };
 

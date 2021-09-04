@@ -8,10 +8,11 @@ interface Colors {
 
 const color: Colors = {
   primary: {
-    darkYellow: '#FFD46E',
+    darkYellow: '#FDBE1F',
     lightBrown: '#DCA660',
     gray: '#d3d3d3',
     black: '#4a4a4a',
+    blue: '#64b2ff',
   },
   bakery: {
     doorBack: '#DDA660',
