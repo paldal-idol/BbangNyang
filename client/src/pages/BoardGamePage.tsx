@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dice from '@organisms/Dice';
+import Card from '@organisms/Card';
 import Board from '@organisms/Board';
 import GameInfo from '@organisms/GameInfo';
 
@@ -24,6 +25,7 @@ const BoardGamePage: React.FC = () => {
     <GameContainer>
       {/* <AllowDiceAgain /> */}
       <Dice />
+      <Card />
       <BoardContainer>
         <Board />
       </BoardContainer>

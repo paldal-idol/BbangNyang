@@ -15,8 +15,8 @@ const diceList = [dice1, dice2, dice3, dice4, dice5, dice6];
 const DiceDiv = styled.div``;
 
 const DiceImage = styled.img`
-  margin-top: 500px;
-  margin-left: 460px;
+  margin-top: 360px;
+  margin-left: 260px;
   z-index: 3;
   position: absolute;
   width: 100px;
@@ -28,8 +28,8 @@ const DiceImage = styled.img`
 `;
 
 const DiceDiv2 = styled.div`
-  margin-top: 580px;
-  margin-left: 460px;
+  margin-top: 440px;
+  margin-left: 260px;
   z-index: 3;
   position: absolute;
   width: 100px;
