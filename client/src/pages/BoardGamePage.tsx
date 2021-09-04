@@ -14,6 +14,8 @@ const GameContainer = styled.div`
 
 const BoardContainer = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
 const GameInfoContainer = styled.div`
@@ -26,8 +28,8 @@ const BoardGamePage: React.FC = () => {
   return (
     <GameContainer>
       {/* <AllowDiceAgain /> */}
-      <Dice />
-      <Card />
+      {/* <Dice />
+      <Card /> */}
       <BoardContainer>
         <Board />
       </BoardContainer>
