@@ -19,10 +19,10 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
-const { getNewRoomCode } = require('./game/roomCodeGenerator');
-const { getNewName } = require('./game/nameGenerator');
-const { getRandomCharacter } = require('./game/characterSelector');
-const { getRandomOrderArray } = require('./game/randomOrderGenerator');
+const { getNewRoomCode } = require('./generator/roomCodeGenerator');
+const { getNewName } = require('./generator/nameGenerator');
+const { getRandomCharacter } = require('./generator/characterSelector');
+const { getRandomOrderArray } = require('./generator/randomOrderGenerator');
 
 const {
   addUser,
