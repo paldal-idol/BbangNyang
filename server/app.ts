@@ -194,13 +194,13 @@ io.on('connect', (socket: any) => {
     io.to(user.room).emit('randomOrderArray', randomOrder);
   });
 
-  socket.on('setOrder', ({ clicked, clickedIndex }: any, callback: any) => {
-    // console.log(clicked, clickedIndex, user);
+  socket.on('setOrder', ({ clicked, clickedIndex, order }: any, callback: any) => {
     const user = getUser(socket.id);
     clicked[clickedIndex] = true;
-    console.log(clicked);
+    changeUserOrder(socket.id, order);
+    console.log(user.name, order);
     callback(clicked);
-    console.log('after callback');
+
     socket.emit('setClicked', clicked);
     io.to(user.room).emit('setClicked', clicked);
   });

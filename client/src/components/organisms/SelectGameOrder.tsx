@@ -76,12 +76,16 @@ const SelectGameOrder = () => {
   }, [clicked]);
 
   const flipCard = (clickedIndex) => {
-    socketIO.emit('setOrder', { clicked: clicked, clickedIndex: clickedIndex }, (clickedList) => {
-      console.log(clickedList);
-      setClicked(clickedList);
-      setUser({ ...user, order: order[clickedIndex] });
-      setIsSelect(true);
-    });
+    socketIO.emit(
+      'setOrder',
+      { clicked: clicked, clickedIndex: clickedIndex, order: order[clickedIndex] },
+      (clickedList) => {
+        console.log(clickedList);
+        setClicked(clickedList);
+        setUser({ ...user, order: order[clickedIndex] });
+        setIsSelect(true);
+      },
+    );
   };
 
   if (!loading) return <Container>로딩중...</Container>;
