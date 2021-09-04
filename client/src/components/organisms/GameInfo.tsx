@@ -4,7 +4,8 @@ import color from '@theme/color';
 import { CatImages } from '@utils/cat';
 
 const Container = styled.div`
-  margin: 32px;
+  padding: 32px;
+  border-bottom: 1px solid black;
 `;
 
 const Round = styled.p`
