@@ -27,11 +27,10 @@ const GameInfoContainer = styled.div`
 const BoardGamePage: React.FC = () => {
   return (
     <GameContainer>
-      {/* <AllowDiceAgain /> */}
-      {/* <Dice />
-      <Card /> */}
       <BoardContainer>
         <Board />
+        <Dice />
+        <Card />
       </BoardContainer>
       <GameInfoContainer>
         <GameInfo />
