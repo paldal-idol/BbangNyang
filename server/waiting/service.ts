@@ -1,6 +1,6 @@
 import users from '../store/users';
 
-const { getUser, isValidName, isValidCharacter } = require('../store/users.ts');
+const { isValidName, isValidCharacter } = require('../store/users.ts');
 
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) return { error: 'Username and room are required.' };
@@ -9,18 +9,21 @@ const addUser = ({ id, name, room, character }: any) => {
 
   const user = { id, name, room, isReady: false, character: character };
 
-  users.push(user);
+  users.add(user);
+
   return { user };
 };
 
 const removeUser = (id: string) => {
   const index = users.findIndex((user) => user.id === id);
 
-  if (index !== -1) return users.splice(index, 1)[0];
+  if (index !== -1) {
+    return users.remove(index);
+  }
 };
 
 const changeUserReady = (id: string, readyState: boolean) => {
-  const user = getUser(id);
+  const user = users.getUser(id);
 
   if (user === undefined) {
     return { error: 'Is not Users' };
@@ -32,7 +35,11 @@ const changeUserReady = (id: string, readyState: boolean) => {
 };
 
 const changeUserName = (id: string, name: string) => {
-  const user = getUser(id);
+  const user = users.getUser(id);
+
+  if (user === undefined) {
+    return { error: 'Is not Users' };
+  }
 
   console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`);
 
@@ -43,7 +50,11 @@ const changeUserName = (id: string, name: string) => {
 };
 
 const changeUserCharacter = (id: string, character: number) => {
-  const user = getUser(id);
+  const user = users.getUser(id);
+
+  if (user === undefined) {
+    return { error: 'Is not Users' };
+  }
 
   if (!isValidCharacter(character, user.room)) return { error: 'Selected character is taken.' };
 
@@ -52,12 +63,14 @@ const changeUserCharacter = (id: string, character: number) => {
 
 //401 : notEnoughReady 402 : notEnoughUsers
 const isAllReady = () => {
-  return users.reduce((result, element, index) => {
+  const userList = users.getUserList();
+
+  return userList.reduce((result, element, index) => {
     result += element.isReady === true ? 1 : index === 0 ? 1 : 0;
     return result;
-  }, 0) === users.length && users.length >= 3
+  }, 0) === userList.length && userList.length >= 3
     ? 200
-    : users.length >= 3
+    : userList.length >= 3
     ? 401
     : 402;
 };
