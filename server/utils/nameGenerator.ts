@@ -4,7 +4,7 @@ Random Name Generator for Javascript
 */
 import { firstName, lastName } from './nameList';
 
-const { users } = require('../socket/users');
+const { users } = require('../store/users');
 
 const checkDuplicate = (name: string) => {
   if (!users) return true;

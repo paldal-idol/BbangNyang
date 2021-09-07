@@ -32,7 +32,7 @@ const {
   isValidNumberOfUsers,
   isExistRoom,
   isAllReady,
-} = require('./socket/users.ts');
+} = require('./store/users.ts');
 
 io.on('connect', (socket: any) => {
   console.log(`user( ${socket.id} ) is connected`);
