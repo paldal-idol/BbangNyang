@@ -35,6 +35,7 @@ const changeUserReady = (id: string, readyState: boolean) => {
 
   console.log(`Change user ready state: ${readyState}`);
 
+  // todo: 정보가 바뀌는지 확인 필요
   user.isReady = readyState;
 };
 
@@ -52,6 +53,7 @@ const changeUserName = (id: string, name: string) => {
   }
 
   console.log(`Change user name: ${user.name} to ${name}`);
+  // todo: 정보가 바뀌는지 확인 필요
   user.name = name;
 };
 
@@ -66,6 +68,7 @@ const changeUserCharacter = (id: string, character: number) => {
     return { error: 'Selected character is taken.' };
   }
 
+  // todo: 정보가 바뀌는지 확인 필요
   user.character = character;
 };
 
