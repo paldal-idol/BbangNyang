@@ -7,10 +7,17 @@ import { firstName, lastName } from './nameList';
 const { users } = require('../store/users');
 
 const checkDuplicate = (name: string) => {
-  if (!users) return true;
+  if (!users) {
+    return true;
+  }
+
   const names = users.map((user: any) => user.name);
-  if (names.find((existName: string) => existName === name) === -1) return true;
-  else return false;
+
+  if (names.find((existName: string) => existName === name) === -1) {
+    return true;
+  }
+
+  return false;
 };
 
 const capFirst = (string: string) => {
@@ -32,6 +39,8 @@ const generateName = () => {
 export const getNewName = () => {
   while (true) {
     const name = generateName();
-    if (checkDuplicate(name)) return name;
+    if (checkDuplicate(name)) {
+      return name;
+    }
   }
 };

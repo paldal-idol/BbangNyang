@@ -3,9 +3,13 @@ import users from '../store/users';
 const { isValidName, isValidCharacter } = require('../store/users.ts');
 
 const addUser = ({ id, name, room, character }: any) => {
-  if (!name || !room) return { error: 'Username and room are required.' };
+  if (!name || !room) {
+    return { error: 'Username and room are required.' };
+  }
 
-  if (!isValidName(name, room)) return { error: 'Username is taken.' };
+  if (!isValidName(name, room)) {
+    return { error: 'Username is taken.' };
+  }
 
   const user = { id, name, room, isReady: false, character: character };
 
@@ -43,7 +47,9 @@ const changeUserName = (id: string, name: string) => {
 
   console.log(`Change user name of socket ${user.id}, ${user.name} of room ${user.room}`);
 
-  if (!isValidName(name, user.room)) return { error: 'Username is taken.' };
+  if (!isValidName(name, user.room)) {
+    return { error: 'Username is taken.' };
+  }
 
   console.log(`Change user name: ${user.name} to ${name}`);
   user.name = name;
@@ -56,7 +62,9 @@ const changeUserCharacter = (id: string, character: number) => {
     return { error: 'Is not Users' };
   }
 
-  if (!isValidCharacter(character, user.room)) return { error: 'Selected character is taken.' };
+  if (!isValidCharacter(character, user.room)) {
+    return { error: 'Selected character is taken.' };
+  }
 
   user.character = character;
 };

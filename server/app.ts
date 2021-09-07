@@ -53,7 +53,9 @@ io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
     console.log(`join user : ${socket.id}, room : ${room}`);
 
-    if (!room) return callback('잘못된 접근입니다!');
+    if (!room) {
+      return callback('잘못된 접근입니다!');
+    }
 
     const randomCharacter = getRandomCharacter(getUsersInRoom(room));
     const { error, user } = addUser({
@@ -64,7 +66,9 @@ io.on('connect', (socket: any) => {
       character: randomCharacter,
     });
 
-    if (error) return callback('방이 꽉 찼습니다!');
+    if (error) {
+      return callback('방이 꽉 찼습니다!');
+    }
 
     socket.join(user.room);
 
