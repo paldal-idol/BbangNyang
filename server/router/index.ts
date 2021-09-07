@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+let router = express.Router();
 
 const startRouter = require('../start/router');
 const waitingRouter = require('../waiting/router');
@@ -9,4 +9,4 @@ router.use('/waiting', waitingRouter);
 router.use('/game', gameRouter);
 router.use('/', startRouter);
 
-export default router;
+module.exports = router;

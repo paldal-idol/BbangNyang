@@ -1,4 +1,5 @@
-const router = require('express').Router();
+import express from 'express';
+let router = express.Router();
 
 const { getNewRoomCode } = require('../utils/roomCodeGenerator');
 const { getNewName } = require('../utils/nameGenerator');
@@ -11,4 +12,4 @@ router.get('/getName', (req: any, res: any) => {
   res.send({ name: getNewName() });
 });
 
-export default router;
+module.exports = router;
