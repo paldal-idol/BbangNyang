@@ -48,4 +48,14 @@ class Users {
 
 const users = new Users();
 
+const getUser = (id: string) => {
+  return users.getUser(id);
+};
+
+const getUsersInRoom = (id: string) => {
+  return users.getUsersInRoom(id);
+};
+
+module.exports = { getUser, getUsersInRoom };
+
 export default users;
