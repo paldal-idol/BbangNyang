@@ -21,18 +21,18 @@ const io = socketio(server, corsOptions);
 
 const { getRandomCharacter } = require('./generator/characterSelector');
 
+const { getUser, getUsersInRoom } = require('./store/users.ts');
+
+const { isValidNumberOfUsers, isExistRoom } = require('./start/service.ts');
+
 const {
   addUser,
   removeUser,
-  getUser,
-  getUsersInRoom,
   changeUserName,
   changeUserReady,
   changeUserCharacter,
-  isValidNumberOfUsers,
-  isExistRoom,
   isAllReady,
-} = require('./store/users.ts');
+} = require('./waiting/service.ts');
 
 io.on('connect', (socket: any) => {
   console.log(`user( ${socket.id} ) is connected`);
