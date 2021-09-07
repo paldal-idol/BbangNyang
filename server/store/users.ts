@@ -48,23 +48,4 @@ class Users {
 
 const users = new Users();
 
-const isValidCharacter = (character: number, room: string) => {
-  if (!character) {
-    return false;
-  }
-  return users.isValidCharacter(character, room);
-};
-
-const isValidName = (name: string, room: string) => {
-  if (!name) {
-    return false;
-  }
-  return users.isValidName(name, room);
-};
-
-module.exports = {
-  isValidCharacter,
-  isValidName,
-};
-
 export default users;

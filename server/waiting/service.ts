@@ -1,7 +1,5 @@
 import users from '../store/users';
 
-const { isValidName, isValidCharacter } = require('../store/users.ts');
-
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) {
     return { error: 'Username and room are required.' };
@@ -93,4 +91,18 @@ module.exports = {
   changeUserReady,
   changeUserCharacter,
   isAllReady,
+};
+
+const isValidCharacter = (character: number, room: string) => {
+  if (!character) {
+    return false;
+  }
+  return users.isValidCharacter(character, room);
+};
+
+const isValidName = (name: string, room: string) => {
+  if (!name) {
+    return false;
+  }
+  return users.isValidName(name, room);
 };
