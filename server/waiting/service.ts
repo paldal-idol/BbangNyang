@@ -1,6 +1,6 @@
 import users from '../store/users';
 
-const { getUser, isValidName, isValidCharacter } = require('./store/users.ts');
+const { getUser, isValidName, isValidCharacter } = require('../store/users.ts');
 
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) return { error: 'Username and room are required.' };

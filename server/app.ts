@@ -19,7 +19,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
-const { getRandomCharacter } = require('./generator/characterSelector');
+const { getRandomCharacter } = require('./utils/characterSelector');
 
 const { getUser, getUsersInRoom } = require('./store/users.ts');
 
