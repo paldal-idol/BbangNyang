@@ -19,8 +19,6 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, corsOptions);
 
-const { getNewRoomCode } = require('./generator/roomCodeGenerator');
-const { getNewName } = require('./generator/nameGenerator');
 const { getRandomCharacter } = require('./generator/characterSelector');
 
 const {
@@ -184,14 +182,6 @@ io.on('connect', (socket: any) => {
       text: `${user.name} has been kicked out.`,
     });
   });
-});
-
-app.get('/makeRoom', (req: any, res: any) => {
-  res.send({ code: getNewRoomCode(), name: getNewName() });
-});
-
-app.get('/getName', (req: any, res: any) => {
-  res.send({ name: getNewName() });
 });
 
 const port = process.env.PORT || 8000;
