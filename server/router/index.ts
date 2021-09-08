@@ -1,12 +1,19 @@
 import express from 'express';
+import cors from 'cors';
 let router = express.Router();
 
-const startRouter = require('../start/router');
-const waitingRouter = require('../waiting/router');
-const gameRouter = require('../game/router');
+const start = require('../start/controller');
+// const waiting = require('../waiting/controller');
+// const game = require('../game/controller');
 
-router.use('/waiting', waitingRouter);
-router.use('/game', gameRouter);
-router.use('/', startRouter);
+router.use(cors());
+
+// start page
+router.get('/makeRoom', start.makeRoom);
+router.get('/getName', start.getName);
+
+// waiting page
+
+// game page
 
 module.exports = router;
