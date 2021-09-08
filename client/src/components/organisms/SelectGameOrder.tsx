@@ -67,7 +67,6 @@ const SelectGameOrder = () => {
       'setOrder',
       { clicked: clickedCardList, clickedIndex: clickedIndex, order: randomOrder[clickedIndex] },
       (clickedList) => {
-        console.log(clickedList);
         setClickedCardList(clickedList);
         setUser({ ...user, order: randomOrder[clickedIndex] });
         setIsSelect(true);
