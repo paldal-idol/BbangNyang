@@ -64,11 +64,6 @@ const WaitingRoomChat = () => {
       socket.on('roomData', ({ users }) => {
         setUsers(users);
       });
-
-      // return () => {
-      //   console.log('left room');
-      //   socket.disconnect();
-      // };
     }
   }, []);
 
@@ -78,6 +73,7 @@ const WaitingRoomChat = () => {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
   };
+  
   return (
     <Container>
       <ScrollContainer>
