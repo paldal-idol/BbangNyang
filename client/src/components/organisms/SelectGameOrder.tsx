@@ -75,30 +75,28 @@ const SelectGameOrder = () => {
     );
   };
 
-  if (!loading) return <Container>로딩중...</Container>;
-  if (loading)
+  const onClickCard = (idx) => {
+    if (isSelect === false) {
+      if (clickedCardList[idx] === false) {
+        flipCard(idx);
+      } else {
+        alert('다른 사용자가 먼저 선택하였습니다');
+      }
+    } else {
+      alert('이미 카드를 선택하셨습니다');
+    }
+  };
+  if (!loading) {
+    return <Container>로딩중...</Container>;
+  }
+  if (loading) {
     return (
       <Container>
         <p>게임 진행 순서를 정합니다. 카드를 골라주세요.</p>
-        <br />
         {user.order && <p>선택된 순서 : {user.order}</p>}
-
         <CardContainer>
           {users.map((user, idx) => (
-            <Card
-              key={idx}
-              onClick={() => {
-                if (isSelect === false) {
-                  if (clickedCardList[idx] === false) {
-                    flipCard(idx);
-                  } else {
-                    alert('다른 사용자가 먼저 선택하였습니다');
-                  }
-                } else {
-                  alert('이미 카드를 선택하셨습니다');
-                }
-              }}
-            >
+            <Card key={idx} onClick={() => onClickCard(idx)}>
               {!clickedCardList[idx] ? (
                 <p>카드를 클릭해 순서를 정합니다</p>
               ) : (
@@ -109,5 +107,6 @@ const SelectGameOrder = () => {
         </CardContainer>
       </Container>
     );
+  }
 };
 export default SelectGameOrder;
