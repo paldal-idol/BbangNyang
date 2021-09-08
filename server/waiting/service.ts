@@ -1,4 +1,4 @@
-import users from '../store/users';
+import users, { methods } from '../store/users';
 
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) {
@@ -11,21 +11,21 @@ const addUser = ({ id, name, room, character }: any) => {
 
   const user = { id, name, room, isReady: false, character: character };
 
-  users.add(user);
+  methods.add(user);
 
   return { user };
 };
 
 const removeUser = (id: string) => {
-  const index = users.findIndex((user) => user.id === id);
+  const index = methods.findIndex((user) => user.id === id);
 
   if (index !== -1) {
-    return users.remove(index);
+    return methods.remove(index);
   }
 };
 
 const changeUserReady = (id: string, readyState: boolean) => {
-  const user = users.getUser(id);
+  const user = methods.getUser(id);
 
   if (user === undefined) {
     return { error: 'Is not Users' };
@@ -38,7 +38,7 @@ const changeUserReady = (id: string, readyState: boolean) => {
 };
 
 const changeUserName = (id: string, name: string) => {
-  const user = users.getUser(id);
+  const user = methods.getUser(id);
 
   if (user === undefined) {
     return { error: 'Is not Users' };
@@ -56,7 +56,7 @@ const changeUserName = (id: string, name: string) => {
 };
 
 const changeUserCharacter = (id: string, character: number) => {
-  const user = users.getUser(id);
+  const user = methods.getUser(id);
 
   if (user === undefined) {
     return { error: 'Is not Users' };
@@ -72,7 +72,7 @@ const changeUserCharacter = (id: string, character: number) => {
 
 //401 : notEnoughReady 402 : notEnoughUsers
 const isAllReady = () => {
-  const userList = users.getUserList();
+  const userList = methods.getUserList();
 
   return userList.reduce((result, element, index) => {
     result += element.isReady === true ? 1 : index === 0 ? 1 : 0;
@@ -97,12 +97,12 @@ const isValidCharacter = (character: number, room: string) => {
   if (!character) {
     return false;
   }
-  return users.isValidCharacter(character, room);
+  return methods.isValidCharacter(character, room);
 };
 
 const isValidName = (name: string, room: string) => {
   if (!name) {
     return false;
   }
-  return users.isValidName(name, room);
+  return methods.isValidName(name, room);
 };

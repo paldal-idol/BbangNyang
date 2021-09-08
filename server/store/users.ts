@@ -6,56 +6,55 @@ type User = {
   character: number;
 };
 
-class Users {
-  private data: User[];
+const data: User[] = [];
 
-  constructor() {
-    this.data = [];
-  }
+export const methods = {
+  add: (user: User) => data.push(user),
 
-  add = (user: User) => this.data.push(user);
+  remove: (index: number) => data.splice(index, 1)[0],
 
-  remove = (index: number) => this.data.splice(index, 1)[0];
+  getUserList: () => data,
 
-  getUserList = () => this.data;
+  getUser: (id: string) => data.find((user) => user.id === id),
 
-  getUser = (id: string) => this.data.find((user) => user.id === id);
+  getUsersInRoom: (room: string) => data.filter((user) => user.room === room),
 
-  getUsersInRoom = (room: string) => this.data.filter((user) => user.room === room);
+  isValidCharacter: (character: number, room: string) =>
+    data.find((user) => user.room === room && user.character === character) === undefined,
 
-  isValidCharacter = (character: number, room: string) =>
-    this.data.find((user) => user.room === room && user.character === character) === undefined;
+  // isValidName = (name: string, room: string) =>
+  //   data.find((user) => user.room === room && user.name === name) === undefined;
 
-  isValidName = (name: string, room: string) =>
-    this.data.find((user) => user.room === room && user.name === name) === undefined;
-
+  isValidName: (name: string, room: string) => {
+    return data.find((user: User) => user.room === room && user.name === name) === undefined;
+  },
   // override
-  findIndex = (
+  findIndex: (
     predicate: (value: User, index: number, obj: User[]) => unknown,
     thisArg?: any,
-  ): number => this.data.findIndex(predicate, thisArg);
+  ): number => data.findIndex(predicate, thisArg),
 
-  find = (
+  find: (
     predicate: (value: User, index: number, obj: User[]) => unknown,
     thisArg?: any,
-  ): User | undefined => this.data.find(predicate, thisArg);
+  ): User | undefined => data.find(predicate, thisArg),
 
-  filter = (
+  filter: (
     predicate: (value: User, index: number, array: User[]) => unknown,
     thisArg?: any,
-  ): User[] => this.data.filter(predicate, thisArg);
-}
-
-const users = new Users();
-
-const getUser = (id: string) => {
-  return users.getUser(id);
+  ): User[] => data.filter(predicate, thisArg),
 };
 
-const getUsersInRoom = (id: string) => {
-  return users.getUsersInRoom(id);
-};
+//const users = new Users();
 
-module.exports = { getUser, getUsersInRoom };
+// const getUser = (id: string) => {
+//   return methods.getUser(id);
+// };
 
-export default users;
+// const getUsersInRoom = (id: string) => {
+//   return methods.getUsersInRoom(id);
+// };
+
+//module.exports = { getUser, getUsersInRoom };
+
+export default data;

@@ -1,9 +1,9 @@
 import { resolveSoa } from 'dns/promises';
 
 require('dotenv').config();
-const cors = require('cors');
+export const cors = require('cors');
 const express = require('express');
-const app = express();
+export const app = express();
 const http = require('http');
 const socketio = require('socket.io');
 
@@ -17,11 +17,11 @@ const corsOptions = {
 app.use(cors());
 
 const server = http.createServer(app);
-const io = socketio(server, corsOptions);
+export const io = socketio(server, corsOptions);
 
 const { getRandomCharacter } = require('./utils/characterSelector');
 
-const { getUser, getUsersInRoom } = require('./store/users.ts');
+const { methods } = require('./store/users.ts');
 
 const { isValidNumberOfUsers, isExistRoom } = require('./start/service.ts');
 
@@ -57,7 +57,7 @@ io.on('connect', (socket: any) => {
       return callback('잘못된 접근입니다!');
     }
 
-    const randomCharacter = getRandomCharacter(getUsersInRoom(room));
+    const randomCharacter = getRandomCharacter(methods.getUsersInRoom(room));
     const { error, user } = addUser({
       id: socket.id,
       name: name,
@@ -83,14 +83,14 @@ io.on('connect', (socket: any) => {
 
     io.to(user.room).emit('roomData', {
       room: user.room,
-      users: getUsersInRoom(user.room),
+      users: methods.getUsersInRoom(user.room),
     });
 
     callback();
   });
 
   socket.on('sendMessage', (message: any, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     //모든 사용자에게 메시지 전달
     io.to(user.room).emit('message', { user: user, text: message });
 
@@ -98,14 +98,14 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('ready', (readyState: boolean, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
 
     changeUserReady(socket.id, readyState);
 
     //모든 사용자에게 사용자 상태 전달
     io.to(user.room).emit('roomData', {
       room: user.room,
-      users: getUsersInRoom(user.room),
+      users: methods.getUsersInRoom(user.room),
     });
   });
 
@@ -119,16 +119,16 @@ io.on('connect', (socket: any) => {
       });
       io.to(user.room).emit('roomData', {
         room: user.room,
-        users: getUsersInRoom(user.room),
+        users: methods.getUsersInRoom(user.room),
       });
     }
   });
 
   socket.on('changeName', (name: string, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     const oldName = user.name;
     changeUserName(socket.id, name);
-    const users = getUsersInRoom(user.room);
+    const users = methods.getUsersInRoom(user.room);
     console.log(users);
 
     socket.emit('changeUsers', { users: users });
@@ -148,14 +148,14 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('changeCharacter', (character: number, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     console.log(character);
     const error = changeUserCharacter(socket.id, character);
 
     if (error) {
       console.log(error);
     }
-    const users = getUsersInRoom(user.room);
+    const users = methods.getUsersInRoom(user.room);
     console.log(users);
 
     socket.broadcast.to(user.room).emit('changeUsers', { users: users });
@@ -163,7 +163,7 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('gameStart', () => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     let status = isAllReady();
 
     switch (status) {
