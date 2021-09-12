@@ -83,7 +83,7 @@ const BoardGamePage: React.FC = () => {
           </GameInfoContainer>
         </GameContainer>
       ) : user.isGame ? (
-        <p>곧 게임이 시작됩니다! {startCount}초 전</p>
+        <p>곧 게임이 시작됩니다!</p>
       ) : null}
     </>
   );

@@ -9,6 +9,7 @@ const userState = atom({
     character: 0,
     order: '',
     isGame: false,
+    clearTime: 0,
   },
 });
 
