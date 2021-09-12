@@ -7,6 +7,7 @@ const userState = atom({
     name: '',
     isReady: false,
     character: 0,
+    clearTime: 0,
   },
 });
 
