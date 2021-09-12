@@ -8,21 +8,20 @@ import Cat from '@atoms/Cat';
 const Map_svgBottom = styled.svg`
   z-index: 1;
   position: absolute;
-  // top: 16px;
   width: ${window.screen.width - 400}px;
   height: 100%;
 `;
 const Map_svgTop = styled.svg`
   z-index: 3;
   position: absolute;
-  // top: 16px;
   width: ${window.screen.width - 400}px;
   height: 100%;
 `;
-const BoardImage = styled.img`
+const BoardImage = styled.img<imageProps>`
   position: absolute;
   width: 100px;
-  // z-index: 1;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
 `;
 
 const BoardContainer = styled.div`
@@ -31,6 +30,11 @@ const BoardContainer = styled.div`
   width: ${window.screen.width - 400}px;
   height: 100%;
 `;
+
+interface imageProps {
+  top: number;
+  left: number;
+}
 
 const Map = () => {
   const [playerList, setPayerList] = useState([]);
@@ -111,13 +115,7 @@ const Map = () => {
       </Map_svgTop>
       <BoardContainer>
         {boardPosition.map((item, idx) => (
-          <BoardImage
-            src={pie}
-            style={{
-              top: `${item.x}px`,
-              left: `${item.y}px`,
-            }}
-          />
+          <BoardImage top={item.x} left={item.y} src={pie} />
         ))}
       </BoardContainer>
     </>

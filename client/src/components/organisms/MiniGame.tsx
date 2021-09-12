@@ -13,8 +13,10 @@ const MiniGameButton = styled.button`
 `;
 
 const MiniGameImage = styled.img`
-  width: 150px;
+  max-width: 150px;
   z-index: 2;
+  min-width: 30px;
+  width: 9vw;
 `;
 
 const MiniGameOuterDiv = styled.div`
@@ -56,15 +58,17 @@ const MiniGame = () => {
 
   const startGame = () => {
     setCatList(
-      catList.reduce((result, element, index) => {
-        result.push({
-          value: element,
-          // x: (index % 6) * 150,
-          // y: 150 * Math.floor(index / 6),
-          hide: true,
-        });
-        return result;
-      }, []),
+      [...CatImages, ...CatImages]
+        .sort(() => Math.random() - 0.5)
+        .reduce((result, element, index) => {
+          result.push({
+            value: element,
+            // x: (index % 6) * 150,
+            // y: 150 * Math.floor(index / 6),
+            hide: true,
+          });
+          return result;
+        }, []),
     );
     setIsStart(false);
     setTimeout(() => setHide(Array(24).fill(false)), 1000);
@@ -101,9 +105,8 @@ const MiniGame = () => {
       count > 0
     ) {
       let endTime = new Date();
-      let t = `${endTime.getMinutes() - gameTime.getMinutes()}분${
-        endTime.getSeconds() - gameTime.getSeconds()
-      }초`;
+      const clearTimeNumber = Math.floor((endTime.getTime() - gameTime.getTime()) / 1000);
+      let t = `${Math.floor(clearTimeNumber / 60)}분${clearTimeNumber % 60}초`;
       setIsStart(true);
       setUsers((prev) => [
         ...prev,
