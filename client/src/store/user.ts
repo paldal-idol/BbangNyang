@@ -7,7 +7,7 @@ const userState = atom({
     name: '',
     isReady: false,
     character: 0,
-    order: '',
+    order: -1,
     isGame: false,
     clearTime: 0,
   },

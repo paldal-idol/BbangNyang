@@ -4,6 +4,9 @@ import { useRecoilState } from 'recoil';
 import userState from '@store/user';
 import usersState from '@store/users';
 import socketIO from '@store/socket';
+import color from '@theme/color';
+import cat from '@img/bakery/GameCat.PNG';
+import { CatImages } from '@utils/cat';
 
 const Container = styled.div`
   display: flex;
@@ -15,13 +18,54 @@ const Container = styled.div`
 const CardContainer = styled.div`
   display: flex;
 `;
-const Card = styled.div`
+
+const Card = styled.div<CardProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 250px;
   height: 400px;
   margin: 10px;
-  font-size: 1.5rem;
-  background: #d2ef24;
+  border-radius: 24px;
+  border: 8px solid ${(props) => (props.isSelected ? color.primary.darkYellow : 'black')};
+  --stripe: white;
+  --bg: ${color.primary.gray};
+  background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0,
+    linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0,
+    linear-gradient(315deg, var(--bg) 25%, transparent 25%),
+    linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+  background-size: 100px 100px;
+  background-color: var(--stripe);
 `;
+
+const UnselectedImage = styled.img`
+  margin-top: -80px;
+  width: 800px;
+`;
+
+const SelectedImage = styled.img`
+  width: 240px;
+  margin-left: -15px;
+`;
+
+const Text = styled.div`
+  font-size: 24px;
+  margin-bottom: 20px;
+`;
+
+const OrderText = styled.div<CardProps>`
+  position: absolute;
+  margin-top: -320px;
+  margin-left: -180px;
+  font-weight: bold;
+  font-size: 48px;
+  color: ${(props) => (props.isSelected ? 'red' : 'black')};
+`;
+
+interface CardProps {
+  isSelected: boolean;
+}
+
 const SelectGameOrder = () => {
   const [user, setUser] = useRecoilState(userState);
   const [users, setUsers] = useRecoilState(usersState);
@@ -91,15 +135,21 @@ const SelectGameOrder = () => {
   if (loading) {
     return (
       <Container>
-        <p>게임 진행 순서를 정합니다. 카드를 골라주세요.</p>
-        {user.order && <p>선택된 순서 : {user.order}</p>}
+        <Text>게임 진행 순서를 정합니다. 카드를 골라주세요.</Text>
         <CardContainer>
           {users.map((user, idx) => (
-            <Card key={idx} onClick={() => onClickCard(idx)}>
+            <Card
+              key={idx}
+              onClick={() => onClickCard(idx)}
+              isSelected={user.order === idx ? true : false}
+            >
               {!clickedCardList[idx] ? (
-                <p>카드를 클릭해 순서를 정합니다</p>
+                <UnselectedImage src={cat} />
               ) : (
-                <p>이미 선택된 카드입니다</p>
+                <>
+                  <OrderText isSelected={user.order === idx ? true : false}>{user.order}</OrderText>
+                  <SelectedImage src={CatImages[user.character]} />
+                </>
               )}
             </Card>
           ))}
@@ -108,4 +158,5 @@ const SelectGameOrder = () => {
     );
   }
 };
+
 export default SelectGameOrder;
