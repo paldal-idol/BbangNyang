@@ -22,6 +22,7 @@ const io = socketio(server, corsOptions);
 const { getNewRoomCode } = require('./generator/roomCodeGenerator');
 const { getNewName } = require('./generator/nameGenerator');
 const { getRandomCharacter } = require('./generator/characterSelector');
+const { getRandomOrderArray } = require('./generator/randomOrderGenerator');
 
 const {
   addUser,
@@ -31,6 +32,7 @@ const {
   changeUserName,
   changeUserReady,
   changeUserCharacter,
+  changeUserOrder,
   isValidNumberOfUsers,
   isExistRoom,
   isAllReady,
@@ -183,6 +185,26 @@ io.on('connect', (socket: any) => {
       user: 'admin',
       text: `${user.name} has been kicked out.`,
     });
+  });
+
+  socket.on('getRandomOrder', (user: any) => {
+    console.log(user.room);
+    const users = getUsersInRoom(user.room);
+    console.log(`users : ${users}`);
+    const randomOrder = getRandomOrderArray(users);
+    console.log(randomOrder);
+    io.to(user.room).emit('randomOrderArray', randomOrder);
+  });
+
+  socket.on('setOrder', ({ clicked, clickedIndex, order }: any, callback: any) => {
+    const user = getUser(socket.id);
+    clicked[clickedIndex] = true;
+    changeUserOrder(socket.id, order);
+    console.log(user.name, order);
+    callback(clicked);
+
+    socket.emit('setClicked', clicked);
+    io.to(user.room).emit('setClicked', clicked);
   });
 });
 

@@ -66,6 +66,11 @@ const changeUserCharacter = (id: string, character: number) => {
   user.character = character;
 };
 
+const changeUserOrder = (id: string, order: number) => {
+  const user = getUser(id);
+
+  user['order'] = order;
+};
 const isExistRoom = (roomCode: string) => {
   const existingRoom = users.find((user) => user.room === roomCode);
   if (existingRoom) {
@@ -102,5 +107,6 @@ module.exports = {
   changeUserName,
   changeUserReady,
   changeUserCharacter,
+  changeUserOrder,
   isAllReady,
 };
