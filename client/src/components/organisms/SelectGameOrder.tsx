@@ -40,7 +40,7 @@ const Card = styled.div<CardProps>`
 
 const UnselectedImage = styled.img`
   margin-top: -80px;
-  width: 800px;
+  width: 240px;
 `;
 
 const SelectedImage = styled.img`
@@ -77,6 +77,7 @@ const SelectGameOrder = () => {
   const [isSelect, setIsSelect] = useState(false);
 
   useEffect(() => {
+    console.log(users);
     if (users.length > 0 && users[0].hasOwnProperty('name')) {
       if (users[0].name === user.name) {
         setIsMaster(true);
@@ -107,6 +108,7 @@ const SelectGameOrder = () => {
   }, [clickedCardList]);
 
   const flipCard = (clickedIndex) => {
+    console.log(clickedIndex);
     socketIO.emit(
       'setOrder',
       { clicked: clickedCardList, clickedIndex: clickedIndex, order: randomOrder[clickedIndex] },
@@ -141,13 +143,15 @@ const SelectGameOrder = () => {
             <Card
               key={idx}
               onClick={() => onClickCard(idx)}
-              isSelected={user.order === idx ? true : false}
+              isSelected={user.order === randomOrder[idx] ? true : false}
             >
               {!clickedCardList[idx] ? (
                 <UnselectedImage src={cat} />
               ) : (
                 <>
-                  <OrderText isSelected={user.order === idx ? true : false}>{user.order}</OrderText>
+                  <OrderText isSelected={user.order === randomOrder[idx] ? true : false}>
+                    {randomOrder[idx]}
+                  </OrderText>
                   <SelectedImage src={CatImages[user.character]} />
                 </>
               )}
