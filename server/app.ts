@@ -208,6 +208,11 @@ io.on('connect', (socket: any) => {
     socket.emit('setClicked', clicked);
     io.to(user.room).emit('setClicked', clicked);
   });
+  socket.on('getUsers', (callback: any) => {
+    const user = getUser(socket.id);
+    const users = getUsersInRoom(user.room);
+    callback(users);
+  });
 });
 
 const port = process.env.PORT || 8000;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import socket from '@store/socket';
 import AllowDiceAgain from '@organisms/AllowDiceAgain';
 import SelectGameOrder from '@organisms/SelectGameOrder';
 import styled from 'styled-components';
@@ -28,6 +29,7 @@ const GameInfoContainer = styled.div`
 
 import { useRecoilState } from 'recoil';
 import userState from '@store/user';
+import usersState from '@store/users';
 
 const Container = styled.div`
   display: flex;
@@ -39,11 +41,15 @@ const Container = styled.div`
 `;
 const BoardGamePage: React.FC = () => {
   const [user, setUser] = useRecoilState(userState);
+  const [users, setUsers] = useRecoilState(usersState);
   const [startCount, setStartCount] = useState(5);
   const [isGame, setIsGame] = useState(false);
   let startTimer;
   useEffect(() => {
     if (user.isGame) {
+      socket.emit('getUsers', (users: any[]) => {
+        setUsers(users);
+      });
       gameStart();
     }
   }, [user]);
