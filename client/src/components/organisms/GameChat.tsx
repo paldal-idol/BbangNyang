@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 
+import socket from '@store/socket';
 import userState from '@store/user';
 
 import Messages from '@atoms/Messages';
@@ -28,10 +29,21 @@ const GameChat = () => {
   const [messages, setMessages] = useState([]);
   const user = useRecoilValue(userState);
   // TODO : 채팅 로직 설계
+  useEffect(() => {
+    const startMessage = { user: 'admin', text: ' 게임이 시작되었습니다!' };
+    setMessages([startMessage]);
+
+    socket.on('message', (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
     // TODO : 로직 설계
+    if (message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
   };
   return (
     <Container>
