@@ -12,24 +12,24 @@ import dice6 from '@img/dice/dice6.PNG';
 
 const diceList = [dice1, dice2, dice3, dice4, dice5, dice6];
 
-const DiceDiv = styled.div``;
+const DiceDiv = styled.div`
+  z-index: 3;
+`;
 
 const DiceImage = styled.img`
-  margin-top: 360px;
-  margin-left: 260px;
+  margin-top: ${window.screen.height / 2 - 50}px;
+  margin-right: ${400}px;
   z-index: 3;
-  position: absolute;
+
   width: 100px;
   top: 500;
   left: 800;
-  border: 8px solid #000000;
+  border: 4px solid #000000;
   box-sizing: border-box;
   border-radius: 30px;
 `;
 
 const DiceDiv2 = styled.div`
-  margin-top: 440px;
-  margin-left: 260px;
   z-index: 3;
   position: absolute;
   width: 100px;

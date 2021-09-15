@@ -8,28 +8,33 @@ import Cat from '@atoms/Cat';
 const Map_svgBottom = styled.svg`
   z-index: 1;
   position: absolute;
-  // top: 16px;
+  width: ${window.screen.width - 400}px;
+  height: 100%;
 `;
 const Map_svgTop = styled.svg`
   z-index: 3;
   position: absolute;
-  // top: 16px;
+  width: ${window.screen.width - 400}px;
+  height: 100%;
 `;
-const BoardImage = styled.img`
+const BoardImage = styled.img<imageProps>`
   position: absolute;
   width: 100px;
-
-  // z-index: 1;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
 `;
 
 const BoardContainer = styled.div`
   position: absolute;
+  z-index: 3;
   width: ${window.screen.width - 400}px;
-  height: ${window.screen.height}px;
-  z-index: 4;
-  // width: 100vw;
-  // height: 100vh;
+  height: 100%;
 `;
+
+interface imageProps {
+  top: number;
+  left: number;
+}
 
 const Map = () => {
   const [playerList, setPayerList] = useState([]);
@@ -48,72 +53,61 @@ const Map = () => {
 
   return (
     <>
-      <Map_svgBottom width={window.screen.width - 400} height={window.screen.height}>
-        {/* <rect
-
-          x="126"
-          y="518"
-          width="100"
-          height="320"
-          fill="none"
-          stroke="black"
-          stroke-width="10"
-        ></rect> */}
+      <Map_svgBottom>
         <ellipse
           cx={(window.screen.width - 400) / 2}
           cy={window.screen.height / 2 + 42}
-          rx="400"
-          ry="280"
+          rx={(402 * window.screen.width) / 1680}
+          ry={(280 * window.screen.height) / 1050}
           fill="none"
           stroke="#ba8749"
           stroke-width="120"
           style={{ zIndex: -1 }}
         ></ellipse>
         <rect
-          x={(window.screen.width - 400) / 2 - 465}
+          x={(window.screen.width - 400) / 2 - 463}
           y={window.screen.height / 2 + 9}
-          width="930"
+          width="926"
           height="20"
           fill="none"
           stroke="black"
-          stroke-width="10"
+          stroke-width="4"
         ></rect>
         <ellipse
           cx={(window.screen.width - 400) / 2}
           cy={window.screen.height / 2 + 42}
-          rx="465"
-          ry="340"
+          rx={(463 * window.screen.width) / 1680}
+          ry={(340 * window.screen.height) / 1050}
           fill="none"
           style={{ borderRadius: '50%/100%' }}
           stroke="black"
-          stroke-width="10"
+          stroke-width="4"
         ></ellipse>
-
         <ellipse
           cx={(window.screen.width - 400) / 2}
           cy={window.screen.height / 2}
-          rx="400"
-          ry="280"
+          rx={(400 * window.screen.width) / 1680}
+          ry={(280 * window.screen.height) / 1050}
           fill="#673b00"
           style={{ zIndex: -1 }}
         ></ellipse>
       </Map_svgBottom>
       <Cat />
-      <Map_svgTop width={window.screen.width - 400} height={window.screen.height}>
+      <Map_svgTop>
         <ellipse
           cx={(window.screen.width - 400) / 2}
           cy={window.screen.height / 2}
-          rx="400"
-          ry="280"
+          rx={(400 * window.screen.width) / 1680}
+          ry={(280 * window.screen.height) / 1050}
           fill="none"
           stroke="black"
-          stroke-width="140"
+          stroke-width="130"
         ></ellipse>
         <ellipse
           cx={(window.screen.width - 400) / 2}
           cy={window.screen.height / 2}
-          rx="400"
-          ry="280"
+          rx={(400 * window.screen.width) / 1680}
+          ry={(280 * window.screen.height) / 1050}
           fill="none"
           stroke="#ba8749"
           stroke-width="120"
@@ -121,13 +115,7 @@ const Map = () => {
       </Map_svgTop>
       <BoardContainer>
         {boardPosition.map((item, idx) => (
-          <BoardImage
-            src={pie}
-            style={{
-              top: `${item.x}px`,
-              left: `${item.y}px`,
-            }}
-          />
+          <BoardImage top={item.x} left={item.y} src={pie} />
         ))}
       </BoardContainer>
     </>
