@@ -28,7 +28,7 @@ const GameChat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const user = useRecoilValue(userState);
-  // TODO : 채팅 로직 설계
+
   useEffect(() => {
     const startMessage = { user: 'admin', text: ' 게임이 시작되었습니다!' };
     setMessages([startMessage]);
@@ -40,7 +40,6 @@ const GameChat = () => {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    // TODO : 로직 설계
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }
