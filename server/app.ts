@@ -1,9 +1,9 @@
 import { resolveSoa } from 'dns/promises';
 
 require('dotenv').config();
-const cors = require('cors');
+export const cors = require('cors');
 const express = require('express');
-const app = express();
+export const app = express();
 const http = require('http');
 const socketio = require('socket.io');
 
@@ -17,26 +17,24 @@ const corsOptions = {
 app.use(cors());
 
 const server = http.createServer(app);
-const io = socketio(server, corsOptions);
+export const io = socketio(server, corsOptions);
 
-const { getNewRoomCode } = require('./generator/roomCodeGenerator');
-const { getNewName } = require('./generator/nameGenerator');
-const { getRandomCharacter } = require('./generator/characterSelector');
-const { getRandomOrderArray } = require('./generator/randomOrderGenerator');
+const { getRandomCharacter } = require('./utils/characterSelector');
+const { getRandomOrderArray } = require('./utils/randomOrderGenerator');
+
+const { methods } = require('./store/users.ts');
+
+const { isValidNumberOfUsers, isExistRoom } = require('./start/service.ts');
 
 const {
   addUser,
   removeUser,
-  getUser,
-  getUsersInRoom,
   changeUserName,
   changeUserReady,
   changeUserCharacter,
   changeUserOrder,
-  isValidNumberOfUsers,
-  isExistRoom,
   isAllReady,
-} = require('./socket/users.ts');
+} = require('./waiting/service.ts');
 
 io.on('connect', (socket: any) => {
   console.log(`user( ${socket.id} ) is connected`);
@@ -57,9 +55,11 @@ io.on('connect', (socket: any) => {
   socket.on('join', ({ name, room }: any, callback: any) => {
     console.log(`join user : ${socket.id}, room : ${room}`);
 
-    if (!room) return callback('잘못된 접근입니다!');
+    if (!room) {
+      return callback('잘못된 접근입니다!');
+    }
 
-    const randomCharacter = getRandomCharacter(getUsersInRoom(room));
+    const randomCharacter = getRandomCharacter(methods.getUsersInRoom(room));
     const { error, user } = addUser({
       id: socket.id,
       name: name,
@@ -68,7 +68,9 @@ io.on('connect', (socket: any) => {
       character: randomCharacter,
     });
 
-    if (error) return callback('방이 꽉 찼습니다!');
+    if (error) {
+      return callback('방이 꽉 찼습니다!');
+    }
 
     socket.join(user.room);
 
@@ -83,14 +85,14 @@ io.on('connect', (socket: any) => {
 
     io.to(user.room).emit('roomData', {
       room: user.room,
-      users: getUsersInRoom(user.room),
+      users: methods.getUsersInRoom(user.room),
     });
 
     callback();
   });
 
   socket.on('sendMessage', (message: any, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     //모든 사용자에게 메시지 전달
     io.to(user.room).emit('message', { user: user, text: message });
 
@@ -98,14 +100,14 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('ready', (readyState: boolean, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
 
     changeUserReady(socket.id, readyState);
 
     //모든 사용자에게 사용자 상태 전달
     io.to(user.room).emit('roomData', {
       room: user.room,
-      users: getUsersInRoom(user.room),
+      users: methods.getUsersInRoom(user.room),
     });
   });
 
@@ -119,16 +121,16 @@ io.on('connect', (socket: any) => {
       });
       io.to(user.room).emit('roomData', {
         room: user.room,
-        users: getUsersInRoom(user.room),
+        users: methods.getUsersInRoom(user.room),
       });
     }
   });
 
   socket.on('changeName', (name: string, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     const oldName = user.name;
     changeUserName(socket.id, name);
-    const users = getUsersInRoom(user.room);
+    const users = methods.getUsersInRoom(user.room);
     console.log(users);
 
     socket.emit('changeUsers', { users: users });
@@ -148,14 +150,14 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('changeCharacter', (character: number, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     console.log(character);
     const error = changeUserCharacter(socket.id, character);
 
     if (error) {
       console.log(error);
     }
-    const users = getUsersInRoom(user.room);
+    const users = methods.getUsersInRoom(user.room);
     console.log(users);
 
     socket.broadcast.to(user.room).emit('changeUsers', { users: users });
@@ -163,7 +165,7 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('gameStart', () => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     let status = isAllReady();
 
     switch (status) {
@@ -189,7 +191,7 @@ io.on('connect', (socket: any) => {
 
   socket.on('getRandomOrder', (user: any) => {
     console.log(user.room);
-    const users = getUsersInRoom(user.room);
+    const users = methods.getUsersInRoom(user.room);
     console.log(`users : ${users}`);
     const randomOrder = getRandomOrderArray(users);
     console.log(randomOrder);
@@ -197,7 +199,7 @@ io.on('connect', (socket: any) => {
   });
 
   socket.on('setOrder', ({ clicked, clickedIndex, order }: any, callback: any) => {
-    const user = getUser(socket.id);
+    const user = methods.getUser(socket.id);
     clicked[clickedIndex] = true;
     changeUserOrder(socket.id, order);
     console.log(user.name, order);
@@ -206,14 +208,6 @@ io.on('connect', (socket: any) => {
     socket.emit('setClicked', clicked);
     io.to(user.room).emit('setClicked', clicked);
   });
-});
-
-app.get('/makeRoom', (req: any, res: any) => {
-  res.send({ code: getNewRoomCode(), name: getNewName() });
-});
-
-app.get('/getName', (req: any, res: any) => {
-  res.send({ name: getNewName() });
 });
 
 const port = process.env.PORT || 8000;
