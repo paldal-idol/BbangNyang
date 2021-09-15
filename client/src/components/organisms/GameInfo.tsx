@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import color from '@theme/color';
 import { CatImages } from '@utils/cat';
+import usersState from '@store/users';
 
 const Container = styled.div`
   padding: 32px;
@@ -50,28 +52,40 @@ interface UserNameProps {
 }
 
 const GameInfo = () => {
-  const round = 5; // TODO : 몇 번째 라운드인지. 한바퀴 돌 때마다 증가
-  const turn = 1; // TODO : 턴 순서 가져오기
-  const userList = [
-    // TODO : user 정보 가져오기 및 턴 순서대로 배치
-    { name: '무무', character: 1, score: 10 },
-    { name: '안드로이드', character: 5, score: 20 },
-    { name: '코니', character: 2, score: 35 },
-    { name: '우만동 족발', character: 10, score: 20 },
-  ];
+  const [users, setUsers] = useRecoilState(usersState);
+  const [userList, setUserList] = useState([]);
+  const [round, setRound] = useState(0);
+  const [turn, setTurn] = useState(0);
+  // const userList = [
+  //   // TODO : user 정보 가져오기 및 턴 순서대로 배치
+  //   { name: '무무', character: 1, score: 10 },
+  //   { name: '안드로이드', character: 5, score: 20 },
+  //   { name: '코니', character: 2, score: 35 },
+  //   { name: '우만동 족발', character: 10, score: 20 },
+  // ];
+  useEffect(() => {
+    console.log(users);
+    const list = Array.from(users).sort((user1: any, user2: any) => {
+      return user1.order - user2.order;
+    });
+    setUserList(list);
+  }, []);
+
   return (
-    <Container>
-      <Round>--- {round} Round ---</Round>
-      {userList.map((user, i) => {
-        return (
-          <UserItem key={i}>
-            <CatImg src={CatImages[user.character]} />
-            <UserName isTurn={i === turn}>{user.name}</UserName>
-            <Score>{user.score}</Score>
-          </UserItem>
-        );
-      })}
-    </Container>
+    userList && (
+      <Container>
+        <Round>--- {round} Round ---</Round>
+        {userList.map((user, i) => {
+          return (
+            <UserItem key={i}>
+              <CatImg src={CatImages[user.character]} />
+              <UserName isTurn={i === turn}>{user.name}</UserName>
+              <Score>{user.score}</Score>
+            </UserItem>
+          );
+        })}
+      </Container>
+    )
   );
 };
 
