@@ -64,12 +64,13 @@ const BoardGamePage: React.FC = () => {
   };
   return (
     <>
-      {!user.isGame && (
+      {!isGame && (
         <Container>
           <SelectGameOrder />
         </Container>
       )}
-      {user.isGame && isGame ? (
+      {user.isGame && !isGame && <p>곧 게임이 시작됩니다!</p>}
+      {user.isGame && isGame && (
         <GameContainer>
           {/* <AllowDiceAgain /> */}
           {/* <Dice />
@@ -82,9 +83,7 @@ const BoardGamePage: React.FC = () => {
             <GameChat />
           </GameInfoContainer>
         </GameContainer>
-      ) : user.isGame ? (
-        <p>곧 게임이 시작됩니다!</p>
-      ) : null}
+      )}
     </>
   );
 };
