@@ -100,7 +100,7 @@ const SelectGameOrder = () => {
               {!clickedCardList[idx] ? (
                 <p>카드를 클릭해 순서를 정합니다</p>
               ) : (
-                <p>이미 선택된 카드입니다</p>
+                <p>{randomOrder[idx]}</p>
               )}
             </Card>
           ))}
