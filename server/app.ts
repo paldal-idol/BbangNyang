@@ -209,8 +209,8 @@ io.on('connect', (socket: any) => {
     io.to(user.room).emit('setClicked', clicked);
   });
   socket.on('getUsers', (callback: any) => {
-    const user = getUser(socket.id);
-    const users = getUsersInRoom(user.room);
+    const user = methods.getUser(socket.id);
+    const users = methods.getUsersInRoom(user.room);
     callback(users);
   });
 });
