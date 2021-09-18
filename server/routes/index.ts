@@ -16,4 +16,4 @@ router.get('/getName', start.getName);
 
 // game page
 
-module.exports = router;
+export default router;
