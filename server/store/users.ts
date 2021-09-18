@@ -13,7 +13,6 @@ const data: User[] = [];
 
 export const methods = {
   addNewUser: (id: string, name: string, room: string, character: number) => {
-
     const newUser: User = {
       id,
       name,
@@ -25,7 +24,7 @@ export const methods = {
       clearTime: 0,
     };
     methods.add(newUser);
-},
+  },
 
   add: (user: User) => data.push(user),
 

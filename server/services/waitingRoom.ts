@@ -1,5 +1,5 @@
-import users, { User, methods } from '../store/users';
-
+import { User } from '../store/users';
+const { methods } = require('../store/users');
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) {
     return { error: 'Username and room are required.' };
@@ -26,7 +26,7 @@ const addUser = ({ id, name, room, character }: any) => {
 };
 
 const removeUser = (id: string) => {
-  const index = methods.findIndex((user) => user.id === id);
+  const index = methods.findIndex((user: User) => user.id === id);
 
   if (index !== -1) {
     return methods.remove(index);
@@ -79,21 +79,11 @@ const changeUserCharacter = (id: string, character: number) => {
   user.character = character;
 };
 
-const changeUserOrder = (id: string, order: number) => {
-  const user = methods.getUser(id);
-
-  if (user === undefined) {
-    return { error: 'Is not Users' };
-  }
-
-  user.order = order;
-};
-
 //401 : notEnoughReady 402 : notEnoughUsers
 const isAllReady = () => {
   const userList = methods.getUserList();
 
-  return userList.reduce((result, element, index) => {
+  return userList.reduce((result: number, element: any, index: number) => {
     result += element.isReady === true ? 1 : index === 0 ? 1 : 0;
     return result;
   }, 0) === userList.length && userList.length >= 3
@@ -109,7 +99,6 @@ module.exports = {
   changeUserName,
   changeUserReady,
   changeUserCharacter,
-  changeUserOrder,
   isAllReady,
 };
 
