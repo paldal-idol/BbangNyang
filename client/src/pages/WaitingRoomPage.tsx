@@ -118,6 +118,8 @@ const WaitingRoomPage = () => {
     let selected = confirm('대기방을 나가시겠습니까?');
     if (selected) {
       history.push('/');
+      socket.disconnect();
+      socket.connect();
     }
   };
 

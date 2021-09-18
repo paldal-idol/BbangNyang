@@ -12,6 +12,20 @@ export type User = {
 const data: User[] = [];
 
 export const methods = {
+  addNewUser: (id: string, name: string, room: string, character: number) => {
+    const newUser: User = {
+      id,
+      name,
+      room,
+      isReady: false,
+      character: character,
+      order: -1,
+      isGame: false,
+      clearTime: 0,
+    };
+    methods.add(newUser);
+  },
+
   add: (user: User) => data.push(user),
 
   remove: (index: number) => data.splice(index, 1)[0],

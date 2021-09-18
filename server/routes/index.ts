@@ -3,8 +3,6 @@ import cors from 'cors';
 let router = express.Router();
 
 const start = require('../start/controller');
-// const waiting = require('../waiting/controller');
-// const game = require('../game/controller');
 
 router.use(cors());
 
@@ -16,4 +14,4 @@ router.get('/getName', start.getName);
 
 // game page
 
-module.exports = router;
+export default router;

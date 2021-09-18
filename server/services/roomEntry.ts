@@ -1,7 +1,7 @@
 import users from '../store/users';
 
-const isExistRoom = (roomCode: string) => {
-  const existingRoom = users.find((user) => user.room === roomCode);
+const isExistRoom = (room: string) => {
+  const existingRoom = users.find((user) => user.room === room);
   if (existingRoom) {
     return true;
   }
