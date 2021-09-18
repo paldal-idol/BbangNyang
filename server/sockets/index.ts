@@ -7,7 +7,7 @@ const { getRandomOrderArray } = require('../utils/randomOrderGenerator');
 
 const { methods } = require('../store/users.ts');
 
-const { isValidNumberOfUsers, isExistRoom } = require('../start/service');
+const { isValidNumberOfUsers, isExistRoom } = require('../services/roomEntry');
 
 const {
   addUser,
@@ -17,7 +17,7 @@ const {
   changeUserCharacter,
   changeUserOrder,
   isAllReady,
-} = require('../waiting/service.ts');
+} = require('../services/watingRoom');
 
 socketIO.on('connect', (socket: any) => {
   console.log(`user( ${socket.id} ) is connected`);

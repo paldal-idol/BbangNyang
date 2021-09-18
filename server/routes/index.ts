@@ -3,8 +3,6 @@ import cors from 'cors';
 let router = express.Router();
 
 const start = require('../start/controller');
-// const waiting = require('../waiting/controller');
-// const game = require('../game/controller');
 
 router.use(cors());
 
