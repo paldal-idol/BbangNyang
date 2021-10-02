@@ -134,7 +134,6 @@ const WaitingRoomPage = () => {
         socket.emit('ready', false);
         break;
       case 'Game Start':
-        alert('게임시작');
         socket.emit('gameStart');
         break;
     }
