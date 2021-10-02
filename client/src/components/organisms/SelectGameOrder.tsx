@@ -36,11 +36,12 @@ const Card = styled.div<CardProps>`
     linear-gradient(45deg, var(--bg) 25%, transparent 25%);
   background-size: 100px 100px;
   background-color: var(--stripe);
+  overflow: hidden;
 `;
 
 const UnselectedImage = styled.img`
   margin-top: -80px;
-  width: 240px;
+  width: 800px;
 `;
 
 const SelectedImage = styled.img`
