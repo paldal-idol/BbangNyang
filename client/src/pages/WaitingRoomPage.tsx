@@ -9,6 +9,7 @@ import modalState from '@store/modal';
 import userState from '@store/user';
 import usersState from '@store/users';
 import roomState from '@store/room';
+import gameSettingState from '@store/gameSetting';
 
 import TextButton from '@atoms/TextButton';
 import RuleBookButton from '@atoms/RuleBookButton';
@@ -73,7 +74,7 @@ const Footer = styled.div`
   padding: 20px;
   border-top: 1px solid gray;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 const RuleBookContainer = styled.div`
@@ -90,11 +91,30 @@ const CodeText = styled.p`
   }
 `;
 
+const GameSettingDiv = styled.div`
+  border: 1px solid black;
+  padding 10px;
+`;
+const SettingTitle = styled.p`
+  font-size: 20px;
+`;
+const StateDiv = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+`;
+const RoundDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0px;
+`;
 const WaitingRoomPage = () => {
   const history = useHistory();
+
   const [modal, setModal] = useRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
   const [room, setRoom] = useRecoilState(roomState);
+  const [gameSetting, setGameSetting] = useRecoilState(gameSettingState);
   const [gameStatus, setGameStatus] = useState('Ready');
   let users = useRecoilValue(usersState);
 
@@ -183,9 +203,26 @@ const WaitingRoomPage = () => {
           </WaitingZone>
         </Content>
         <Footer>
-          <TextButton onClick={setReady}>{gameStatus}</TextButton>
-          <TextButton onClick={getHelp}>도움말</TextButton>
-          <TextButton onClick={goRobby}>로비로 돌아가기</TextButton>
+          <GameSettingDiv>
+            <SettingTitle>현재 {gameSetting.round}라운드가 선택 되었습니다.</SettingTitle>
+            <SettingTitle>라운드를 골라주세요.</SettingTitle>
+            <RoundDiv>
+              <TextButton onClick={() => setGameSetting((v) => ({ round: 4 }))}>
+                4 라운드
+              </TextButton>
+              <TextButton onClick={() => setGameSetting((v) => ({ round: 6 }))}>
+                6 라운드
+              </TextButton>
+              <TextButton onClick={() => setGameSetting((v) => ({ round: 8 }))}>
+                8 라운드
+              </TextButton>
+            </RoundDiv>
+          </GameSettingDiv>
+          <StateDiv>
+            <TextButton onClick={setReady}>{gameStatus}</TextButton>
+            <TextButton onClick={getHelp}>도움말</TextButton>
+            <TextButton onClick={goRobby}>로비로 돌아가기</TextButton>
+          </StateDiv>
         </Footer>
         <RuleBookContainer>
           <RuleBookButton />
