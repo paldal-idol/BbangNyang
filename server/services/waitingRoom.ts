@@ -1,5 +1,5 @@
-import { User } from '../store/users';
-const { methods } = require('../store/users');
+import { Room, User } from '../store/users';
+const { methods, RoomList } = require('../store/users');
 const addUser = ({ id, name, room, character }: any) => {
   if (!name || !room) {
     return { error: 'Username and room are required.' };
@@ -92,7 +92,24 @@ const isAllReady = () => {
     ? 401
     : 402;
 };
+const getRound = (room: string | number) =>
+  RoomList.reduce((result: number, element: Room) => {
+    if (element.room === room) {
+      result = element.round;
+    }
+    return result;
+  }, 0);
 
+const setRound = (room: string | number, round: number) => {
+  RoomList[
+    RoomList.reduce((result: number, element: Room, index: number) => {
+      if (element.room === room) {
+        result = index;
+      }
+      return result;
+    }, 0)
+  ].round = round;
+};
 module.exports = {
   addUser,
   removeUser,
@@ -100,6 +117,8 @@ module.exports = {
   changeUserReady,
   changeUserCharacter,
   isAllReady,
+  getRound,
+  setRound,
 };
 
 const isValidCharacter = (character: number, room: string) => {

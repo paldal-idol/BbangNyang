@@ -157,6 +157,7 @@ const WaitingRoomPage = () => {
         socket.emit('gameStart');
         break;
     }
+
     socket.once('listenEvent', (status) => {
       alert(status);
     });
@@ -169,6 +170,10 @@ const WaitingRoomPage = () => {
   socket.on('changedRound', (round) => {
     setGameSetting((v) => ({ round }));
   });
+
+  const changeRound = (flag) => {
+    socket.emit('changeRound', gameSetting.round + (flag ? -1 : 1));
+  };
 
   const getHelp = () => {
     alert('도움말');
@@ -213,9 +218,20 @@ const WaitingRoomPage = () => {
               <>
                 <SettingTitle>라운드를 골라주세요.</SettingTitle>
                 <RoundDiv>
-                  <TextButton onClick={() => socket.emit('changeRound', 4)}>4 라운드</TextButton>
-                  <TextButton onClick={() => socket.emit('changeRound', 6)}>6 라운드</TextButton>
-                  <TextButton onClick={() => socket.emit('changeRound', 8)}>8 라운드</TextButton>
+                  <TextButton
+                    onClick={() => {
+                      changeRound(true);
+                    }}
+                  >
+                    -
+                  </TextButton>
+                  <TextButton
+                    onClick={() => {
+                      changeRound(false);
+                    }}
+                  >
+                    +
+                  </TextButton>
                 </RoundDiv>
               </>
             ) : null}

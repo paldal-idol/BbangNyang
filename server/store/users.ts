@@ -8,9 +8,12 @@ export type User = {
   isGame: boolean;
   clearTime: 0;
 };
-
+export type Room = {
+  room: string;
+  round: number;
+};
 const data: User[] = [];
-
+export const RoomList: Room[] = [];
 export const methods = {
   addNewUser: (id: string, name: string, room: string, character: number) => {
     const newUser: User = {

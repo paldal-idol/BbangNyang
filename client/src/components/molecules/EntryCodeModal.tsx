@@ -7,6 +7,7 @@ import socket from '@store/socket';
 import modalState from '@store/modal';
 import userState from '@store/user';
 import roomState from '@store/room';
+import gameSettingState from '@store/gameSetting';
 import Modal from '@atoms/Modal';
 import color from '@theme/color';
 import axios from 'axios';
@@ -50,7 +51,7 @@ const EntryCodeModal: React.FC = () => {
   const setModal = useSetRecoilState(modalState);
   const [user, setUser] = useRecoilState(userState);
   const [room, setRoom] = useRecoilState(roomState);
-
+  const [gameSetting, setGameSetting] = useRecoilState(gameSettingState);
   const codeHandler = () => {
     socket.emit('checkRoom', room);
 
@@ -58,7 +59,7 @@ const EntryCodeModal: React.FC = () => {
       alert('꽉 찬 방입니다.');
     });
 
-    socket.on('existRoom', () => {
+    socket.on('existRoom', (round) => {
       axios
         .get('http://localhost:8000/getName')
         .then((res) => {
@@ -67,6 +68,8 @@ const EntryCodeModal: React.FC = () => {
         })
         .then(() => {
           closeModal();
+          setGameSetting((v) => ({ round: round }));
+          console.log(round);
           history.push(`/waiting`);
         });
     });

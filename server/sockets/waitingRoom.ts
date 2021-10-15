@@ -1,6 +1,13 @@
 import { methods } from '../store/users';
 
-const { addUser, removeUser, changeUserReady, isAllReady } = require('../services/waitingRoom');
+const {
+  addUser,
+  removeUser,
+  changeUserReady,
+  isAllReady,
+  getRound,
+  setRound,
+} = require('../services/waitingRoom');
 const { isValidNumberOfUsers, isExistRoom } = require('../services/roomEntry');
 const { getRandomCharacter } = require('../utils/characterSelector');
 
@@ -18,7 +25,8 @@ const waitingRoomSocket = (socketIO: any, socket: any) => {
       if (isValidNumberOfUsers(roomCode) === false) {
         socket.emit('fullRoom');
       } else {
-        socket.emit('existRoom');
+        console.log('이거야', getRound(roomCode));
+        socket.emit('existRoom', getRound(roomCode));
       }
     } else {
       socket.emit('nonExistRoom');
@@ -27,6 +35,7 @@ const waitingRoomSocket = (socketIO: any, socket: any) => {
 
   socket.on('changeRound', (round: Number) => {
     const user = methods.getUser(socket.id) ?? { room: 0 };
+    setRound(user.room, round);
     socketIO.to(user.room).emit('changedRound', round);
   });
 
@@ -97,6 +106,7 @@ const waitingRoomSocket = (socketIO: any, socket: any) => {
 
     socketIO.to(user.room).emit('roomData', {
       room: user.room,
+      round: getRound(user.room),
       users: methods.getUsersInRoom(user.room),
     });
 
