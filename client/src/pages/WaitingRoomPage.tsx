@@ -166,6 +166,10 @@ const WaitingRoomPage = () => {
     history.push('/game');
   });
 
+  socket.on('changedRound', (round) => {
+    setGameSetting((v) => ({ round }));
+  });
+
   const getHelp = () => {
     alert('도움말');
   };
@@ -205,18 +209,16 @@ const WaitingRoomPage = () => {
         <Footer>
           <GameSettingDiv>
             <SettingTitle>현재 {gameSetting.round}라운드가 선택 되었습니다.</SettingTitle>
-            <SettingTitle>라운드를 골라주세요.</SettingTitle>
-            <RoundDiv>
-              <TextButton onClick={() => setGameSetting((v) => ({ round: 4 }))}>
-                4 라운드
-              </TextButton>
-              <TextButton onClick={() => setGameSetting((v) => ({ round: 6 }))}>
-                6 라운드
-              </TextButton>
-              <TextButton onClick={() => setGameSetting((v) => ({ round: 8 }))}>
-                8 라운드
-              </TextButton>
-            </RoundDiv>
+            {gameStatus === 'Game Start' ? (
+              <>
+                <SettingTitle>라운드를 골라주세요.</SettingTitle>
+                <RoundDiv>
+                  <TextButton onClick={() => socket.emit('changeRound', 4)}>4 라운드</TextButton>
+                  <TextButton onClick={() => socket.emit('changeRound', 6)}>6 라운드</TextButton>
+                  <TextButton onClick={() => socket.emit('changeRound', 8)}>8 라운드</TextButton>
+                </RoundDiv>
+              </>
+            ) : null}
           </GameSettingDiv>
           <StateDiv>
             <TextButton onClick={setReady}>{gameStatus}</TextButton>

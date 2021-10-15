@@ -25,6 +25,11 @@ const waitingRoomSocket = (socketIO: any, socket: any) => {
     }
   });
 
+  socket.on('changeRound', (round: Number) => {
+    const user = methods.getUser(socket.id) ?? { room: 0 };
+    socketIO.to(user.room).emit('changedRound', round);
+  });
+
   socket.on('ready', (readyState: boolean, callback: any) => {
     const user = methods.getUser(socket.id);
     if (user === undefined) {
