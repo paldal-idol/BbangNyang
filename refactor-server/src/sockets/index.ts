@@ -1,10 +1,13 @@
 import { Server as SocketServer, ServerOptions } from 'socket.io';
 import { Server } from 'http';
+import roomHandler from './controller/room';
 
-const socket = (server: Server, option: Partial<ServerOptions>) => {
+const socketServer = (server: Server, option: Partial<ServerOptions>) => {
   const io = new SocketServer(server, option);
 
-  io.on('connection', () => {});
+  io.on('connection', (socket) => {
+    roomHandler(io, socket);
+  });
 };
 
-export default socket;
+export default socketServer;
