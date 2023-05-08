@@ -4,9 +4,6 @@ class User {
   roomCode: string;
   isReady: boolean;
   character: number;
-  order: number;
-  isGame: boolean;
-  clearTime: number;
 
   constructor({ id, name, roomCode, character }) {
     this.id = id;
@@ -14,9 +11,6 @@ class User {
     this.roomCode = roomCode;
     this.character = character;
     this.isReady = false;
-    this.order = -1;
-    this.isGame = false;
-    this.clearTime = 0;
   }
 
   changeReadyStatus(readyState: boolean) {
