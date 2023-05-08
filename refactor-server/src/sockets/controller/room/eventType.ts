@@ -6,6 +6,7 @@ const ROOM_EVENT = {
   CHECK_ROOM: 'checkRoom',
   CHECK_ROUND: 'checkRound',
   CHANGE_ROUND: 'changeRound',
+  ROOM_DATA: 'roomData',
 } as const;
 
 export default ROOM_EVENT;

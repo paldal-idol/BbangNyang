@@ -28,7 +28,7 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
 
     socket.join(user.roomCode);
 
-    io.to(roomCode).emit('roomData', room);
+    io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
   });
 
   socket.on(ROOM_EVENT.READY, ({ readyState }, callback: Function) => {
@@ -42,7 +42,7 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
 
     user.changeReadyStatus(readyState);
 
-    io.to(roomCode).emit('roomData', room);
+    io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
   });
 
   socket.on(ROOM_EVENT.GAME_START, () => {
@@ -50,7 +50,7 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const room = rooms[roomCode];
 
     if (room.checkAllReady()) {
-      io.to(roomCode).emit('gameStart');
+      io.to(roomCode).emit(ROOM_EVENT.GAME_START);
     } else {
       socket.emit('alarm', '게임을 시작할 수 없습니다.');
     }
@@ -61,7 +61,7 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const room = rooms[roomCode];
     room.setRound(round);
 
-    io.to(roomCode).emit('roomData', room);
+    io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
   });
 
   socket.on(ROOM_EVENT.KICK_OUT, ({ id }) => {
@@ -74,8 +74,8 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const kickedUserSocket = io.sockets.sockets.get(id);
 
     io.sockets.sockets.get(id).leave(roomCode);
-    kickedUserSocket.emit('kickOut');
-    io.to(roomCode).emit('roomData', room);
+    kickedUserSocket.emit(ROOM_EVENT.KICK_OUT);
+    io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
   });
 };
 
