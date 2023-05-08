@@ -6,7 +6,9 @@ import { getRandomCharacter } from '../../services/user';
 
 const roomHandler = (io: SocketServer, socket: Socket) => {
   socket.on(ROOM_EVENT.JOIN, ({ name, roomCode }, callback: Function) => {
-    if (!roomCode) return callback('잘못된 접근입니다!');
+    if (!roomCode) {
+      return callback('잘못된 접근입니다!');
+    }
 
     const id = socket.id;
     const room = rooms[roomCode];
@@ -34,7 +36,9 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const roomCode = socket.rooms[0];
     const room = rooms[roomCode];
     const user = room.getUserById(id);
-    if (user === undefined) return { error: 'Is not Users' };
+    if (user === undefined) {
+      return { error: 'Is not Users' };
+    }
 
     user.changeReadyStatus(readyState);
 
@@ -45,8 +49,11 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const roomCode = socket.rooms[0];
     const room = rooms[roomCode];
 
-    if (room.checkAllReady()) io.to(roomCode).emit('gameStart');
-    else socket.emit('alarm', '게임을 시작할 수 없습니다.');
+    if (room.checkAllReady()) {
+      io.to(roomCode).emit('gameStart');
+    } else {
+      socket.emit('alarm', '게임을 시작할 수 없습니다.');
+    }
   });
 
   socket.on(ROOM_EVENT.CHANGE_ROUND, ({ round }) => {
