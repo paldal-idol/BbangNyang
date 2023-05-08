@@ -12,9 +12,8 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     const room = Rooms[roomCode];
     const character = getRandomCharacter(room.users);
 
-    /* 정원초과 로직 추가 필요
-    socket.emit('alarm', '정원이 초과되었습니다.');
-    */
+    // TODO: 정원초과 로직 추가 필요
+    // socket.emit('alarm', '정원이 초과되었습니다.');
 
     const user = new User({
       id,
