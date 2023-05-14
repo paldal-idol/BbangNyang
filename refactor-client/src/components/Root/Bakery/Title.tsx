@@ -92,21 +92,13 @@ const Text = styled.span`
 `;
 
 const BbangNyangTitle: React.FC = () => {
+  const title = `빵냥빵냥\xa0구출\xa0대작전!`;
   return (
     <>
       <Title>
-        <Text>빵</Text>
-        <Text>냥</Text>
-        <Text>빵</Text>
-        <Text>냥</Text>
-        <Text>&nbsp;</Text>
-        <Text>구</Text>
-        <Text>출</Text>
-        <Text>&nbsp;</Text>
-        <Text>대</Text>
-        <Text>작</Text>
-        <Text>전</Text>
-        <Text>!</Text>
+        {[...title].map((text) => (
+          <Text>{text}</Text>
+        ))}
       </Title>
     </>
   );

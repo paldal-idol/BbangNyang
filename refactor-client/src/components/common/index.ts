@@ -1,3 +1,4 @@
 import Modals from "./Modals";
+import Button from "./Button";
 
-export { Modals };
+export { Button, Modals };

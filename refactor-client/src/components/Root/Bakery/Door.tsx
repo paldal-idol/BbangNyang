@@ -1,23 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import styled from "@emotion/styled";
 
 import color from "@theme/color";
 import Door from "@img/bakery/door.png";
 
-interface DoorProps {
+type DoorStateType = {
   isOpen: boolean;
-}
+};
 
-const NewButton = styled.div`
-  position: absolute;
-  width: 55px;
-  height: 25px;
-  margin-left: 325px;
-  margin-top: 140px;
-  cursor: pointer;
-`;
+type DoorType = {
+  handleClick: VoidFunction;
+} & DoorStateType;
 
 const DoorFront = styled.img`
   position: absolute;
@@ -40,7 +32,7 @@ const DoorBack = styled.div`
   transform: rotateY(180deg);
 `;
 
-const DoorContainer = styled.div<DoorProps>`
+const DoorContainer = styled.div<DoorStateType>`
   position: absolute;
   width: 140px;
   height: 234px;
@@ -57,41 +49,10 @@ const DoorContainer = styled.div<DoorProps>`
     `}
 `;
 
-const BakeryDoor: React.FC = ({ handleClick }: any) => {
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  // const [modal, setModal] = useRecoilState(modalState);
-  // const [user, setUser] = useRecoilState(userState);
-  // const [users, setUsers] = useRecoilState(usersState);
-  // const [room, setRoom] = useRecoilState(roomState);
-
+function BakeryDoor({ isOpen, handleClick }: DoorType) {
   const OpenDoor = () => {
-    setIsOpen(!isOpen);
     handleClick();
-    // setModal("EntryCode");
   };
-  // const getCode = (callback) => {
-  //   axios.get("http://localhost:8000/makeRoom").then((res) => {
-  //     callback(res.data);
-  //   });
-  // };
-
-  const CreatNewRoom = () => {
-    if (confirm("새로운 방을 생성하시겠습니까?")) {
-      // getCode((data) => {
-      //   // setUsers([]);
-      //   // setRoom(data.code);
-      //   // setUser({ ...user, name: data.name });
-      //   navigate("/waiting");
-      // });
-    }
-  };
-
-  // useEffect(() => {
-  //   if (modal !== "EntryCode") {
-  //     setIsOpen(false);
-  //   }
-  // }, [modal]);
 
   return (
     <>
@@ -99,9 +60,8 @@ const BakeryDoor: React.FC = ({ handleClick }: any) => {
         <DoorFront src={Door} />
         <DoorBack />
       </DoorContainer>
-      <NewButton onClick={CreatNewRoom} />
     </>
   );
-};
+}
 
 export default BakeryDoor;
