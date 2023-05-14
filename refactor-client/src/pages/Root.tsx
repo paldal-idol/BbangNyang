@@ -1,12 +1,14 @@
 import { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
+import { createRoomCode, validRoomCode } from "@/api";
 import { Modals } from "@common";
+import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
 import { CreateModal } from "@/components/modal";
 import color from "@/theme/color";
 import { useModals } from "@/hooks";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -34,14 +36,19 @@ function RootPage() {
     closeDoor();
   };
 
-  const joinRoom = (code: string) => {
-    console.log("로직 처리...");
-    navigate(`/room/${code}`);
+  const joinRoom = async (code: string) => {
+    const status = await validRoomCode(code);
+    if (status) {
+      navigate(`/room/${code}`);
+    } else {
+      alert("존재하지 않는 방입니다.");
+    }
   };
 
-  const createRoom = () => {
-    console.log("로직 처리...");
-    navigate("/room/1");
+  const createRoom = async () => {
+    const code = await createRoomCode();
+
+    navigate(`/room/${code}`);
   };
 
   const handleClick = () => {
