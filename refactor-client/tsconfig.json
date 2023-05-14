@@ -21,15 +21,20 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
+      "@contexts": ["contexts/index.ts"],
+      "@contexts/*": ["contexts/*"],
+      "@common": ["components/common/index.ts"],
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
+      "@hooks": ["hooks/index.ts"],
+      "@hooks/*": ["hooks/*"],
+      "@img/*": ["assets/img/*"],
       "@pages": ["./pages/index.ts"],
       "@pages/*": ["pages/*"],
-      "@utils": ["utils/index.ts"],
-      "@utils/*": ["utils/*"],
+      "@store/*": ["store/*"],
       "@theme/*": ["theme/*"],
-      "@img/*": ["assets/img/*"],
-      "@store/*": ["store/*"]
+      "@utils": ["utils/index.ts"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
