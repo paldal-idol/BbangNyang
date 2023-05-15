@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@contexts": ["contexts/index.ts"],
+      "@contexts/*": ["contexts/*"],
+      "@common": ["components/common/index.ts"],
+      "@components": ["components/index.ts"],
+      "@components/*": ["components/*"],
+      "@hooks": ["hooks/index.ts"],
+      "@hooks/*": ["hooks/*"],
+      "@img/*": ["assets/img/*"],
+      "@pages": ["./pages/index.ts"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
+      "@theme/*": ["theme/*"],
+      "@utils": ["utils/index.ts"],
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
