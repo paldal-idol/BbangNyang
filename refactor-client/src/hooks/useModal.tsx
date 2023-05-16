@@ -11,8 +11,8 @@ export default function useModals() {
   const closeModal: ModalDispatchType["close"] = (type) => {
     close(type);
   };
-  const checkModalOpened = (type: string) => {
+  const getModalStatus = (type: string) => {
     return !!openedModals.get(type);
   };
-  return { openModal, closeModal, checkModalOpened };
+  return { openModal, closeModal, getModalStatus };
 }

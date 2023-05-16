@@ -25,8 +25,8 @@ const ROOM_MODAL = "ROOM_MODAL";
 
 function RootPage() {
   const navigate = useNavigate();
-  const { checkModalOpened, openModal, closeModal } = useModals();
-  const isOpen = checkModalOpened(ROOM_MODAL);
+  const { getModalStatus, openModal, closeModal } = useModals();
+  const isRoomModalOpened = getModalStatus(ROOM_MODAL);
 
   const handleClose = () => {
     closeModal(ROOM_MODAL);
@@ -61,7 +61,7 @@ function RootPage() {
   return (
     <Container>
       <BakeryBackground />
-      <BakeryDoor isOpen={isOpen} handleClick={handleClick} />
+      <BakeryDoor isOpen={isRoomModalOpened} handleClick={handleClick} />
       <TitleBlock>
         <BakeryTitle />
       </TitleBlock>
