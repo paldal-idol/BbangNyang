@@ -31,10 +31,6 @@ function RootPage() {
     close: closeRoomModal,
   } = useModal(ROOM_MODAL);
 
-  const handleClose = () => {
-    closeRoomModal();
-  };
-
   const joinRoom = async (code: string) => {
     const status = await validRoomCode(code);
     if (status) {
@@ -53,7 +49,7 @@ function RootPage() {
   const handleClick = () => {
     openRoomModal(
       <RoomModal
-        onClose={handleClose}
+        onClose={closeRoomModal}
         onJoinRoom={joinRoom}
         onCreateRoom={createRoom}
       />
