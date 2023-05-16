@@ -1,12 +1,10 @@
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { createRoomCode, validRoomCode } from "@/api";
 import { Modals } from "@common";
 import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
-import { CreateModal } from "@/components/modal";
+import { RoomModal } from "@/components/modal";
 import color from "@/theme/color";
 import { useModals } from "@/hooks";
 
@@ -23,17 +21,15 @@ const TitleBlock = styled.div`
   margin-bottom: 450px;
 `;
 
+const ROOM_MODAL = "ROOM_MODAL";
+
 function RootPage() {
   const navigate = useNavigate();
-  const { openModal, closeModal } = useModals();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openDoor = () => setIsOpen(true);
-  const closeDoor = () => setIsOpen(false);
+  const { checkModalOpened, openModal, closeModal } = useModals();
+  const isOpen = checkModalOpened(ROOM_MODAL);
 
   const handleClose = () => {
-    closeModal("createRoom");
-    closeDoor();
+    closeModal(ROOM_MODAL);
   };
 
   const joinRoom = async (code: string) => {
@@ -53,14 +49,13 @@ function RootPage() {
 
   const handleClick = () => {
     openModal(
-      "createRoom",
-      <CreateModal
-        handleClose={handleClose}
-        joinRoom={joinRoom}
-        createRoom={createRoom}
+      ROOM_MODAL,
+      <RoomModal
+        onClose={handleClose}
+        onJoinRoom={joinRoom}
+        onCreateRoom={createRoom}
       />
     );
-    openDoor();
   };
 
   return (

@@ -1,7 +1,8 @@
-import { useModalsDispatch } from "@contexts";
+import { useModalsDispatch, useModalsState } from "@contexts";
 import type { ModalDispatchType } from "@contexts";
 
 export default function useModals() {
+  const openedModals = useModalsState();
   const { open, close } = useModalsDispatch();
 
   const openModal: ModalDispatchType["open"] = (type, Component, props) => {
@@ -10,5 +11,8 @@ export default function useModals() {
   const closeModal: ModalDispatchType["close"] = (type) => {
     close(type);
   };
-  return { openModal, closeModal };
+  const checkModalOpened = (type: string) => {
+    return !!openedModals.get(type);
+  };
+  return { openModal, closeModal, checkModalOpened };
 }
