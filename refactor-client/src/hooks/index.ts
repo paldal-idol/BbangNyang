@@ -1,4 +1,5 @@
-import useModals from "./useModal";
+import useModal from "./useModal";
+import useModals from "./useModals";
 import useInput from "./useInput";
 
-export { useModals, useInput };
+export { useModals, useModal, useInput };

@@ -1,18 +1,14 @@
-import { useModalsDispatch, useModalsState } from "@contexts";
-import type { ModalDispatchType } from "@contexts";
+import useModals from "./useModals";
 
-export default function useModals() {
-  const openedModals = useModalsState();
-  const { open, close } = useModalsDispatch();
+export default function useModal(type: string) {
+  const { getModalStatus, openModal, closeModal } = useModals();
+  const isOpened = getModalStatus(type);
 
-  const openModal: ModalDispatchType["open"] = (type, Component, props) => {
-    open(type, Component, props);
+  return {
+    isOpened,
+    open(Component: JSX.Element, props?: any) {
+      openModal(type, Component, props);
+    },
+    close: () => closeModal(type),
   };
-  const closeModal: ModalDispatchType["close"] = (type) => {
-    close(type);
-  };
-  const getModalStatus = (type: string) => {
-    return !!openedModals.get(type);
-  };
-  return { openModal, closeModal, getModalStatus };
 }

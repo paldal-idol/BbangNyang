@@ -6,7 +6,7 @@ import { Modals } from "@common";
 import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
 import { RoomModal } from "@/components/modal";
 import color from "@/theme/color";
-import { useModals } from "@/hooks";
+import { useModal } from "@/hooks";
 
 const Container = styled.div`
   display: flex;
@@ -25,11 +25,14 @@ const ROOM_MODAL = "ROOM_MODAL";
 
 function RootPage() {
   const navigate = useNavigate();
-  const { getModalStatus, openModal, closeModal } = useModals();
-  const isRoomModalOpened = getModalStatus(ROOM_MODAL);
+  const {
+    isOpened: isRoomModalOpened,
+    open: openRoomModal,
+    close: closeRoomModal,
+  } = useModal(ROOM_MODAL);
 
   const handleClose = () => {
-    closeModal(ROOM_MODAL);
+    closeRoomModal();
   };
 
   const joinRoom = async (code: string) => {
@@ -48,8 +51,7 @@ function RootPage() {
   };
 
   const handleClick = () => {
-    openModal(
-      ROOM_MODAL,
+    openRoomModal(
       <RoomModal
         onClose={handleClose}
         onJoinRoom={joinRoom}
