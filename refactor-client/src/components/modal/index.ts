@@ -1,3 +1,2 @@
-import RoomModal from "./RoomModal";
-
-export { RoomModal };
+export * from "./RoomModal";
+export * from "./NameModal";

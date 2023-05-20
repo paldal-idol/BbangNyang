@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { createRoomCode, validRoomCode } from "@/api";
 import { Modals } from "@common";
 import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
-import { RoomModal } from "@/components/modal";
+import { RoomModal, ROOM_MODAL_TYPE } from "@/components/modal";
 import color from "@/theme/color";
 import { useModal } from "@/hooks";
 
@@ -21,15 +21,13 @@ const TitleBlock = styled.div`
   margin-bottom: 450px;
 `;
 
-const ROOM_MODAL = "ROOM_MODAL";
-
 function RootPage() {
   const navigate = useNavigate();
   const {
     isOpened: isRoomModalOpened,
     open: openRoomModal,
     close: closeRoomModal,
-  } = useModal(ROOM_MODAL);
+  } = useModal(ROOM_MODAL_TYPE);
 
   const joinRoom = async (code: string) => {
     const status = await validRoomCode(code);

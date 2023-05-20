@@ -46,7 +46,13 @@ type RoomModalProps = {
   onCreateRoom: VoidFunction;
 };
 
-function RoomModal({ onClose, onJoinRoom, onCreateRoom }: RoomModalProps) {
+export const ROOM_MODAL_TYPE = "ROOM_MODAL";
+
+export function RoomModal({
+  onClose,
+  onJoinRoom,
+  onCreateRoom,
+}: RoomModalProps) {
   const { value: code, onChange: handleChangeCode } = useInput("");
   const [onEnterRoom, setOnEnterRoom] = useState(false);
 
@@ -79,5 +85,3 @@ function RoomModal({ onClose, onJoinRoom, onCreateRoom }: RoomModalProps) {
     </ModalContainer>
   );
 }
-
-export default RoomModal;
