@@ -31,6 +31,7 @@
       "@img/*": ["assets/img/*"],
       "@pages": ["./pages/index.ts"],
       "@pages/*": ["pages/*"],
+      "@store": ["store/index.ts"],
       "@store/*": ["store/*"],
       "@theme/*": ["theme/*"],
       "@utils": ["utils/index.ts"],
