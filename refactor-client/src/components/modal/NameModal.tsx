@@ -40,6 +40,7 @@ const CodeInput = styled.input`
 
 type NameModalProps = {
   name?: string;
+  isPreventClose?: boolean;
   onClose: VoidFunction;
   onCreateName: (name: string) => void;
 };
@@ -48,6 +49,7 @@ export const NAME_MODAL_TYPE = "NAME_MODAL";
 
 export function NameModal({
   name: defaultName,
+  isPreventClose = false,
   onClose,
   onCreateName,
 }: NameModalProps) {
@@ -55,10 +57,16 @@ export function NameModal({
     defaultName || ""
   );
 
-  const handleCreateName = () => onCreateName(name);
+  const handleCreateName = () => {
+    if (name === "") {
+      return;
+    }
+    onCreateName(name);
+    onClose();
+  };
   return (
     <ModalContainer>
-      <ModalBackground onClick={onClose} />
+      <ModalBackground onClick={() => !isPreventClose && onClose()} />
       <ModalContent>
         <CodeInput placeholder="닉네임" onChange={handleChangeName} />
         <Button
