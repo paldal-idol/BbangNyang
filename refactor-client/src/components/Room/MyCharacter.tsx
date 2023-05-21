@@ -3,10 +3,19 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import color from "@theme/color";
-import { useModals } from "@/hooks";
+import { useModal } from "@/hooks";
 
-import { Modals, Button } from "@common";
+import { Button } from "@common";
 import Character from "./Character";
+import { UserType, roomStore, userStore } from "@/store";
+import {
+  CHARACTER_MODAL_TYPE,
+  CharacterModal,
+  NAME_MODAL_TYPE,
+  NameModal,
+} from "../modal";
+import { socket } from "@/contexts";
+import { useParams } from "react-router-dom";
 
 const MyCharacterBlock = styled.div`
   max-width: 260px;
@@ -15,7 +24,6 @@ const MyCharacterBlock = styled.div`
 `;
 
 const CharacterMenuBlock = styled.div<CharacterMenuBlockType>`
-  z-index: 3;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -34,25 +42,58 @@ type CharacterMenuBlockType = {
   hover: boolean;
 };
 
-type UserType = {
-  character: number;
-  name: string;
-};
-
 type MyCharacterProps = {
   user: UserType;
+  isHost: boolean;
 };
 
-function MyCharacter({ user }: MyCharacterProps) {
-  const { openModal, closeModal } = useModals();
+function MyCharacter({ user, isHost }: MyCharacterProps) {
+  const { id: roomCode } = useParams();
   const [hover, setHover] = useState(false);
+  const { initInfo } = userStore((state) => state);
+  const { room } = roomStore((state) => state);
+
+  const { open: openNameModal, close: closeNameModal } =
+    useModal(NAME_MODAL_TYPE);
+  const { open: openCharacterModal, close: closeCharacterModal } =
+    useModal(CHARACTER_MODAL_TYPE);
+
+  const changeName = (name: string) => {
+    socket.emit(
+      "changeName",
+      { name, roomCode },
+      (message: string, user: UserType) =>
+        user ? initInfo(user) : alert(message)
+    );
+  };
+
+  const changeCharacter = (character: number) => {
+    socket.emit(
+      "changeCharacter",
+      { character, roomCode },
+      (message: string, user: UserType) =>
+        user ? initInfo(user) : alert(message)
+    );
+  };
 
   const handleOpenNameModal = () => {
-    openModal("createRoom", <p>dd</p>);
+    openNameModal(
+      <NameModal
+        name={user.name}
+        onClose={closeNameModal}
+        onCreateName={changeName}
+      />
+    );
   };
 
   const handleOpenCharacterModal = () => {
-    openModal("createRoom", <p>dd</p>);
+    openCharacterModal(
+      <CharacterModal
+        characters={room.users.map((user) => user.character)}
+        onClose={closeCharacterModal}
+        onChangeCharacter={changeCharacter}
+      />
+    );
   };
 
   return (
@@ -60,7 +101,7 @@ function MyCharacter({ user }: MyCharacterProps) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Character user={user} />
+      <Character user={user} isHost={isHost} />
       <CharacterMenuBlock hover={hover}>
         <Button
           backgroundColor={color.button.orange}
@@ -75,7 +116,6 @@ function MyCharacter({ user }: MyCharacterProps) {
           캐릭터 변경
         </Button>
       </CharacterMenuBlock>
-      <Modals />
     </MyCharacterBlock>
   );
 }
