@@ -15,6 +15,7 @@ const userHandler = (io: SocketServer, socket: Socket) => {
     user.changeCharacter(character);
 
     io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
+    callback('success', user);
   });
 
   socket.on(USER_EVENT.CHANGE_NAME, ({ name, roomCode }, callback: Function) => {
@@ -27,6 +28,7 @@ const userHandler = (io: SocketServer, socket: Socket) => {
     user.changeName(name);
 
     io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
+    callback('success', user);
   });
 };
 

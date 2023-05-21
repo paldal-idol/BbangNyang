@@ -29,11 +29,11 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     socket.join(user.roomCode);
 
     io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
+    callback('success', user);
   });
 
-  socket.on(ROOM_EVENT.READY, ({ readyState }, callback: Function) => {
+  socket.on(ROOM_EVENT.READY, ({ readyState, roomCode }, callback: Function) => {
     const id = socket.id;
-    const roomCode = socket.rooms[0];
     const room = rooms[roomCode];
     const user = room.getUserById(id);
     if (user === undefined) {
@@ -43,10 +43,10 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     user.changeReadyStatus(readyState);
 
     io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
+    callback('success', user);
   });
 
-  socket.on(ROOM_EVENT.GAME_START, () => {
-    const roomCode = socket.rooms[0];
+  socket.on(ROOM_EVENT.GAME_START, ({ roomCode }) => {
     const room = rooms[roomCode];
 
     if (room.checkAllReady()) {
@@ -56,16 +56,14 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     }
   });
 
-  socket.on(ROOM_EVENT.CHANGE_ROUND, ({ round }) => {
-    const roomCode = socket.rooms[0];
+  socket.on(ROOM_EVENT.CHANGE_ROUND, ({ round, roomCode }) => {
     const room = rooms[roomCode];
     room.setRound(round);
 
     io.to(roomCode).emit(ROOM_EVENT.ROOM_DATA, room);
   });
 
-  socket.on(ROOM_EVENT.KICK_OUT, ({ id }) => {
-    const roomCode = socket.rooms[0];
+  socket.on(ROOM_EVENT.KICK_OUT, ({ id, roomCode }) => {
     const room = rooms[roomCode];
     const user = room.getUserById(id);
 

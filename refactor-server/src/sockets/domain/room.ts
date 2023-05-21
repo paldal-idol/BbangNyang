@@ -29,11 +29,11 @@ class Room {
     return this.users;
   }
   getUserById(id: string) {
-    return this.users.find((user) => user.id === id);
+    return this.users.filter((user) => user.id === id)[0];
   }
 
   checkAllReady() {
-    return this.users.filter((user) => user.isReady).length === this.users.length;
+    return this.users.filter((user) => user.isReady).length === this.users.length - 1;
   }
 }
 
