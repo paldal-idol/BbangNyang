@@ -32,6 +32,7 @@ function RootPage() {
   const joinRoom = async (code: string) => {
     const status = await validRoomCode(code);
     if (status) {
+      closeRoomModal();
       navigate(`/room/${code}`);
     } else {
       alert("존재하지 않는 방입니다.");
@@ -40,7 +41,7 @@ function RootPage() {
 
   const createRoom = async () => {
     const code = await createRoomCode();
-
+    closeRoomModal();
     navigate(`/room/${code}`);
   };
 
