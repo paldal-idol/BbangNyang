@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 import { CatImages } from "@utils/cat";
 import color from "@theme/color";
+import { UserType } from "@/store";
 
 const UserItem = styled.div`
   position: relative;
@@ -47,20 +48,25 @@ const StatusText = styled.p`
   color: ${color.button.orange};
   background-color: transparent;
 `;
-
-type UserType = {
-  character: number;
-  name: string;
-};
+const HostStatusText = styled.p`
+  position: absolute;
+  left: 1rem;
+  font-size: 14px;
+  font-weight: bold;
+  color: ${color.button.orange};
+  background-color: transparent;
+`;
 
 type CharacterProps = {
   user: UserType;
+  isHost: boolean;
 };
 
-function Character({ user }: CharacterProps) {
+function Character({ user, isHost }: CharacterProps) {
   return (
     <UserItem>
-      <StatusText>READY</StatusText>
+      {isHost && <HostStatusText>방장</HostStatusText>}
+      {user.isReady && <StatusText>READY</StatusText>}
       <UserInfo>
         <CatImg src={CatImages[user.character]} />
         <UserName>{user.name}</UserName>
