@@ -52,7 +52,7 @@ const roomHandler = (io: SocketServer, socket: Socket) => {
     if (room.checkAllReady()) {
       io.to(roomCode).emit(ROOM_EVENT.GAME_START);
     } else {
-      socket.emit('alarm', '게임을 시작할 수 없습니다.');
+      socket.emit('message', { type: 'admin', text: '게임을 시작할 수 없습니다.' });
     }
   });
 

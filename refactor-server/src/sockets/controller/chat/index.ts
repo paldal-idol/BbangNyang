@@ -8,7 +8,7 @@ const userHandler = (io: SocketServer, socket: Socket) => {
     const room = rooms[roomCode];
     const user = room.getUserById(id);
 
-    io.to(roomCode).emit(CHAT_EVENT.MESSAGE, { user, text: message });
+    io.to(roomCode).emit(CHAT_EVENT.MESSAGE, { user, text: message, type: 'normal' });
   });
 };
 
