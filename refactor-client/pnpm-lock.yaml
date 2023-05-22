@@ -7,9 +7,6 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
-  react-emoji:
-    specifier: ^0.5.0
-    version: 0.5.0
   react-router-dom:
     specifier: ^6.11.1
     version: 6.11.1(react-dom@18.2.0)(react@18.2.0)
@@ -994,14 +991,6 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /emoji-annotation-to-unicode@0.3.0:
-    resolution: {integrity: sha512-+pYgpV/4zEzeUMvE2DcgWYjhLXXD2oNeS1eElLdAyu1qjPqbuoQLMTh/7Cy8Oj+mWJ0LMjU2hyetos5Cr5inIQ==}
-    dev: false
-
-  /emoji-emoticon-to-unicode@0.2.2:
-    resolution: {integrity: sha512-fZ/wYomR+zc1/Sp/uY85M06XaGr+P+mH/uzh4l3rPPnv3YXrF3W2Cm/IqWcXvMw8m65/vmVvigBVqvkUfPJi4A==}
-    dev: false
-
   /engine.io-client@6.4.0:
     resolution: {integrity: sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==}
     dependencies:
@@ -1448,10 +1437,6 @@ packages:
       p-locate: 5.0.0
     dev: true
 
-  /lodash.compact@3.0.1:
-    resolution: {integrity: sha512-2ozeiPi+5eBXW1CLtzjk8XQFhQOEMwwfxblqeq6EGyTxZJ1bPATqilY0e6g2SLQpP4KuMeuioBhEnWz5Pr7ICQ==}
-    dev: false
-
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
@@ -1508,11 +1493,6 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
-
-  /object-assign@2.1.1:
-    resolution: {integrity: sha512-CdsOUYIh5wIiozhJ3rLQgmUTgcyzFwZZrqhkKhODMoGtPKM+wt0h0CNIoauJWMsS9822EdzPsF/6mb4nLvPN5g==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -1636,16 +1616,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
-
-  /react-emoji@0.5.0:
-    resolution: {integrity: sha512-sHSpcfdnJ6sUj16tL5C/E5tgO6aYzSJE8NNefJQGKBftexBDs00UdRn7DG1x9N/yScg0OABOUZNJ1aDwgW4ncw==}
-    dependencies:
-      emoji-annotation-to-unicode: 0.3.0
-      emoji-emoticon-to-unicode: 0.2.2
-      escape-string-regexp: 1.0.5
-      lodash.compact: 3.0.1
-      object-assign: 2.1.1
     dev: false
 
   /react-is@16.13.1:
