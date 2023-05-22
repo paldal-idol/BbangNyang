@@ -1,11 +1,18 @@
 import { create } from "zustand";
 import { UserType } from ".";
 
-export type MessageType = {
-  type: "admin" | "";
+type NormalMessaageType = {
+  type: "normal";
   user: UserType;
   text: string;
 };
+
+type AdminMessageType = {
+  type: "admin";
+  text: string;
+};
+
+export type MessageType = NormalMessaageType | AdminMessageType;
 
 type State = {
   messages: MessageType[];
