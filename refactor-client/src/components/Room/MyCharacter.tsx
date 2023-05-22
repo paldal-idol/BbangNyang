@@ -14,7 +14,7 @@ import {
   NAME_MODAL_TYPE,
   NameModal,
 } from "../modal";
-import { socket } from "@/contexts";
+import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 
 const MyCharacterBlock = styled.div`
