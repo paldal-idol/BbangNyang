@@ -8,6 +8,6 @@ const useInput = (defaultValue = "") => {
     []
   );
 
-  return { value, onChange };
+  return { value, onChange, setValue };
 };
 export default useInput;
