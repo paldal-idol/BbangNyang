@@ -3,7 +3,7 @@ import { ChangeEventHandler } from "react";
 import styled from "@emotion/styled";
 import color from "@theme/color";
 
-const Form = styled.form`
+const Block = styled.div`
   display: flex;
   margin-top: 4px;
 `;
@@ -22,14 +22,14 @@ const Button = styled.button`
   background-color: ${color.button.darkYellow};
 `;
 
-type ChatFormProps = {
+type ChatInputProps = {
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onSubmit: (text: string) => void;
 };
 
-const ChatForm = ({ value, onChange, onSubmit }: ChatFormProps) => (
-  <Form>
+const ChatInput = ({ value, onChange, onSubmit }: ChatInputProps) => (
+  <Block>
     <Input
       type="text"
       placeholder="메시지를 입력해주세요."
@@ -38,6 +38,6 @@ const ChatForm = ({ value, onChange, onSubmit }: ChatFormProps) => (
       onKeyDown={(event) => (event.key === "Enter" ? onSubmit(value) : null)}
     />
     <Button onClick={() => onSubmit(value)}>전송</Button>
-  </Form>
+  </Block>
 );
-export default ChatForm;
+export default ChatInput;
