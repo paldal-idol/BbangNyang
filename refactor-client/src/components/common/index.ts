@@ -1,4 +1,6 @@
-import Modals from "./Modals";
 import Button from "./Button";
+import ChatInput from "./ChatInput";
+import Messages from "./Messages";
+import Modals from "./Modals";
 
-export { Button, Modals };
+export { Button, ChatInput, Messages, Modals };
