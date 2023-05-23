@@ -4,6 +4,7 @@ class User {
   roomCode: string;
   isReady: boolean;
   character: number;
+  score: number;
 
   constructor({ id, name, roomCode, character }) {
     this.id = id;
@@ -11,6 +12,7 @@ class User {
     this.roomCode = roomCode;
     this.character = character;
     this.isReady = false;
+    this.score;
   }
 
   changeReadyStatus(readyState: boolean) {
@@ -22,6 +24,13 @@ class User {
   }
   changeCharacter(character: number) {
     this.character = character;
+  }
+
+  initScore() {
+    this.score = 0;
+  }
+  addScore(score) {
+    this.score += score;
   }
 }
 
