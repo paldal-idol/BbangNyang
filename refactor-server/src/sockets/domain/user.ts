@@ -12,7 +12,8 @@ class User {
     this.roomCode = roomCode;
     this.character = character;
     this.isReady = false;
-    this.score;
+
+    this.initScore();
   }
 
   changeReadyStatus(readyState: boolean) {
