@@ -1,49 +1,87 @@
-import Block from './block';
+import { generateRandomNumbers, reArrange } from '../services/game';
+import Blocks from './blocks';
+import Room from './room';
+import History from './history';
+import { ZERO, ONE } from '../../constants';
 
-class Board {
-  maxBlock: number;
-  blocks: Block[];
+class Board extends Room {
+  turn: number;
+  curRound: number;
+  pointCards: number[];
+  rotationList: string[];
+  history: History;
+  blocks: Blocks;
 
-  constructor(pieces) {
-    this.maxBlock = 21;
-    this.blocks = Array.from({ length: this.maxBlock }).map((_, idx) => new Block(idx));
-    this.blocks[0] = pieces;
+  constructor(room, round, pointCount, pieces) {
+    super(room, round);
+    this.curRound = ZERO;
+
+    this.history = new History();
+    this.blocks = new Blocks(pieces);
+    this.rotationList = this.getIdsByPieces(pieces);
+    this.pointCards = this.generatePointList(pointCount);
   }
 
-  changePiecePosition(prevPosition, nextPosition) {
-    const blockLength = this.blocks[prevPosition].pieces.length;
-
-    if (blockLength === 1) {
-      this.replacePiece(prevPosition, nextPosition);
-    } else if (blockLength > 1) {
-      this.replacePieces(prevPosition, nextPosition);
-    } else {
-      throw new Error('빈 공간입니다.');
-    }
+  getIdsByPieces(pieces) {
+    return pieces.map((user) => user.id);
   }
 
-  replacePiece(prevPosition, nextPosition) {
-    this.blocks[nextPosition].pushPiece(this.blocks[prevPosition].popPiece());
-  }
-  replacePieces(prevPosition, nextPosition) {
-    this.blocks[nextPosition].pushPieces(this.blocks[prevPosition].popPieces());
+  generatePointList(round) {
+    return generateRandomNumbers(round);
   }
 
-  compareCircuits(position) {
-    return position > this.maxBlock;
+  getPointByRound(round) {
+    return this.pointCards[round];
   }
 
-  calculatePosition(position) {
-    return position % this.maxBlock;
+  popPoint() {
+    return this.pointCards.shift();
   }
 
   move(prevPosition, nextPosition) {
-    if (this.compareCircuits(nextPosition)) {
-      this.blocks[prevPosition].pieces[0].user.score += 1;
+    if (this.blocks.compareCircuits(nextPosition)) {
+      this.plusScoreAndRemovePieces(prevPosition);
+    } else {
+      this.blocks.repositionPieces(prevPosition, nextPosition);
     }
-    const position = this.calculatePosition(nextPosition);
-    this.changePiecePosition(prevPosition, position);
   }
+
+  plusScoreAndRemovePieces(position) {
+    const user = this.blocks.findEarnedUser(position);
+    const point = this.popPoint();
+    user.addScore(point);
+    this.blocks[point].clear();
+  }
+
+  next() {
+    if (this.round > this.curRound) {
+      this.nextTurn();
+      this.nextRotation();
+      if (this.isNextRound()) {
+        this.nextRound();
+      }
+    } else {
+      this.endGame();
+    }
+  }
+
+  isNextRound() {
+    return this.turn % this.rotationList.length === ZERO;
+  }
+
+  nextTurn() {
+    this.turn += ONE;
+  }
+
+  nextRound() {
+    this.curRound += ONE;
+  }
+
+  nextRotation() {
+    this.rotationList = reArrange(this.rotationList);
+  }
+
+  endGame() {}
 }
 
 export default Board;

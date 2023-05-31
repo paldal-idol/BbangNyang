@@ -7,6 +7,10 @@ class Block {
     this.pieces = [];
     this.idx = idx;
   }
+
+  setPieces(pieces) {
+    this.pieces = pieces;
+  }
   popPiece() {
     return this.pieces.pop();
   }
@@ -20,6 +24,9 @@ class Block {
   }
   pushPieces(pieces) {
     this.pieces.concat(pieces);
+  }
+  clear() {
+    this.pieces = [];
   }
 }
 
