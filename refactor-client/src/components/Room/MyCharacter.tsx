@@ -13,7 +13,7 @@ import {
   CharacterModal,
   NAME_MODAL_TYPE,
   NameModal,
-} from "../modal";
+} from "@components/modal";
 import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 
