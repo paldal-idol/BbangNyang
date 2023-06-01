@@ -7,7 +7,7 @@ import { useModal } from "@/hooks";
 
 import { Button } from "@common";
 import Character from "./Character";
-import { UserType, roomStore, userStore } from "@/store";
+import { type UserType, roomStore, userStore } from "@/store";
 import {
   CHARACTER_MODAL_TYPE,
   CharacterModal,

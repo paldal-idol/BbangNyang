@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import MyCharacter from "./MyCharacter";
 import Character from "./Character";
 import EmptyCharacter from "./EmptyCharacter";
-import { RoomType, UserType } from "@/store";
+import type { RoomType, UserType } from "@/store";
 
 const Container = styled.div`
   display: grid;

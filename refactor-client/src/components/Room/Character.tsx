@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { CatImages } from "@utils/cat";
 import color from "@theme/color";
-import { UserType } from "@/store";
+import { type UserType } from "@/store";
 
 const UserItem = styled.div`
   position: relative;
