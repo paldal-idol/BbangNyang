@@ -30,10 +30,6 @@ class Board extends Room {
     return generateRandomNumbers(round);
   }
 
-  getPointByRound(round) {
-    return this.pointCards[round];
-  }
-
   popPoint() {
     return this.pointCards.shift();
   }
