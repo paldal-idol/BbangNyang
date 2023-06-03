@@ -49,11 +49,11 @@ const CatImg = styled.img<imageProps>`
   cursor: pointer;
   outline: ${(props) => (props.isSelected ? "1px solid orange" : "none")};
   border-radius: 10px;
-  opacity: ${(props) => (props.valid ? "100%" : "40%")};
+  opacity: ${(props) => (props.disabled ? "100%" : "40%")};
 `;
 
 interface imageProps {
-  valid: boolean;
+  disabled: boolean;
   isSelected: boolean;
 }
 
@@ -74,7 +74,8 @@ export function CharacterModal({
 }: NameModalProps) {
   const [character, setCharacter] = useState<number>(defaultCharacter || 0);
 
-  const isvalid = (index: number) => !characters.find((cat) => cat === index);
+  const isDisabledCharacter = (character: number) =>
+    !characters.includes(character);
 
   const handleChangeCharacter = () => {
     onChangeCharacter(character);
@@ -90,8 +91,8 @@ export function CharacterModal({
               src={cats}
               key={index}
               isSelected={character === index}
-              valid={isvalid(index)}
-              onClick={() => isvalid(index) && setCharacter(index)}
+              disabled={isDisabledCharacter(index)}
+              onClick={() => isDisabledCharacter(index) && setCharacter(index)}
             />
           ))}
         </CatContainer>
