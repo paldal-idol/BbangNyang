@@ -11,10 +11,10 @@ import {
 } from "@components/Room";
 
 import color from "@theme/color";
-import { useModal } from "@/hooks";
+import { useModal, useSocketEvent } from "@/hooks";
 import { NAME_MODAL_TYPE, NameModal } from "@/components/modal";
 import { Modals } from "@/components/common";
-import { roomStore, userStore } from "@/store";
+import { RoomType, roomStore, userStore } from "@/store";
 import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 
@@ -141,15 +141,11 @@ function RoomPage() {
     );
   };
 
+  useSocketEvent("roomData", (room) => setRoom(room));
+  useSocketEvent("gameStart", () => navigate(`/game/${roomCode}`));
+
   useEffect(() => {
     user.name === "" && handleOpenNameModal();
-    socket.on("roomData", (room) => setRoom(room));
-    socket.on("gameStart", () => navigate(`/game/${roomCode}`));
-
-    return () => {
-      socket.off("roomData");
-      socket.off("gameStart");
-    };
   }, []);
 
   return (

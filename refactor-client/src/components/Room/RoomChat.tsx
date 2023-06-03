@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { ChatInput, Messages } from "@common";
 import { messageStore } from "@/store";
-import { useInput } from "@/hooks";
+import { useInput, useSocketEvent } from "@/hooks";
 import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -36,12 +36,7 @@ const RoomChat = () => {
     setMessage("");
   };
 
-  useEffect(() => {
-    socket.on("message", addMessage);
-    return () => {
-      socket.off("message");
-    };
-  }, []);
+  useSocketEvent("message", addMessage);
 
   return (
     <Container>
