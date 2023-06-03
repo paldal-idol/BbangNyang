@@ -145,7 +145,9 @@ function RoomPage() {
   useSocketEvent("gameStart", () => navigate(`/game/${roomCode}`));
 
   useEffect(() => {
-    user.name === "" && handleOpenNameModal();
+    if (user.name === "") {
+      handleOpenNameModal();
+    }
   }, []);
 
   return (
