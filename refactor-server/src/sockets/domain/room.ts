@@ -29,7 +29,7 @@ class Room {
     return this.users;
   }
   getUserById(id: string) {
-    return this.users.filter((user) => user.id === id)[0];
+    return this.users.find((user) => user.id === id);
   }
 
   checkAllReady() {

@@ -11,10 +11,10 @@ import {
 } from "@components/Room";
 
 import color from "@theme/color";
-import { useModal } from "@/hooks";
+import { useModal, useSocketEvent } from "@/hooks";
 import { NAME_MODAL_TYPE, NameModal } from "@/components/modal";
 import { Modals } from "@/components/common";
-import { roomStore, userStore } from "@/store";
+import { RoomType, roomStore, userStore } from "@/store";
 import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 
@@ -92,7 +92,7 @@ type UserType = {
 function RoomPage() {
   const navigate = useNavigate();
   const { id: roomCode } = useParams();
-  const { user, initInfo } = userStore((state) => state);
+  const { user, initUserInfo } = userStore((state) => state);
   const { room, setRoom } = roomStore((state) => state);
 
   const hostId = room.users[0]?.id || "";
@@ -114,7 +114,7 @@ function RoomPage() {
 
   const createName = (name: string) => {
     socket.emit("join", { name, roomCode }, (message: string, user: UserType) =>
-      user ? initInfo(user) : alert(message)
+      user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -123,7 +123,7 @@ function RoomPage() {
       "ready",
       { readyState, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -141,15 +141,13 @@ function RoomPage() {
     );
   };
 
-  useEffect(() => {
-    user.name === "" && handleOpenNameModal();
-    socket.on("roomData", (room) => setRoom(room));
-    socket.on("gameStart", () => navigate(`/game/${roomCode}`));
+  useSocketEvent("roomData", (room) => setRoom(room));
+  useSocketEvent("gameStart", () => navigate(`/game/${roomCode}`));
 
-    return () => {
-      socket.off("roomData");
-      socket.off("gameStart");
-    };
+  useEffect(() => {
+    if (user.name === "") {
+      handleOpenNameModal();
+    }
   }, []);
 
   return (

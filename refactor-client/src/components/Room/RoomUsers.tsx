@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import MyCharacter from "./MyCharacter";
 import Character from "./Character";
 import EmptyCharacter from "./EmptyCharacter";
-import { RoomType, UserType } from "@/store";
+import type { RoomType, UserType } from "@/store";
 
 const Container = styled.div`
   display: grid;
@@ -24,19 +24,19 @@ type WaitingRoomUsersProps = {
 };
 
 const RoomUsers = ({ user, room, hostId }: WaitingRoomUsersProps) => {
-  const filteredUsers = room.users.filter(({ id }) => id !== user.id);
+  const otherUsers = room.users.filter(({ id }) => id !== user.id);
 
-  const EmptyCharacterList = Array.from({
-    length: MAXIMUM_USER_LENGTH - filteredUsers.length,
+  const emptyCharacters = Array.from({
+    length: MAXIMUM_USER_LENGTH - otherUsers.length,
   });
 
   return (
     <Container>
       <MyCharacter user={user} isHost={user.id === hostId} />
-      {filteredUsers.map((user, i) => (
+      {otherUsers.map((user, i) => (
         <Character key={i} user={user} isHost={user.id === hostId} />
       ))}
-      {EmptyCharacterList.map((_, index) => (
+      {emptyCharacters.map((_, index) => (
         <EmptyCharacter key={index} />
       ))}
     </Container>

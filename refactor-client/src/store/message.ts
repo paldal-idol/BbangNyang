@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UserType } from ".";
+import type { UserType } from ".";
 
 type NormalMessaageType = {
   type: "normal";

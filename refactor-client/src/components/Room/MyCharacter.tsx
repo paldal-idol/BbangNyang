@@ -7,13 +7,13 @@ import { useModal } from "@/hooks";
 
 import { Button } from "@common";
 import Character from "./Character";
-import { UserType, roomStore, userStore } from "@/store";
+import { type UserType, roomStore, userStore } from "@/store";
 import {
   CHARACTER_MODAL_TYPE,
   CharacterModal,
   NAME_MODAL_TYPE,
   NameModal,
-} from "../modal";
+} from "@components/modal";
 import { socket } from "@/utils/socket";
 import { useParams } from "react-router-dom";
 
@@ -27,8 +27,8 @@ const CharacterMenuBlock = styled.div<CharacterMenuBlockType>`
   position: absolute;
   width: 100%;
   height: 100%;
-  visibility: ${(props) => (props.hover ? "visible" : "hidden")};
-  background: ${(props) => (props.hover ? "#00000090" : "none")};
+  visibility: ${(props) => (props.isHover ? "visible" : "hidden")};
+  background: ${(props) => (props.isHover ? "#00000090" : "none")};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -39,7 +39,7 @@ const CharacterMenuBlock = styled.div<CharacterMenuBlockType>`
 `;
 
 type CharacterMenuBlockType = {
-  hover: boolean;
+  isHover: boolean;
 };
 
 type MyCharacterProps = {
@@ -49,8 +49,8 @@ type MyCharacterProps = {
 
 function MyCharacter({ user, isHost }: MyCharacterProps) {
   const { id: roomCode } = useParams();
-  const [hover, setHover] = useState(false);
-  const { initInfo } = userStore((state) => state);
+  const [isHover, setIsHover] = useState(false);
+  const { initUserInfo } = userStore((state) => state);
   const { room } = roomStore((state) => state);
 
   const { open: openNameModal, close: closeNameModal } =
@@ -63,7 +63,7 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
       "changeName",
       { name, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -72,7 +72,7 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
       "changeCharacter",
       { character, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -98,11 +98,11 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
 
   return (
     <MyCharacterBlock
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
       <Character user={user} isHost={isHost} />
-      <CharacterMenuBlock hover={hover}>
+      <CharacterMenuBlock isHover={isHover}>
         <Button
           backgroundColor={color.button.orange}
           onClick={handleOpenNameModal}
