@@ -111,8 +111,8 @@ const Message = ({ message }: MessageProps) => {
   }
 
   const { user } = userStore((state) => state);
-  const { user: messageUser } = message;
-  const isSender = messageUser.id === user.id;
+  const { user: sender } = message;
+  const isSender = sender.id === user.id;
 
   return isSender ? (
     <MyMessage>
@@ -126,7 +126,7 @@ const Message = ({ message }: MessageProps) => {
       <MessageBox>
         <UserText>{text}</UserText>
       </MessageBox>
-      <OtherName>{messageUser.name}</OtherName>
+      <OtherName>{sender.name}</OtherName>
     </OtherMessage>
   );
 };
