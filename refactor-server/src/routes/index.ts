@@ -22,7 +22,7 @@ router.post('/room', (req, res) => {
   const code = createRoomCode(rooms);
   const room = new Room(code, 6);
 
-  rooms.push(room);
+  rooms[code] = room;
 
   res.send({ code });
 });

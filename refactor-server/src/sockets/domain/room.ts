@@ -33,7 +33,7 @@ class Room {
   }
 
   checkAllReady() {
-    return this.users.filter((user) => user.isReady).length === this.users.length;
+    return this.users.filter((user) => user.isReady).length === this.users.length - 1;
   }
 }
 

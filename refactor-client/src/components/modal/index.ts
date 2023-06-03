@@ -1,3 +1,3 @@
-import CreateModal from "./CreateRoom";
-
-export { CreateModal };
+export * from "./RoomModal";
+export * from "./NameModal";
+export * from "./CharacterModal";

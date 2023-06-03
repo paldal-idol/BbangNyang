@@ -1,14 +1,12 @@
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { createRoomCode, validRoomCode } from "@/api";
 import { Modals } from "@common";
 import { BakeryBackground, BakeryDoor, BakeryTitle } from "@/components";
-import { CreateModal } from "@/components/modal";
+import { RoomModal, ROOM_MODAL_TYPE } from "@/components/modal";
 import color from "@/theme/color";
-import { useModals } from "@/hooks";
+import { useModal } from "@/hooks";
 
 const Container = styled.div`
   display: flex;
@@ -25,20 +23,16 @@ const TitleBlock = styled.div`
 
 function RootPage() {
   const navigate = useNavigate();
-  const { openModal, closeModal } = useModals();
-  const [isOpen, setIsOpen] = useState(false);
-
-  const openDoor = () => setIsOpen(true);
-  const closeDoor = () => setIsOpen(false);
-
-  const handleClose = () => {
-    closeModal("createRoom");
-    closeDoor();
-  };
+  const {
+    isOpened: isRoomModalOpened,
+    open: openRoomModal,
+    close: closeRoomModal,
+  } = useModal(ROOM_MODAL_TYPE);
 
   const joinRoom = async (code: string) => {
     const status = await validRoomCode(code);
     if (status) {
+      closeRoomModal();
       navigate(`/room/${code}`);
     } else {
       alert("존재하지 않는 방입니다.");
@@ -47,26 +41,24 @@ function RootPage() {
 
   const createRoom = async () => {
     const code = await createRoomCode();
-
+    closeRoomModal();
     navigate(`/room/${code}`);
   };
 
   const handleClick = () => {
-    openModal(
-      "createRoom",
-      <CreateModal
-        handleClose={handleClose}
-        joinRoom={joinRoom}
-        createRoom={createRoom}
+    openRoomModal(
+      <RoomModal
+        onClose={closeRoomModal}
+        onJoinRoom={joinRoom}
+        onCreateRoom={createRoom}
       />
     );
-    openDoor();
   };
 
   return (
     <Container>
       <BakeryBackground />
-      <BakeryDoor isOpen={isOpen} handleClick={handleClick} />
+      <BakeryDoor isOpen={isRoomModalOpened} handleClick={handleClick} />
       <TitleBlock>
         <BakeryTitle />
       </TitleBlock>

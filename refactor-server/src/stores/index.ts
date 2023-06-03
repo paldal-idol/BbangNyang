@@ -1,3 +1,7 @@
 import Room from '../sockets/domain/room';
 
-export let rooms: Room[] = [];
+export type RoomsType = {
+  [code: string]: Room;
+};
+
+export let rooms: RoomsType = {};
