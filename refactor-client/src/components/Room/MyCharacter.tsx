@@ -27,8 +27,8 @@ const CharacterMenuBlock = styled.div<CharacterMenuBlockType>`
   position: absolute;
   width: 100%;
   height: 100%;
-  visibility: ${(props) => (props.hover ? "visible" : "hidden")};
-  background: ${(props) => (props.hover ? "#00000090" : "none")};
+  visibility: ${(props) => (props.isHover ? "visible" : "hidden")};
+  background: ${(props) => (props.isHover ? "#00000090" : "none")};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -39,7 +39,7 @@ const CharacterMenuBlock = styled.div<CharacterMenuBlockType>`
 `;
 
 type CharacterMenuBlockType = {
-  hover: boolean;
+  isHover: boolean;
 };
 
 type MyCharacterProps = {
@@ -49,7 +49,7 @@ type MyCharacterProps = {
 
 function MyCharacter({ user, isHost }: MyCharacterProps) {
   const { id: roomCode } = useParams();
-  const [hover, setHover] = useState(false);
+  const [isHover, setIsHover] = useState(false);
   const { initUserInfo } = userStore((state) => state);
   const { room } = roomStore((state) => state);
 
@@ -98,11 +98,11 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
 
   return (
     <MyCharacterBlock
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
       <Character user={user} isHost={isHost} />
-      <CharacterMenuBlock hover={hover}>
+      <CharacterMenuBlock isHover={isHover}>
         <Button
           backgroundColor={color.button.orange}
           onClick={handleOpenNameModal}
