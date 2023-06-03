@@ -13,7 +13,7 @@ type State = {
 };
 
 type Action = {
-  initInfo: (user: UserType) => void;
+  initUserInfo: (user: UserType) => void;
   changeName: (name: string) => void;
 };
 
@@ -27,6 +27,6 @@ const INIT_USER: UserType = {
 
 export const userStore = create<State & Action>((set) => ({
   user: INIT_USER,
-  initInfo: (user) => set(() => ({ user })),
+  initUserInfo: (user) => set(() => ({ user })),
   changeName: (name) => set((state) => ({ user: { ...state.user, name } })),
 }));

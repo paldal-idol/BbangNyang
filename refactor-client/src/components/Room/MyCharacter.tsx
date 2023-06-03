@@ -50,7 +50,7 @@ type MyCharacterProps = {
 function MyCharacter({ user, isHost }: MyCharacterProps) {
   const { id: roomCode } = useParams();
   const [hover, setHover] = useState(false);
-  const { initInfo } = userStore((state) => state);
+  const { initUserInfo } = userStore((state) => state);
   const { room } = roomStore((state) => state);
 
   const { open: openNameModal, close: closeNameModal } =
@@ -63,7 +63,7 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
       "changeName",
       { name, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -72,7 +72,7 @@ function MyCharacter({ user, isHost }: MyCharacterProps) {
       "changeCharacter",
       { character, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 

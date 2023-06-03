@@ -92,7 +92,7 @@ type UserType = {
 function RoomPage() {
   const navigate = useNavigate();
   const { id: roomCode } = useParams();
-  const { user, initInfo } = userStore((state) => state);
+  const { user, initUserInfo } = userStore((state) => state);
   const { room, setRoom } = roomStore((state) => state);
 
   const hostId = room.users[0]?.id || "";
@@ -114,7 +114,7 @@ function RoomPage() {
 
   const createName = (name: string) => {
     socket.emit("join", { name, roomCode }, (message: string, user: UserType) =>
-      user ? initInfo(user) : alert(message)
+      user ? initUserInfo(user) : alert(message)
     );
   };
 
@@ -123,7 +123,7 @@ function RoomPage() {
       "ready",
       { readyState, roomCode },
       (message: string, user: UserType) =>
-        user ? initInfo(user) : alert(message)
+        user ? initUserInfo(user) : alert(message)
     );
   };
 
