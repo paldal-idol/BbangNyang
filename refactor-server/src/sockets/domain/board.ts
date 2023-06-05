@@ -1,3 +1,4 @@
+import { shuffle } from 'lodash-es';
 import { generateRandomNumbers, reArrange } from '../services/game';
 import Blocks from './blocks';
 import Room from './room';
@@ -18,7 +19,7 @@ class Board extends Room {
 
     this.history = new History();
     this.blocks = new Blocks(pieces);
-    this.rotationList = this.getIdsByPieces(pieces);
+    this.rotationList = shuffle(this.getIdsByPieces(pieces));
     this.pointCards = this.generatePointList(pointCount);
   }
 
