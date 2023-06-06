@@ -12,6 +12,9 @@ const gameHandler = (io: SocketServer, socket: Socket) => {
     const pieces = room.users.map((user) => new Piece(user));
     const board = new Board(room, 12, 8, pieces);
     games[roomCode] = board;
+
+    const userId = board.getCurrentRotationUserId();
+    io.to(userId).emit(GAME_EVENT.START_TURN);
   });
 
   socket.on(GAME_EVENT.MOVE, ({ gameCode, position, diceNum, count }) => {
@@ -31,10 +34,12 @@ const gameHandler = (io: SocketServer, socket: Socket) => {
     board.history.add(id, count, diceNum);
   });
 
-  socket.on(GAME_EVENT.START_TURN, ({ gameCode }) => {
+  socket.on(GAME_EVENT.START_TURN, ({ gameCode, callback }) => {
     time = setTimeout(() => {
       socket.emit(GAME_EVENT.TIME_OUT, { gameCode });
     }, 60000);
+
+    callback();
   });
 
   socket.on(GAME_EVENT.END_TURN, ({ gameCode }) => {

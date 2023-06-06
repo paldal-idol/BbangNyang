@@ -74,6 +74,10 @@ class Board extends Room {
     this.curRound += ONE;
   }
 
+  getCurrentRotationUserId() {
+    return this.rotationList[0];
+  }
+
   nextRotation() {
     this.rotationList = reArrange(this.rotationList);
   }
