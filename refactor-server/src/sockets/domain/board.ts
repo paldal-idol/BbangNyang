@@ -12,11 +12,14 @@ class Board extends Room {
   rotationList: string[];
   history: History;
   blocks: Blocks;
+  timer: NodeJS.Timer | null;
+  requestTimer: NodeJS.Timer | null;
 
   constructor(room, round, pointCount, pieces) {
     super(room, round);
     this.curRound = ZERO;
-
+    this.timer = null;
+    this.requestTimer = null;
     this.history = new History();
     this.blocks = new Blocks(pieces);
     this.rotationList = shuffle(this.getIdsByPieces(pieces));
